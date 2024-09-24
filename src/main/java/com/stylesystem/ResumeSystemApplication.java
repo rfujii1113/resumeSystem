@@ -1,4 +1,4 @@
-package com.example.postgretest;
+package com.stylesystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
