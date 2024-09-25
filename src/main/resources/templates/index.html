@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>stylesystem</h1>
+        <form id="login-form" action="#" method="post">
+            <div class="input-group">
+                <label for="username">ユーザー名</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">ログイン</button>
+        </form>
+        <p id="error-message" class="error-message"></p>
+    </div>
+
+    <script>
+        const validUsername = "a";
+        const validPassword = "a";
+
+        document.getElementById("login-form").onsubmit = function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === validUsername && password === validPassword) {
+                window.location.href = "employee.html";
+            } else {
+                document.getElementById("error-message").innerText = "ユーザー名またはパスワードが間違っています。";
+            }
+        };
+    </script>
+</body>
+</html>
