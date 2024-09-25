@@ -42,45 +42,45 @@
 このシステムでは、以下のようなテーブルを使用します
 
 ### EMPLOYEEテーブル
-社員番号					empId					integer	
-社員名					empName					VARCHAR(255)	
-性別					gender					VARCHAR(255)	
-生年月日					birthDate					date　	
-現住所					currentAddress					VARCHAR(255)	
-本籍					permanentAddress					VARCHAR(255)	
-配偶者					spouse					boolean	
-最終学校					lastSchool					VARCHAR(255)	
-専攻学科					major					VARCHAR(255)	
-卒業年月					graduationDate					date	
-教育・研修					educationTraining					VARCHAR(255)	
-最寄り駅					nearestStation					VARCHAR(255)	
-権限区分					permission					integer	
-（部署）					department					VARCHAR(255)	
-パスワード					password					VARCHAR(255)	
-削除フラグ					deleteFlag					integer	
+-社員番号					empId					integer	
+-社員名					empName					VARCHAR(255)	
+-性別					gender					VARCHAR(255)	
+-生年月日					birthDate					date　	
+-現住所					currentAddress					VARCHAR(255)	
+-本籍					permanentAddress					VARCHAR(255)	
+-配偶者					spouse					boolean	
+-最終学校					lastSchool					VARCHAR(255)	
+-専攻学科					major					VARCHAR(255)	
+-卒業年月					graduationDate					date	
+-教育・研修					educationTraining					VARCHAR(255)	
+-最寄り駅					nearestStation					VARCHAR(255)	
+-権限区分					permission					integer	
+-（部署）					department					VARCHAR(255)	
+-パスワード					password					VARCHAR(255)	
+-削除フラグ					deleteFlag					integer	
 ![image](https://github.com/user-attachments/assets/a747bbbd-d680-4c30-a962-0d31b4aab674)
 
 ### M_SKILLテーブル
-スキルid					skillId					integer	
-スキル名					skillName					VARCHAR(255)	
-スキル区分					skillCategory					VARCHAR(255)	
+-スキルid					skillId					integer	
+-スキル名					skillName					VARCHAR(255)	
+-スキル区分					skillCategory					VARCHAR(255)	
 ![image](https://github.com/user-attachments/assets/47c97283-4da0-4327-8dc5-cdf34ef0e7b2)
 
 ### CARRERテーブル
-プロジェクトid					projectId					VARCHAR(255)	
-開発期間（開始）					startDate					date	
-開発期間（終了）					endDate					date	
-プロジェクト名					projectName					VARCHAR(255)	
-作業場所					workLocation					VARCHAR(255)	
-HW					hardware					VARCHAR(255)	
-OS					os					VARCHAR(255)	
-DB					database					VARCHAR(255)	
-言語					language					VARCHAR(255)	
-ツール					tools					VARCHAR(255)	
-担当					responsibility					VARCHAR(255)	
-社員ID					empId					integer	
-備考					remarks					VARCHAR(255)	
-削除フラグ					deleteFlag					integer	
-業務フラグ					workFlag					integer	
+-プロジェクトid					projectId					VARCHAR(255)	
+-開発期間（開始）					startDate					date	
+-開発期間（終了）					endDate					date	
+-プロジェクト名					projectName					VARCHAR(255)	
+-作業場所					workLocation					VARCHAR(255)	
+-HW					hardware					VARCHAR(255)	
+-OS					os					VARCHAR(255)	
+-DB					database					VARCHAR(255)	
+-言語					language					VARCHAR(255)	
+-ツール					tools					VARCHAR(255)	
+-担当					responsibility					VARCHAR(255)	
+-社員ID					empId					integer	
+-備考					remarks					VARCHAR(255)	
+-削除フラグ					deleteFlag					integer	
+-業務フラグ					workFlag					integer	
 ![image](https://github.com/user-attachments/assets/7ae85655-0a38-413b-9f45-526e96b039bc)
 
