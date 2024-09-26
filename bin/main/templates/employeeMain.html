@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Main Page</title>
+</head>
+<body>
+    <h1>Welcome, <span th:text="${employee.empName}">Employee</span></h1>
+    <p>Your permission level: <span th:text="${employee.permission}"></span></p>
+    
+    <a href="/logout">Logout</a>
+</body>
+</html>

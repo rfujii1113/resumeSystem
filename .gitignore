@@ -1,37 +1,87 @@
-HELP.md
-.gradle
+# =============================
+# DB, setting
+# =============================
+
+# Spring Boot 
+/application.properties
+
+# PostgreSQL
+/data/
+*.sql
+
+# =============================
+# OS
+# =============================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# =============================
+# Build
+# =============================
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# =============================
+# IDE
+# =============================
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# IntelliJ IDEA
+.idea/
 *.iml
+*.iws
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Eclipse
+.project
+.classpath
+.settings/
+*.launch
 
-### VS Code ###
+# VS Code
 .vscode/
+*.code-workspace
+
+# =============================
+# etc
+# =============================
+
+*.log
+
+*.jar
+*.war
+*.ear
+
+*.exe
+*.dll
+*.so
+
+*.zip
+*.tar.gz
+*.rar
+
+.cache/
+.tmp/
+temp/
