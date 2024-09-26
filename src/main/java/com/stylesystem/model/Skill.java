@@ -1,26 +1,37 @@
 package com.stylesystem.model;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
 import lombok.Data;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 @Entity
+@Table(name = "skill")
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true)
 public class Skill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    @ToString.Include 
     private int skillId;
 
+    @ToString.Include
     private String skillName;
+
     private String skillCategory;
 
-    // 社員との多対多の関係
+    // Many-to-Many Relationship with Employee
     @ManyToMany(mappedBy = "skills")
-    private List<Employee> employees;
+    private Set<Employee> employees;
 }
