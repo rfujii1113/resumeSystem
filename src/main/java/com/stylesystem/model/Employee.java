@@ -33,7 +33,8 @@ public class Employee {
 
     @ToString.Include
     private String empName;
-
+    
+    private String password;
     private String gender;
     private LocalDate birthDate;
     private String currentAddress;

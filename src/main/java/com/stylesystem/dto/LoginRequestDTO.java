@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data  
+@NoArgsConstructor  
+@AllArgsConstructor  
 public class LoginRequestDTO {
-    private String empName;
-    private int permission;
+    private int empId;         
+    private String password;  
 }

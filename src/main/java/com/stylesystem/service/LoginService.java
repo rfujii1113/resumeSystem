@@ -1,25 +1,34 @@
 package com.stylesystem.service;
 
-import com.stylesystem.model.Employee;
-import com.stylesystem.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.stylesystem.model.Employee;
+import com.stylesystem.repository.EmployeeRepository;
+import com.stylesystem.util.PasswordHashGenerator;
 
 @Service
 public class LoginService {
 
     private final EmployeeRepository employeeRepository;
 
-    @Autowired
+    // DI EmployeeRepository in constructor 
     public LoginService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    // 사용자 인증
-    public Employee authenticate(String empName, int permission) {
-        Optional<Employee> employeeOpt = employeeRepository.findByEmpNameAndPermission(empName, permission);
-        return employeeOpt.orElse(null);
+    // login method
+    public Employee authenticate(int empId, String password) {
+        Optional<Employee> employeeOpt = employeeRepository.findById(empId);
+        
+        if (employeeOpt.isPresent()) {
+            Employee employee = employeeOpt.get();
+
+            if (PasswordHashGenerator.matchPassword(password, employee.getPassword())) {
+                return employee;  // login success 
+            }
+        }
+        return null;  // login fail
     }
 }

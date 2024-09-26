@@ -8,10 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
 import lombok.Data;
-import lombok.ToString;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name = "skill")
@@ -31,7 +30,7 @@ public class Skill {
 
     private String skillCategory;
 
-    // Many-to-Many Relationship with Employee
+    // Many-to-Many 
     @ManyToMany(mappedBy = "skills")
     private Set<Employee> employees;
 }

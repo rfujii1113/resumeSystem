@@ -4,6 +4,7 @@ BEGIN;
 INSERT INTO employee (
     emp_id,
     emp_name,
+    password,
     gender,
     birth_date,
     current_address,
@@ -16,11 +17,11 @@ INSERT INTO employee (
     delete_flag,
     permission
 ) VALUES
-(1, 'John Doe', 'Male', '1985-04-12', '123 Maple Street, Seoul', '456 Oak Avenue, Songpa-gu, Seoul', 'Seoul National University', 'Computer Science', '2007-02-25', 'Gangnam Station', 'Development Team', 0, 1),
-(2, 'Jane Smith', 'Female', '1990-08-30', '789 Pine Road, Busan', '101 Cedar Lane, Haeundae-gu, Busan', 'Pusan National University', 'Information and Communication Engineering', '2013-06-15', 'Haeundae Station', 'Marketing Team', 0, 1),
-(3, 'Michael Brown', 'Male', '1982-12-05', '234 Birch Boulevard, Daegu', '567 Spruce Street, Suseong-gu, Daegu', 'Kyungpook National University', 'Software Engineering', '2005-11-20', 'Suseong Station', 'HR Team', 0, 1),
-(4, 'Emily Davis', 'Female', '1995-03-18', '345 Elm Street, Incheon', '678 Willow Avenue, Yeonsu-gu, Incheon', 'Inha University', 'Business Administration', '2017-05-10', 'Songdo Station', 'Finance Team', 0, 1),
-(5, 'William Johnson', 'Male', '1988-07-22', '456 Ash Road, Gwangju', '789 Poplar Street, Dong-gu, Gwangju', 'Chonnam National University', 'Electrical Engineering', '2011-09-05', 'Geumnam Station', 'Development Team', 0, 1);
+(1, 'John Doe', '$2a$10$wD/s8Qpd/Z1BC3LT.PHZ8Okhz1gzVY5EFPnMRlvJfZaBbldebz1rG', 'Male', '1985-04-12', '123 Maple Street, Seoul', '456 Oak Avenue, Songpa-gu, Seoul', 'Seoul National University', 'Computer Science', '2007-02-25', 'Gangnam Station', 'Development Team', 0, 1),
+(2, 'Jane Smith', '$2a$10$39ib38s2GFk/s5kIqE/JvO.9A9KNC5mHgIK5J1RBoIidZPU.bbaOW', 'Female', '1990-08-30', '789 Pine Road, Busan', '101 Cedar Lane, Haeundae-gu, Busan', 'Pusan National University', 'Information and Communication Engineering', '2013-06-15', 'Haeundae Station', 'Marketing Team', 0, 1),
+(3, 'Michael Brown', '$2a$10$Vf99IHZaWeRMeYfjAEyZUePaa5VfwtJYg76K7J/nvmdnDdiSNJZbu', 'Male', '1982-12-05', '234 Birch Boulevard, Daegu', '567 Spruce Street, Suseong-gu, Daegu', 'Kyungpook National University', 'Software Engineering', '2005-11-20', 'Suseong Station', 'HR Team', 0, 1),
+(4, 'Emily Davis', '$2a$10$KIfsJOG3NRZ5yRcGpOwJ/eqwJqkHKirFKuQmB6dKDJvLr81yCpzti', 'Female', '1995-03-18', '345 Elm Street, Incheon', '678 Willow Avenue, Yeonsu-gu, Incheon', 'Inha University', 'Business Administration', '2017-05-10', 'Songdo Station', 'Finance Team', 0, 1),
+(5, 'William Johnson', '$2a$10$V4HtoLRbHt5xKKtjdH.Ecu/s9Djgf1JX/7XlTpd/1ujECeolMqsHy', 'Male', '1988-07-22', '456 Ash Road, Gwangju', '789 Poplar Street, Dong-gu, Gwangju', 'Chonnam National University', 'Electrical Engineering', '2011-09-05', 'Geumnam Station', 'Development Team', 0, 1);
 
 -- Skill 데이터 삽입
 INSERT INTO skill (

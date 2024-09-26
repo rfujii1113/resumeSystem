@@ -2,12 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Employee Main Page</title>
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="/css/employee.css">
 </head>
 <body>
-    <h1>Welcome, <span th:text="${employee.empName}">Employee</span></h1>
-    <p>Your permission level: <span th:text="${employee.permission}"></span></p>
-    
-    <a href="/logout">Logout</a>
+    <div class="main-container">
+        <h1>Welcome, <span th:text="${employee.empName}">Employee</span></h1>
+        <p>Your permission level: <span th:text="${employee.permission}"></span></p>
+
+        <h2>Your Project History</h2>
+        <table class="employee-table">
+            <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="project : ${employeeProjects}">
+                    <td th:text="${project.projectName}"></td>
+                    <td th:text="${project.startDate}"></td>
+                    <td th:text="${project.endDate}"></td>
+                    <td th:text="${project.responsibility}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
 </body>
 </html>
