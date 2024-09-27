@@ -1,6 +1,10 @@
 package com.stylesystem.model;
 
+
+import java.util.List;
+
 import java.util.Set;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,3 +38,4 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     private Set<Employee> employees;
 }
+

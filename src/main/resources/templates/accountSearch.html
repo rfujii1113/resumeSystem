@@ -7,8 +7,8 @@
 <body>
 <h1>アカウント管理</h1>
 <form action="/users/add" method="post">
-    <input type="number" name="empId" placeholder="社員番号" required/>
-    <input type="text" name="empName" placeholder="名前" required/>
+    <input type="number" name="empId" placeholder="社員番号">
+    <input type="text" name="empName" placeholder="名前">
         <select id="showDeleted" name="showDeleted">
             <option value="yes">表示する</option>
             <option value="no">表示しない</option>
@@ -60,6 +60,8 @@
             <!-- 他の社員のデータもここに追加できます -->
         </tbody>
     </table>
+    
+    
 </form>
 </body>
 </html>
