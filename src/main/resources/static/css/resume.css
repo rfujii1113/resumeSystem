@@ -1,0 +1,30 @@
+body{
+    background-color: #f0f0f0;
+}
+
+.form-container{
+    font-size: 15px;
+    border-collapse: collapse;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+td{
+    border: 1px solid #000000;
+    padding: 8px;
+    text-align: left;
+}
+
+td{
+    background-color: #ffffff;
+}
+
+td:hover {
+    background-color: #afa1a1;
+}
+
+.return-button{
+    margin-top: 20px;
+}

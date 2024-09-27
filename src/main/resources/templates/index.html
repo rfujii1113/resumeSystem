@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ログイン</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="login-container">
-        <h1>stylesystem</h1>
+        <h1>スタイルシステム<br>経歴書管理ページ</h1>
         <form id="login-form" action="#" method="post">
             <div class="input-group">
                 <label for="username">ユーザー名</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" placeholder="例: スタイル太郎" required>
             </div>
             <div class="input-group">
-                <label for="password">パスワード</label>
-                <input type="password" id="password" name="password" required>
+                <label for="password">パスワード:</label>
+                <input type="password" id="password" placeholder="例: style1012" required>
             </div>
             <button type="submit">ログイン</button>
         </form>
         <p id="error-message" class="error-message"></p>
     </div>
-
     <script>
         const validUsername = "a";
         const validPassword = "a";
