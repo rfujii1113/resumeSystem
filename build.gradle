@@ -24,20 +24,24 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.vladmihalcea:hibernate-types-52:2.9.13'
-	implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+
+    // 既存の依存関係
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'    
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     
+    // DB
+    implementation 'org.postgresql:postgresql:42.5.4'
+    runtimeOnly 'com.mysql:mysql-connector-j'
     
-	
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.postgresql:postgresql'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    
+    // Lombok 
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
 }
 
 tasks.named('test') {
