@@ -1,4 +1,4 @@
-package com.example.postgretest;
+package com.example.stylesystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

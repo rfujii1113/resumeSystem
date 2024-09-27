@@ -1,0 +1,12 @@
+/* admin.css */
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.employee-table th {
+    background-color: #007BFF;
+    color: white;
+}
+.employee-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
