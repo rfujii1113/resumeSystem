@@ -1,6 +1,6 @@
 BEGIN;
 
--- Employee 데이터 삽입
+-- Employee data insert
 INSERT INTO employee (
     emp_id,
     emp_name,
@@ -23,7 +23,7 @@ INSERT INTO employee (
 (4, 'Emily Davis', '$2a$10$KIfsJOG3NRZ5yRcGpOwJ/eqwJqkHKirFKuQmB6dKDJvLr81yCpzti', 'Female', '1995-03-18', '345 Elm Street, Incheon', '678 Willow Avenue, Yeonsu-gu, Incheon', 'Inha University', 'Business Administration', '2017-05-10', 'Songdo Station', 'Finance Team', 0, 1),
 (5, 'William Johnson', '$2a$10$V4HtoLRbHt5xKKtjdH.Ecu/s9Djgf1JX/7XlTpd/1ujECeolMqsHy', 'Male', '1988-07-22', '456 Ash Road, Gwangju', '789 Poplar Street, Dong-gu, Gwangju', 'Chonnam National University', 'Electrical Engineering', '2011-09-05', 'Geumnam Station', 'Development Team', 0, 1);
 
--- Skill 데이터 삽입
+-- Skill data insert
 INSERT INTO skill (
     skill_id,
     skill_name,
@@ -40,7 +40,7 @@ INSERT INTO skill (
 (9, 'Git', 'Version Control'),
 (10, 'HTML/CSS', 'Web Technology');
 
--- ProjectHistory 데이터 삽입
+-- ProjectHistory data insert
 INSERT INTO project_history (
     project_id,
     project_name,
@@ -65,7 +65,7 @@ INSERT INTO project_history (
 (14, 'Electronic Document Management System', '2018-05-05', '2019-02-25', 'Gwangju', 5),
 (15, 'AI-Based Recommendation System', '2022-03-01', '2022-12-31', 'Seoul', 1);
 
--- ProjectHistory 상세 데이터 삽입
+-- ProjectHistory data insert
 INSERT INTO project_history_database (project_history_project_id, database) VALUES
 (1, ARRAY['PostgreSQL']),
 (2, ARRAY['MySQL']),
@@ -168,7 +168,7 @@ INSERT INTO project_history_responsibility (project_history_project_id, responsi
 (14, ARRAY['System Development']),
 (15, ARRAY['Machine Learning Model Development']);
 
--- EmployeeSkill 데이터 삽입
+-- EmployeeSkill data insert
 INSERT INTO employee_skill (emp_id, skill_id) VALUES
 -- John Doe (emp_id:1)
 (1, 1), -- Java
