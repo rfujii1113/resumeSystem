@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Employee Login</title>
-    <link rel="stylesheet" href="/css/login.css">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
-    <div class="login-container">
-        <h1>Login</h1>
-        <form action="#" th:action="@{/login}" method="post" class="login-form">
-            <div class="form-group">
-                <label for="empId">Employee ID:</label>
-                <input type="number" id="empId" name="empId" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="login-btn">Login</button>
-            </div>
-        </form>
-
-        <div th:if="${loginError}" class="error-message">
-            <p th:text="${loginError}"></p>
+    <h1>Login</h1>
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label for="empId">Employee ID:</label>
+            <input type="text" id="empId" name="empId" required>
         </div>
-    </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div th:if="${param.error}">
+            <p style="color:red;">Invalid employee ID or password</p>
+        </div>
+        <div th:if="${param.logout}">
+            <p style="color:green;">You have been logged out successfully.</p>
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
 </body>
 </html>
