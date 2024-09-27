@@ -22,7 +22,6 @@ public class ProjectHistory {
 
     @ToString.Include
     private String projectName;
-
     private LocalDate startDate;
     private LocalDate endDate;
     private String workLocation;
@@ -49,3 +48,4 @@ public class ProjectHistory {
     @JoinColumn(name = "emp_id")
     private Employee employee;
 }
+

@@ -3,18 +3,16 @@ package com.stylesystem.model;
 import java.time.LocalDate;
 import java.util.Set;
 
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
 import lombok.Data;
+import jakarta.persistence.Table;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 
@@ -26,7 +24,6 @@ import lombok.EqualsAndHashCode;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     @ToString.Include
     private int empId;
@@ -46,7 +43,7 @@ public class Employee {
     private String department;
     private Integer deleteFlag;
     private Integer permission;
-    
+
     // One-to-Many Relationship with ProjectHistory
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProjectHistory> projectHistories;
