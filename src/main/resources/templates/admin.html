@@ -4,16 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理者画面</title>
-    <link rel="stylesheet" href="employee.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
-<body>
-    <div class="employee-container">
-        <h1>社員情報</h1>
-        <p>ようこそ、</p>
-            <button onclick="location.href='change-password.html'" class="button">パスワード変更</button><br>
-            <button onclick="location.href='resume.html'" class="button">経歴書照会・印刷</button><br>
-            <button onclick="location.href='index.html'" class="button">ログアウト</button><br>
-            </div>
-    </div>
+
+<h1>社員情報(管理者用)</h1>
+    <p>ようこそ、〇〇さん</p>
+<table>
+    <thead>
+        <tr>
+            <th>項目</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="account-mng.html">アカウント管理画面</td>
+        </tr>
+        <tr>
+            <td><a href="accountSearch.html">アカウント検索画面</td>
+        </tr>
+        <tr>
+            <td><a href="account-add.html">アカウント新規追加画面</td>
+        </tr>
+        <tr>
+            <td><a href="change-password.html">パスワード変更画面</td>
+        </tr>
+        <tr>
+            <td><a href="resume.html">経歴書照会画面</td>
+        </tr>
+        <tr>
+            <td><a href="index.html">ログアウト</td>
+    </tbody>
+</table>
 </body>
 </html>

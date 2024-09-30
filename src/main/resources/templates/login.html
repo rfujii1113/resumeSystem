@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <h2>株式会社スタイルシステム<br>経歴書管理ページ</h2>
+        <form id="loginForm">
+            <label for="username">ユーザー名</label>
+            <input type="text" id="username" required>
+
+            <label for="password">パスワード</label>
+            <input type="password" id="password" required>
+
+            <input type="submit" value="ログイン">
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const messageElement = document.getElementById('message');
+
+            // 簡単な認証チェック（実際にはサーバーサイドで行うべき）
+            if (username === 'admin' && password === 'adminPassword') {
+                // 管理者用画面へリダイレクト
+                window.location.href = 'admin_dashboard.html';
+            } else if (username === 'user' && password === 'userPassword') {
+                // 一般ユーザー用画面へリダイレクト
+                window.location.href = 'user_dashboard.html';
+            } else {
+                messageElement.textContent = 'ユーザー名またはパスワードが無効です。';
+            }
+        });
+    </script>
+</body>
+</html>
