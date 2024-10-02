@@ -17,13 +17,13 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login() {
-        return "login"; // 로그인 페이지 뷰 이름
+        return "login"; 
     }
 
     @GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("userDto", new UserDto());
-        return "register"; // 회원가입 페이지 뷰 이름
+        return "register"; 
     }
 
     @PostMapping("/register")
