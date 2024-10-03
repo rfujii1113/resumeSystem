@@ -8,14 +8,21 @@
     <form th:action="@{/register}" th:object="${userDto}" method="post">
         <div>
             <label>id:</label>
-            <input type="text" th:field="*{userName}"/>
+            <input type="text" th:field="*{userId}" />
         </div>
         <div>
             <label>pw:</label>
-            <input type="password" th:field="*{password}"/>
+            <input type="password" th:field="*{password}" />
         </div>
         <div>
-            <button type="submit">sgin up</button>
+            <label>Role:</label>
+            <select th:field="*{role}">
+                <option value="ROLE_USER">User</option>
+                <option value="ROLE_ADMIN">Admin</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">sign up</button>
         </div>
     </form>
 </body>

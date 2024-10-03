@@ -1,6 +1,6 @@
 package com.stylesystem.service;
 
-import com.stylesystem.dto.UserDto;
+import com.stylesystem.dto.UserAuthDto;
 import com.stylesystem.model.Users;
 import com.stylesystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class RegisterService {
 
     private final UserRepository userRepository;
 
-    public void saveUser(UserDto userDto) {
+    public void saveUser(UserAuthDto userDto) {
         Users users = Users.builder()
-            .userName(userDto.getUserName())
+            .userId(userDto.getUserId())
             .password(userDto.getPassword())
-            .role("ROLE_USER")
+            .role(userDto.getRole()) 
             .deleteFlag(false)
             .build();
         userRepository.save(users);

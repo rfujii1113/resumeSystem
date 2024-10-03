@@ -3,7 +3,8 @@ package com.stylesystem.dto;
 import lombok.Data;
 
 @Data
-public class UserDto {
-    private String userName;
+public class UserAuthDto {
+    private String userId;
     private String password;
+    private String role;
 }

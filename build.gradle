@@ -41,6 +41,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
+    // Servlet
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
 }
 
 tasks.named('test') {
