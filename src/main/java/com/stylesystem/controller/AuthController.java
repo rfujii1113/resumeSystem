@@ -16,7 +16,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String login() {
+    public String loginUser() {
         return "login"; 
     }
 
