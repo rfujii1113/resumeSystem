@@ -2,25 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
-    <h1>Login Page</h1>
-    <div th:if="${param.error}">
-        <p>Login failed. Please check your credentials.</p>
-    </div>    
-    <form th:action="@{/login}" method="post">
-        <div>
-            <label for="username">ID:</label>
-            <input type="text" id="username" name="username" required/>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required/>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
-    <a th:href="@{/register}">Sign up</a>
+    <div class="login-container">
+        <h1>ログイン</h1>
+        <form th:action="@{/login}" method="post">
+            <div>
+                <input type="text" name="username" placeholder="社員番号" required />
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="パスワード" required />
+            </div>
+            <div>
+                <button type="submit">ログイン</button>
+            </div>
+        </form>
+        <a th:href="@{/register}">アカウント登録</a>
+    </div>
 </body>
 </html>

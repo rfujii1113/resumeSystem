@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>sign up</title>
+    <title>Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
 </head>
 <body>
-    <h1>sign up page</h1>
-    <form th:action="@{/register}" th:object="${userDto}" method="post">
-        <div>
-            <label>id:</label>
-            <input type="text" th:field="*{userId}" />
-        </div>
-        <div>
-            <label>pw:</label>
-            <input type="password" th:field="*{password}" />
-        </div>
-        <div>
-            <label>Role:</label>
-            <select th:field="*{role}">
-                <option value="ROLE_USER">User</option>
-                <option value="ROLE_ADMIN">Admin</option>
-            </select>
-        </div>
-        <div>
-            <button type="submit">sign up</button>
-        </div>
-    </form>
+    <div class="register-container">
+        <h1>社員登録</h1>
+        <form th:action="@{/register}" th:object="${userDto}" method="post">
+            <div>
+                <input type="text" th:field="*{userId}" placeholder="社員番号" required />
+            </div>
+            <div>
+                <input type="password" th:field="*{password}" placeholder="パスワード" required />
+            </div>
+            <div>
+                <select th:field="*{role}" required>
+                    <option value="ROLE_USER">社員</option>
+                    <option value="ROLE_ADMIN">管理者</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit">登録</button>
+            </div>
+            <a th:href="@{/login}">ログイン</a>
+        </form>
+    </div>
 </body>
 </html>

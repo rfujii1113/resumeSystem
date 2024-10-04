@@ -3,8 +3,10 @@ package com.stylesystem.dto;
 import com.stylesystem.model.Users;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
+import java.util.List;
 
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
@@ -13,8 +15,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //  (ex: ROLE_USER)
-        return null;
+        return List.of(new SimpleGrantedAuthority(users.getRole()));
     }
 
     @Override
@@ -26,12 +27,12 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         return users.getUserName();
     }
-    
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-    
+
     @Override
     public boolean isAccountNonLocked() {
         return true;

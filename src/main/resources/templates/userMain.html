@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>User Page</title>
+    <title>User Main</title>
+    <link rel="stylesheet" th:href="@{/css/userMain.css}">ㅇ
 </head>
 <body>
-    <h1>Welcome User</h1>
-    <a th:href="@{/logout}">Logout</a>
+    <div class="user-container">
+        <button onclick="window.location.href='/passwordReset'">パスワード変更</button>
+        <button onclick="window.location.href='/resumeView'">職務経歴書照会</button>
+    </div>
 </body>
 </html>

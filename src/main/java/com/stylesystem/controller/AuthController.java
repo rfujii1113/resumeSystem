@@ -33,4 +33,20 @@ public class AuthController {
         userService.saveUser(userDto);  
         return "redirect:/login";
     }
+
+    @GetMapping("/userMain")
+    public String userMain() {
+        return "userMain"; 
+    }
+
+    @GetMapping("/adminMain")
+    public String adminMain() {
+        return "adminMain";
+    }
+
+    @GetMapping("/passwordReset")
+    public String passwordReset() {
+        return "passwordReset";
+    }
+
 }
