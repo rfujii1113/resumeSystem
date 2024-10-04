@@ -1,6 +1,6 @@
 package com.stylesystem.config;
 
-import com.stylesystem.service.CustomAuthenticationSuccessHandler;
+import com.stylesystem.service.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,9 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomAuthenticationSuccessHandler successHandler;
+    private final LoginSuccessHandler successHandler;
 
-    public SecurityConfig(CustomAuthenticationSuccessHandler successHandler) {
+    public SecurityConfig(LoginSuccessHandler successHandler) {
         this.successHandler = successHandler;
     }
 

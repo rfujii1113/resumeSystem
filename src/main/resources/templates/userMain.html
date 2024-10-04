@@ -2,12 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Main</title>
-    <link rel="stylesheet" th:href="@{/css/userMain.css}">ㅇ
+    <link rel="stylesheet" th:href="@{/css/userMain.css}">
 </head>
 <body>
     <div class="user-container">
-        <button onclick="window.location.href='/passwordReset'">パスワード変更</button>
-        <button onclick="window.location.href='/resumeView'">職務経歴書照会</button>
+        <form th:action="@{/password/reset}" method="get">
+            <button type="submit">パスワード変更</button>
+        </form>
+        <form th:action="@{/resumeview}" method="get">
+            <button type="submit">職務経歴書照会</button>
+        </form>
     </div>
 </body>
 </html>

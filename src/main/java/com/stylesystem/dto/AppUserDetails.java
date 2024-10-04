@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor
-public class CustomUserDetails implements UserDetails {
+public class AppUserDetails implements UserDetails {
 
     private final Users users;
 

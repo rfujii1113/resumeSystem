@@ -2,13 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Admin Main</title>
-    <link rel="stylesheet" th:href="@{/css/adminMain.css}">ㅇ
+    <link rel="stylesheet" th:href="@{/css/adminMain.css}">
 </head>
 <body>
     <div class="admin-container">
-        <button onclick="window.location.href='/register'">アカウント新規作成</button>
-        <button onclick="window.location.href='/passwordReset'">パスワード変更</button>
-        <button onclick="window.location.href='/resumeList'">職務経歴書照会</button>
+        <form th:action="@{/register}" method="get">
+            <button type="submit">アカウント新規作成</button>
+        </form>
+        <form th:action="@{/password/reset}" method="get">
+            <button type="submit">パスワード変更</button>
+        </form>
+        <form th:action="@{/resumelist}" method="get">
+            <button type="submit">職務経歴書照会</button>
+        </form>
     </div>
 </body>
 </html>

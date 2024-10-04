@@ -10,15 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-public class AuthController {
+public class AccountCreationController {
 
     private final RegisterService userService;
     private final PasswordEncoder passwordEncoder;
-
-    @GetMapping("/login")
-    public String loginUser() {
-        return "login"; 
-    }
 
     @GetMapping("/register")
     public String registerForm(Model model) {
@@ -32,21 +27,6 @@ public class AuthController {
         userDto.setPassword(encodedPassword);
         userService.saveUser(userDto);  
         return "redirect:/login";
-    }
-
-    @GetMapping("/userMain")
-    public String userMain() {
-        return "userMain"; 
-    }
-
-    @GetMapping("/adminMain")
-    public String adminMain() {
-        return "adminMain";
-    }
-
-    @GetMapping("/passwordReset")
-    public String passwordReset() {
-        return "passwordReset";
     }
 
 }
