@@ -18,11 +18,11 @@ public class Users {
     private String userId;
 
     private String userName;
-    private String gender;
+    private boolean gender;
     private LocalDate birthDate;
     private String currentAddress;
     private String permanentAddress;
-    private String spouse;
+    private boolean spouse;
     private String lastSchool;
     private String lastSchoolType;
     private String major;
