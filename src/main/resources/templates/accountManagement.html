@@ -18,16 +18,16 @@
                     <th>名前</th>
                     <th>名前(英語)</th>
                     <th>社員番号</th>
-                    <th>現住所</th>
-                    <th></th>
+                    <th>ロール</th>
+                    <th/>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="user : ${users}">
-                    <td th:text="${user.userName}">名前</td>
-                    <td th:text="${user.userId}">名前(英語)</td>
-                    <td th:text="${user.userId}">社員番号</td>
-                    <td th:text="${user.currentAddress}">現住所</td>
+                    <td th:text="${user.userName}"/>
+                    <td th:text="${user.userNameRomaji}"/>
+                    <td th:text="${user.userId}"/>
+                    <td th:text="${user.role}"/>
                     <td>
                         <form th:action="@{/account/deactivate}" method="post" th:if="${!user.deleteFlag}"
                               onsubmit="return confirmAction('削除')">

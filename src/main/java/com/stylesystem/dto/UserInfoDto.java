@@ -16,6 +16,8 @@ public class UserInfoDto {
 
     private String userId;
     private String userName;
+    private String userNameRomaji;
+    private String email;
     private boolean gender;
     private LocalDate birthDate;
     private String currentAddress;
@@ -36,6 +38,8 @@ public class UserInfoDto {
         return UserInfoDto.builder()
                 .userId(user.getUserId())
                 .userName(user.getUserName())
+                .userNameRomaji(user.getUserNameRomaji())
+                .email(user.getEmail())
                 .gender(user.isGender())
                 .birthDate(user.getBirthDate())
                 .currentAddress(user.getCurrentAddress())

@@ -51,13 +51,14 @@ public class AccountController {
     }
 
     @PostMapping("/deactivate")
-    public String deactivateUser(@RequestParam String userId) {
+    public String deactivateUser(@RequestParam("userId") String userId) {
+        System.out.println("Deactivating user with ID: " + userId); // for debugging
         userDeleteService.deactivateUser(userId);
         return "redirect:/account/management";
     }
 
     @PostMapping("/activate")
-    public String activateUser(@RequestParam String userId) {
+    public String activateUser(@RequestParam("userId") String userId) {
         userDeleteService.activateUser(userId);
         return "redirect:/account/management";
     }

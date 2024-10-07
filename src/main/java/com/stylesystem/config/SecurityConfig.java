@@ -25,7 +25,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/static/**").permitAll()
+                .requestMatchers("/", "/login", "/account/register", "/css/**", "/js/**", "/static/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
@@ -36,10 +36,10 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
-            .logoutUrl("/logout") 
-            .logoutSuccessUrl("/login?logout") 
-            .invalidateHttpSession(true) 
-            .deleteCookies("JSESSIONID") 
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login?logout")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID")
             .permitAll()
         );
         return http.build();

@@ -18,6 +18,8 @@ public class Users {
     private String userId;
 
     private String userName;
+    private String userNameRomaji;
+    private String email;
     private boolean gender;
     private LocalDate birthDate;
     private String currentAddress;
