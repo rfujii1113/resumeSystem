@@ -52,7 +52,6 @@ public class AccountController {
 
     @PostMapping("/deactivate")
     public String deactivateUser(@RequestParam("userId") String userId) {
-        System.out.println("Deactivating user with ID: " + userId); // for debugging
         userDeleteService.deactivateUser(userId);
         return "redirect:/account/management";
     }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resume List</title>
+    <link rel="stylesheet" th:href="@{/css/accountManagement.css}">
+</head>
+<body>
+    <div class="account-management-container">
+        <h2>職務経歴書一覧</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>名前</th>
+                    <th>名前(英語)</th>
+                    <th>社員番号</th>
+                    <th>ロール</th>
+                    <th/>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.userName}"/>
+                    <td th:text="${user.userNameRomaji}"/>
+                    <td th:text="${user.userId}"/>
+                    <td th:text="${user.role}"/>
+                    <td>
+                        <form th:action="@{/resume/view}" method="get">
+                            <input type="hidden" name="userId" th:value="${user.userId}">
+                            <button type="submit">照会</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -20,7 +20,6 @@ public class UserDeleteService {
 
     @Transactional
     public void deactivateUser(String userId) {
-        System.out.println("Deactivating user with ID in service: " + userId); // for debugging
         userRepository.updateDeleteFlag(userId, true);
     }
 
