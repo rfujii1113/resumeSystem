@@ -92,8 +92,9 @@ textarea:focus {
 }
 
 textarea {
-    resize: vertical;
+    resize: none;
     height: 120px;
+    overflow: hidden;
 }
 
 .history-add-button {

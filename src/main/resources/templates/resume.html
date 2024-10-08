@@ -4,6 +4,7 @@
     <title>Resume Form</title>
     <link rel="stylesheet" th:href="@{/css/resume.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="/js/resume.js" defer></script>
 </head>
 <body>
     <div class="container a4-container">
@@ -123,7 +124,7 @@
                     <button type="button" class="skill-add-button" onclick="openSkillPopup()">スキル追加</button>
                 </div>
                 <div class="responsibility">
-                    <textarea placeholder="担当した業務を簡単に記入してください。" maxlength="500"></textarea>
+                    <textarea placeholder="担当した業務を簡単に記入してください。" maxlength="500" style="overflow: hidden; resize: none;"></textarea>
                     <button type="button" class="history-add-button">経歴追加</button>
                 </div>
             </form> 
@@ -135,7 +136,7 @@
                 <div class="input-group">
                     <label>
                         自己PR
-                        <textarea placeholder="簡単に自己PRしてください。"></textarea>
+                        <textarea placeholder="簡単に自己PRしてください。" style="overflow: hidden; resize: none;"></textarea>
                     </label>
                 </div>
             </form>
@@ -183,58 +184,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        let selectedSkills = [];
-        let selectedProcesses = [];
-
-        function openSkillPopup() {
-            document.getElementById('skill-popup').style.display = 'block';
-        }
-
-        function closeSkillPopup() {
-            document.getElementById('skill-popup').style.display = 'none';
-        }
-
-        function selectSkill(skillElement, category) {
-            const skillName = skillElement.textContent;
-            const skillKey = `${category}-${skillName}`;
-
-            if (!selectedSkills.includes(skillKey)) {
-                selectedSkills.push(skillKey);
-                skillElement.classList.add('selected');
-            } else {
-                selectedSkills = selectedSkills.filter(skill => skill !== skillKey);
-                skillElement.classList.remove('selected');
-            }
-        }
-
-        function selectProcess(processElement) {
-            const processName = processElement.textContent;
-
-            if (!selectedProcesses.includes(processName)) {
-                selectedProcesses.push(processName);
-                processElement.classList.add('selected');
-            } else {
-                selectedProcesses = selectedProcesses.filter(process => process !== processName);
-                processElement.classList.remove('selected');
-            }
-        }
-
-        function applySelectedSkills() {
-            const selectedSkillsContainer = document.getElementById('selected-skills');
-            selectedSkillsContainer.innerHTML = '';
-
-            selectedSkills.forEach(skillKey => {
-                const [category, skillName] = skillKey.split('-');
-                const skillTag = document.createElement('span');
-                skillTag.className = 'skill-chip selected';
-                skillTag.textContent = skillName;
-                selectedSkillsContainer.appendChild(skillTag);
-            });
-
-            closeSkillPopup();
-        }
-    </script>
 </body>
 </html>
