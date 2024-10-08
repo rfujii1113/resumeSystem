@@ -9,59 +9,59 @@
 <body>
     <div class="container a4-container">
         <div class="header">
-            <button type="button" class="save-button">保存</button>
+            <button type="submit" form="resume-form" class="save-button">保存</button>
             <button type="button" class="export-button">EXCEL Export</button>
         </div>
         
-        <section class="personal-info">
-            <h2>人的情報</h2>
-            <form>
+        <form id="resume-form" th:action="@{/resume/save}" method="post">
+            <!-- Personal Information Section -->
+            <section class="personal-info">
+                <h2>人的情報</h2>
                 <div class="input-group">
                     <label>
                         名前(漢字)
-                        <input type="text" placeholder="">
+                        <input type="text" name="userName" placeholder="" required>
                     </label>
                     <label>
                         名前(ローマ字)
-                        <input type="text" placeholder="">
+                        <input type="text" name="userNameRomaji" placeholder="" required>
                     </label>
                     <label>
                         性別
-                        <select>
+                        <select name="gender" required>
                             <option value="">選択</option>
-                            <option value="男性">男性</option>
-                            <option value="女性">女性</option>
+                            <option value="true">男性</option>
+                            <option value="false">女性</option>
                         </select>
                     </label>
                     <label>
                         生年月日
-                        <input type="date">
+                        <input type="date" name="birthDate" required>
                     </label>
                     <label>
                         国籍
-                        <input type="text" placeholder="">
+                        <input type="text" name="nationality" placeholder="">
                     </label>
                     <label>
                         email
-                        <input type="email" placeholder="">
+                        <input type="email" name="email" placeholder="" required>
                     </label>
                 </div>
                 <div class="input-group">
                     <label>
                         現住所
-                        <input type="text" placeholder="">
+                        <input type="text" name="currentAddress" placeholder="">
                     </label>
                 </div>
-            </form>
-        </section>
+            </section>
 
-        <section class="education">
-            <h2>学歴</h2>
-            <form>
+            <!-- Education Section -->
+            <section class="education">
+                <h2>学歴</h2>
                 <div class="input-group">
                     <label>
                         区分
-                        <select>
+                        <select name="lastSchoolType">
                             <option value="">選択</option>
                             <option value="4年制">4年制</option>
                             <option value="2年制">2年制</option>
@@ -69,80 +69,80 @@
                     </label>
                     <label>
                         学校名
-                        <input type="text" placeholder="">
+                        <input type="text" name="lastSchool" placeholder="">
                     </label>
                     <label>
                         卒業年月
-                        <input type="month">
+                        <input type="month" name="graduationDate">
                     </label>
                     <label>
                         専攻名
-                        <input type="text" placeholder="">
+                        <input type="text" name="major" placeholder="">
                     </label>
                 </div>
-            </form>
-        </section>
+            </section>
 
-        <div id="experience-sections">
-            <section class="experience">
-                <h2>経歴</h2>
-                <form>
+            <!-- Experience Sections -->
+            <div id="experience-sections">
+                <section class="experience">
+                    <h2>経歴</h2>
                     <div class="input-group">
                         <label>
                             プロジェクト名
-                            <input type="text" placeholder="">
+                            <input type="text" name="projects[0].projectName" placeholder="">
                         </label>
                         <label>
                             作業場所
-                            <input type="text" placeholder="">
+                            <input type="text" name="projects[0].location" placeholder="">
                         </label>
                         <label>
                             開始日
-                            <input type="month">
+                            <input type="month" name="projects[0].startDate">
                         </label>
                         <label>
                             終了日
-                            <input type="month">
+                            <input type="month" name="projects[0].endDate">
                         </label>
                     </div>
                     <div class="input-group">
                         <label>
                             担当したプロセス
-                            <div class="process-chips" id="process-chips">
-                                <span class="process-chip" onclick="selectProcess(this)">調査分析</span>
-                                <span class="process-chip" onclick="selectProcess(this)">設計</span>
-                                <span class="process-chip" onclick="selectProcess(this)">開発</span>
-                                <span class="process-chip" onclick="selectProcess(this)">テスト</span>
-                                <span class="process-chip" onclick="selectProcess(this)">運用保守</span>
+                            <div class="process-chips" id="process-chips-0">
+                                <span class="process-chip">調査分析</span>
+                                <span class="process-chip">設計</span>
+                                <span class="process-chip">開発</span>
+                                <span class="process-chip">テスト</span>
+                                <span class="process-chip">運用保守</span>
                             </div>
+                            <input type="hidden" name="projects[0].processes" id="projects[0].processes">
                         </label>
                     </div>
                     <div class="input-group tech">
                         <label class="skill-label">
                             選択したスキル
-                            <div class="skill-display" id="selected-skills"></div>
+                            <div class="skill-display" id="selected-skills-0"></div>
+                            <input type="hidden" name="projects[0].skills" id="projects[0].skills">
                         </label>
-                        <button type="button" class="skill-add-button" onclick="openSkillPopup()">スキル追加</button>
+                        <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
                     </div>
                     <div class="responsibility">
-                        <textarea placeholder="担当した業務を簡単に記入してください。" maxlength="500" style="overflow: hidden; resize: none;"></textarea>
+                        <textarea name="projects[0].responsibility" placeholder="担当した業務を簡単に記入してください。" maxlength="500" style="overflow: hidden; resize: none;"></textarea>
                     </div>
-                </form>
-            </section>
-        </div>
-        <button type="button" class="history-add-button" onclick="addExperienceSection()">経歴追加</button>
+                </section>
+            </div>
+            <button type="button" class="history-add-button">経歴追加</button>
 
-        <section class="summary">
-            <h2>経歴</h2>
-            <form>
+            <!-- Summary Section -->
+            <section class="summary">
+                <h2>自己PR</h2>
                 <div class="input-group">
                     <label>
                         自己PR
-                        <textarea placeholder="簡単に自己PRしてください。" style="overflow: hidden; resize: none;"></textarea>
+                        <textarea name="selfPr" placeholder="簡単に自己PRしてください。" style="overflow: hidden; resize: none;"></textarea>
                     </label>
                 </div>
-            </form>
-        </section>
+            </section>
+        </form>
 
         <!-- Skill Popup Modal -->
         <div id="skill-popup" class="modal">
@@ -153,36 +153,36 @@
                     <h3>Language</h3>
                     <div class="skill-chips" id="language-skills">
                         <!-- Example Chips -->
-                        <span class="skill-chip" onclick="selectSkill(this, 'language')">JavaScript</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'language')">Python</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'language')">Java</span>
+                        <span class="skill-chip">JavaScript</span>
+                        <span class="skill-chip">Python</span>
+                        <span class="skill-chip">Java</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>DB</h3>
                     <div class="skill-chips" id="db-skills">
-                        <span class="skill-chip" onclick="selectSkill(this, 'db')">MySQL</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'db')">PostgreSQL</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'db')">MongoDB</span>
+                        <span class="skill-chip">MySQL</span>
+                        <span class="skill-chip">PostgreSQL</span>
+                        <span class="skill-chip">MongoDB</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>OS</h3>
                     <div class="skill-chips" id="os-skills">
-                        <span class="skill-chip" onclick="selectSkill(this, 'os')">Linux</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'os')">Windows</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'os')">macOS</span>
+                        <span class="skill-chip">Linux</span>
+                        <span class="skill-chip">Windows</span>
+                        <span class="skill-chip">macOS</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Tools</h3>
                     <div class="skill-chips" id="tool-skills">
-                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Docker</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Kubernetes</span>
-                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Git</span>
+                        <span class="skill-chip">Docker</span>
+                        <span class="skill-chip">Kubernetes</span>
+                        <span class="skill-chip">Git</span>
                     </div>
                 </div>
-                <button type="button" class="apply-button" onclick="applySelectedSkills()">適用</button>
+                <button type="button" class="apply-button">適用</button>
             </div>
         </div>
     </div>
