@@ -3,6 +3,7 @@
 <head>
     <title>Resume Form</title>
     <link rel="stylesheet" th:href="@{/css/resume.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="container a4-container">
@@ -32,12 +33,12 @@
                         </select>
                     </label>
                     <label>
-                        国籍
-                        <input type="text" placeholder="">
-                    </label>
-                    <label>
                         生年月日
                         <input type="date">
+                    </label>
+                    <label>
+                        国籍
+                        <input type="text" placeholder="">
                     </label>
                     <label>
                         email
@@ -102,41 +103,28 @@
                         <input type="month">
                     </label>
                 </div>
+                <div class="input-group">
+                    <label>
+                        担当したプロセス
+                        <div class="process-chips" id="process-chips">
+                            <span class="process-chip" onclick="selectProcess(this)">調査分析</span>
+                            <span class="process-chip" onclick="selectProcess(this)">設計</span>
+                            <span class="process-chip" onclick="selectProcess(this)">開発</span>
+                            <span class="process-chip" onclick="selectProcess(this)">テスト</span>
+                            <span class="process-chip" onclick="selectProcess(this)">運用保守</span>
+                        </div>
+                    </label>
+                </div>
                 <div class="input-group tech">
-                    <label>
-                        言語
-                        <select>
-                            <option value="">選択</option>
-                        </select>
+                    <label class="skill-label">
+                        選択したスキル
+                        <div class="skill-display" id="selected-skills"></div>
                     </label>
-                    <label>
-                        DB
-                        <select>
-                            <option value="">選択</option>
-                        </select>
-                    </label>
-                    <label>
-                        OS
-                        <select>
-                            <option value="">選択</option>
-                        </select>
-                    </label>
-                    <label>
-                        ツール
-                        <select>
-                            <option value="">選択</option>
-                        </select>
-                    </label>
-                    <label>
-                        担当プロセス
-                        <select>
-                            <option value="">選択</option>
-                        </select>
-                    </label>
+                    <button type="button" class="skill-add-button" onclick="openSkillPopup()">スキル追加</button>
                 </div>
                 <div class="responsibility">
                     <textarea placeholder="担当した業務を簡単に記入してください。" maxlength="500"></textarea>
-                    <button type="button" class="add-button">追加</button>
+                    <button type="button" class="history-add-button">経歴追加</button>
                 </div>
             </form> 
         </section>
@@ -147,11 +135,106 @@
                 <div class="input-group">
                     <label>
                         自己PR
-                        <textarea placeholder="簡単に自己PRしてください"></textarea>
+                        <textarea placeholder="簡単に自己PRしてください。"></textarea>
                     </label>
                 </div>
             </form>
         </section>
+
+        <!-- Skill Popup Modal -->
+        <div id="skill-popup" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeSkillPopup()">&times;</span>
+                <h2>スキル追加modal</h2>
+                <div class="skill-category">
+                    <h3>Language</h3>
+                    <div class="skill-chips" id="language-skills">
+                        <!-- Example Chips -->
+                        <span class="skill-chip" onclick="selectSkill(this, 'language')">JavaScript</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'language')">Python</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'language')">Java</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>DB</h3>
+                    <div class="skill-chips" id="db-skills">
+                        <span class="skill-chip" onclick="selectSkill(this, 'db')">MySQL</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'db')">PostgreSQL</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'db')">MongoDB</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>OS</h3>
+                    <div class="skill-chips" id="os-skills">
+                        <span class="skill-chip" onclick="selectSkill(this, 'os')">Linux</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'os')">Windows</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'os')">macOS</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tool</h3>
+                    <div class="skill-chips" id="tool-skills">
+                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Docker</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Kubernetes</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Git</span>
+                    </div>
+                </div>
+                <button type="button" class="apply-button" onclick="applySelectedSkills()">適用</button>
+            </div>
+        </div>
     </div>
+
+    <script>
+        let selectedSkills = [];
+        let selectedProcesses = [];
+
+        function openSkillPopup() {
+            document.getElementById('skill-popup').style.display = 'block';
+        }
+
+        function closeSkillPopup() {
+            document.getElementById('skill-popup').style.display = 'none';
+        }
+
+        function selectSkill(skillElement, category) {
+            const skillName = skillElement.textContent;
+            const skillKey = `${category}-${skillName}`;
+
+            if (!selectedSkills.includes(skillKey)) {
+                selectedSkills.push(skillKey);
+                skillElement.classList.add('selected');
+            } else {
+                selectedSkills = selectedSkills.filter(skill => skill !== skillKey);
+                skillElement.classList.remove('selected');
+            }
+        }
+
+        function selectProcess(processElement) {
+            const processName = processElement.textContent;
+
+            if (!selectedProcesses.includes(processName)) {
+                selectedProcesses.push(processName);
+                processElement.classList.add('selected');
+            } else {
+                selectedProcesses = selectedProcesses.filter(process => process !== processName);
+                processElement.classList.remove('selected');
+            }
+        }
+
+        function applySelectedSkills() {
+            const selectedSkillsContainer = document.getElementById('selected-skills');
+            selectedSkillsContainer.innerHTML = '';
+
+            selectedSkills.forEach(skillKey => {
+                const [category, skillName] = skillKey.split('-');
+                const skillTag = document.createElement('span');
+                skillTag.className = 'skill-chip selected';
+                skillTag.textContent = skillName;
+                selectedSkillsContainer.appendChild(skillTag);
+            });
+
+            closeSkillPopup();
+        }
+    </script>
 </body>
 </html>

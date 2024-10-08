@@ -27,11 +27,12 @@ body {
 }
 
 .save-button,
-.export-button {
-    background-color: #007bff;
+.export-button,
+.skill-add-button {
+    background-color: #4A90E2;
     color: #ffffff;
     border: none;
-    padding: 12px 20px;
+    padding: 6px 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -39,7 +40,7 @@ body {
 
 .save-button:hover,
 .export-button:hover {
-    background-color: #0056b3;
+    background-color: #357ABD;
 }
 
 h2 {
@@ -61,7 +62,7 @@ h2 {
     flex: 1 1 calc(10% - 15px);
     display: flex;
     flex-direction: column;
-    color: #ccc;
+    color: #bbb;
 }
 
 input[type="text"],
@@ -72,7 +73,7 @@ select,
 textarea {
     padding: 8px;
     font-size: 1em;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 6px;
     transition: border-color 0.3s, box-shadow 0.3s;
     width: 100%;
@@ -85,7 +86,7 @@ input[type="date"]:focus,
 input[type="month"]:focus,
 select:focus,
 textarea:focus {
-    border-color: #007bff;
+    border-color: #4A90E2;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     outline: none;
 }
@@ -95,11 +96,11 @@ textarea {
     height: 120px;
 }
 
-.add-button {
+.history-add-button {
     background-color: #28a745;
     color: #ffffff;
     border: none;
-    padding: 10px 15px;
+    padding: 6px 12px;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -130,4 +131,100 @@ textarea {
         width: 100%;
         margin-bottom: 10px;
     }
+}
+
+
+/* modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.skill-chip, .process-chip {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.skill-chip:hover, .process-chip:hover {
+    background-color: #4A90E2;
+    color: #fff;
+}
+
+.skill-chip.selected, .process-chip.selected {
+    background-color: #4A90E2;
+    color: #fff;
+}
+
+.apply-button {
+    background-color: #4A90E2;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.apply-button:hover {
+    background-color: #357ABD;
+}
+
+.skill-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.skill-select {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.skill-add-button {
+    margin-left: auto;
+    align-self: center;
+}
+
+.process-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
