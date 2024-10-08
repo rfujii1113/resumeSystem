@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Resume Form</title>
+    <link rel="stylesheet" th:href="@{/css/resume.css}">
+</head>
+<body>
+    <div class="container a4-container">
+        <div class="header">
+            <button type="button" class="save-button">保存</button>
+            <button type="button" class="export-button">EXCEL Export</button>
+        </div>
+        
+        <section class="personal-info">
+            <h2>人的情報</h2>
+            <form>
+                <div class="input-group">
+                    <label>
+                        名前(漢字)
+                        <input type="text" placeholder="">
+                    </label>
+                    <label>
+                        名前(ローマ字)
+                        <input type="text" placeholder="">
+                    </label>
+                    <label>
+                        性別
+                        <select>
+                            <option value="">選択</option>
+                            <option value="男性">男性</option>
+                            <option value="女性">女性</option>
+                        </select>
+                    </label>
+                    <label>
+                        email
+                        <input type="email" placeholder="">
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label>
+                        生年月日
+                        <input type="date">
+                    </label>
+                    <label>
+                        国籍
+                        <input type="text" placeholder="">
+                    </label>
+                    <label>
+                        現住所
+                        <input type="text" placeholder="">
+                    </label>
+                </div>
+            </form>
+        </section>
+
+        <section class="education">
+            <h2>学歴</h2>
+            <form>
+                <div class="input-group">
+                    <label>
+                        区分
+                        <select>
+                            <option value="">選択</option>
+                            <option value="4年制">4年制</option>
+                            <option value="2年制">2年制</option>
+                        </select>
+                    </label>
+                    <label>
+                        学校名
+                        <input type="text" placeholder="">
+                    </label>
+                    <label>
+                        卒業年月
+                        <input type="month">
+                    </label>
+                    <label>
+                        専攻名
+                        <input type="text" placeholder="">
+                    </label>
+                </div>
+            </form>
+        </section>
+
+        <section class="experience">
+            <h2>経歴</h2>
+            <form>
+                <div class="input-group">
+                    <label>
+                        プロジェクト名
+                        <input type="text" placeholder="">
+                    </label>
+                    <label>
+                        作業場所
+                        <input type="text" placeholder="">
+                    </label>
+                    <label>
+                        開始日
+                        <input type="month">
+                    </label>
+                    <label>
+                        終了日
+                        <input type="month">
+                    </label>
+                </div>
+                <div class="input-group tech">
+                    <label>
+                        言語
+                        <select>
+                            <option value="">選択</option>
+                        </select>
+                    </label>
+                    <label>
+                        DB
+                        <select>
+                            <option value="">選択</option>
+                        </select>
+                    </label>
+                    <label>
+                        OS
+                        <select>
+                            <option value="">選択</option>
+                        </select>
+                    </label>
+                    <label>
+                        ツール
+                        <select>
+                            <option value="">選択</option>
+                        </select>
+                    </label>
+                    <label>
+                        担当プロセス
+                        <select>
+                            <option value="">選択</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="responsibility">
+                    <textarea placeholder="担当した業務を簡単に記入してください。" maxlength="500"></textarea>
+                    <button type="button" class="add-button">追加</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="summary">
+            <h2>経歴</h2>
+            <form>
+                <div class="input-group">
+                    <label>
+                        自己PR
+                        <textarea placeholder="簡単に自己PRしてください"></textarea>
+                    </label>
+                </div>
+            </form>
+        </section>
+    </div>
+</body>
+</html>

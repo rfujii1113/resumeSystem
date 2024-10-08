@@ -27,4 +27,9 @@ public class ResumeController {
         model.addAttribute("users", userInfoList);
         return "resumeList";
     }
+
+    @GetMapping("/view")
+    public String Resume(Model model) {
+        return "resume";
+    }
 }
