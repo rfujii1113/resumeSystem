@@ -57,3 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
     window.selectProcess = selectProcess;
     window.applySelectedSkills = applySelectedSkills;
 });
+
+function addExperienceSection() {
+    const experienceContainer = document.getElementById('experience-sections');
+    const experienceSection = document.querySelector('.experience').cloneNode(true);
+    experienceContainer.appendChild(experienceSection);
+}

@@ -83,52 +83,54 @@
             </form>
         </section>
 
-        <section class="experience">
-            <h2>経歴</h2>
-            <form>
-                <div class="input-group">
-                    <label>
-                        プロジェクト名
-                        <input type="text" placeholder="">
-                    </label>
-                    <label>
-                        作業場所
-                        <input type="text" placeholder="">
-                    </label>
-                    <label>
-                        開始日
-                        <input type="month">
-                    </label>
-                    <label>
-                        終了日
-                        <input type="month">
-                    </label>
-                </div>
-                <div class="input-group">
-                    <label>
-                        担当したプロセス
-                        <div class="process-chips" id="process-chips">
-                            <span class="process-chip" onclick="selectProcess(this)">調査分析</span>
-                            <span class="process-chip" onclick="selectProcess(this)">設計</span>
-                            <span class="process-chip" onclick="selectProcess(this)">開発</span>
-                            <span class="process-chip" onclick="selectProcess(this)">テスト</span>
-                            <span class="process-chip" onclick="selectProcess(this)">運用保守</span>
-                        </div>
-                    </label>
-                </div>
-                <div class="input-group tech">
-                    <label class="skill-label">
-                        選択したスキル
-                        <div class="skill-display" id="selected-skills"></div>
-                    </label>
-                    <button type="button" class="skill-add-button" onclick="openSkillPopup()">スキル追加</button>
-                </div>
-                <div class="responsibility">
-                    <textarea placeholder="担当した業務を簡単に記入してください。" maxlength="500" style="overflow: hidden; resize: none;"></textarea>
-                    <button type="button" class="history-add-button">経歴追加</button>
-                </div>
-            </form> 
-        </section>
+        <div id="experience-sections">
+            <section class="experience">
+                <h2>経歴</h2>
+                <form>
+                    <div class="input-group">
+                        <label>
+                            プロジェクト名
+                            <input type="text" placeholder="">
+                        </label>
+                        <label>
+                            作業場所
+                            <input type="text" placeholder="">
+                        </label>
+                        <label>
+                            開始日
+                            <input type="month">
+                        </label>
+                        <label>
+                            終了日
+                            <input type="month">
+                        </label>
+                    </div>
+                    <div class="input-group">
+                        <label>
+                            担当したプロセス
+                            <div class="process-chips" id="process-chips">
+                                <span class="process-chip" onclick="selectProcess(this)">調査分析</span>
+                                <span class="process-chip" onclick="selectProcess(this)">設計</span>
+                                <span class="process-chip" onclick="selectProcess(this)">開発</span>
+                                <span class="process-chip" onclick="selectProcess(this)">テスト</span>
+                                <span class="process-chip" onclick="selectProcess(this)">運用保守</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="input-group tech">
+                        <label class="skill-label">
+                            選択したスキル
+                            <div class="skill-display" id="selected-skills"></div>
+                        </label>
+                        <button type="button" class="skill-add-button" onclick="openSkillPopup()">スキル追加</button>
+                    </div>
+                    <div class="responsibility">
+                        <textarea placeholder="担当した業務を簡単に記入してください。" maxlength="500" style="overflow: hidden; resize: none;"></textarea>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <button type="button" class="history-add-button" onclick="addExperienceSection()">経歴追加</button>
 
         <section class="summary">
             <h2>経歴</h2>
@@ -146,7 +148,7 @@
         <div id="skill-popup" class="modal">
             <div class="modal-content">
                 <span class="close-button" onclick="closeSkillPopup()">&times;</span>
-                <h2>スキル追加modal</h2>
+                <h2>スキル追加</h2>
                 <div class="skill-category">
                     <h3>Language</h3>
                     <div class="skill-chips" id="language-skills">
@@ -173,7 +175,7 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Tool</h3>
+                    <h3>Tools</h3>
                     <div class="skill-chips" id="tool-skills">
                         <span class="skill-chip" onclick="selectSkill(this, 'tool')">Docker</span>
                         <span class="skill-chip" onclick="selectSkill(this, 'tool')">Kubernetes</span>
