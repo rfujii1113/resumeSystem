@@ -17,8 +17,12 @@ public class Users {
     @Id
     private String userId;
 
+    private String role;
+    private String password;
+    private boolean deleteFlag;
     private String userName;
     private String userNameRomaji;
+    private String nationality;
     private String email;
     private boolean gender;
     private LocalDate birthDate;
@@ -31,9 +35,6 @@ public class Users {
     private LocalDate graduationDate;
     private String educationCourse;
     private String nearestStation;
-    private String role;
-    private String password;
-    private boolean deleteFlag;
     private String selfPr;
 
     @OneToMany(mappedBy = "users")

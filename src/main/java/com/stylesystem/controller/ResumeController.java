@@ -1,35 +1,40 @@
 package com.stylesystem.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.stylesystem.dto.ResumeDto;
+import com.stylesystem.service.ResumeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import com.stylesystem.dto.UserInfoDto;
-import com.stylesystem.service.UserDeleteService;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/resume")
 public class ResumeController {
 
-    private final UserDeleteService userDeleteService;
+    private final ResumeService resumeService;
 
     @GetMapping("/list")
     public String resumeList(Model model) {
-        List<UserInfoDto> userInfoList = userDeleteService.getAllActiveUsers().stream()
-                .map(UserInfoDto::fromEntity)
+        List<ResumeDto> resumeList = resumeService.getAllActiveUsers().stream()
+                .map(ResumeDto::fromEntity)
                 .collect(Collectors.toList());
-        model.addAttribute("users", userInfoList);
+        model.addAttribute("users", resumeList);
         return "resumeList";
     }
 
-    @GetMapping("/view")
-    public String Resume(Model model) {
-        return "resume";
+    @GetMapping("/form")
+    public String resumeForm(Model model) {
+        model.addAttribute("resume", new ResumeDto());
+        return "resumeForm";
+    }
+
+    @PostMapping("/save")
+    public String saveResume(@ModelAttribute ResumeDto resumeDto) {
+        resumeService.saveResume(resumeDto);
+        return "redirect:/resume/list";
     }
 }

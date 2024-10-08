@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function addExperienceSection() {
-        console.log('addExperienceSection called'); // Debugging log
         const experienceContainer = document.getElementById('experience-sections');
         const newSection = document.querySelector('.experience').cloneNode(true);
 

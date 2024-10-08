@@ -24,7 +24,7 @@
                     <td th:text="${user.userId}"/>
                     <td th:text="${user.role}"/>
                     <td>
-                        <form th:action="@{/resume/view}" method="get">
+                        <form th:action="@{/resume/form}" method="get">
                             <input type="hidden" name="userId" th:value="${user.userId}">
                             <button type="submit">照会</button>
                         </form>
