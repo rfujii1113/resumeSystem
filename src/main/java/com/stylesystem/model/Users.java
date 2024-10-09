@@ -19,16 +19,16 @@ public class Users {
 
     private String role;
     private String password;
-    private boolean deleteFlag;
+    private Boolean deleteFlag;
     private String userName;
     private String userNameRomaji;
     private String nationality;
     private String email;
-    private boolean gender;
+    private Boolean gender;
     private LocalDate birthDate;
     private String currentAddress;
     private String permanentAddress;
-    private boolean spouse;
+    private Boolean spouse;
     private String lastSchool;
     private String lastSchoolType;
     private String major;

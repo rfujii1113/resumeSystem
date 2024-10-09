@@ -19,11 +19,6 @@ configurations {
 	}
 }
 
-// ReqeustMappingの引数名を取得するための設定
-tasks.withType(JavaCompile) {
-    options.compilerArgs << "-parameters"
-}
-
 repositories {
 	mavenCentral()
 }
@@ -44,6 +39,9 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+    // postgresqlのArrayを扱うためのライブラリ
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.8.3'
 }
 
 tasks.named('test') {

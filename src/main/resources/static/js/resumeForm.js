@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('skill-popup').style.display = 'none';
     }
 
-    function selectSkill(skillElement, category) {
+    function selectSkill(skillElement) {
         const skillName = skillElement.textContent.trim();
         const sectionIndex = document.getElementById('skill-popup').dataset.sectionIndex;
 
@@ -54,6 +54,12 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             selectedProcesses[sectionIndex] = selectedProcesses[sectionIndex].filter(process => process !== processName);
             processElement.classList.remove('selected');
+        }
+
+        // Update the hidden input
+        const hiddenProcessesInput = document.getElementById(`projects[${sectionIndex}].processes`);
+        if (hiddenProcessesInput) {
+            hiddenProcessesInput.value = selectedProcesses[sectionIndex].join(',');
         }
     }
 
@@ -101,12 +107,17 @@ document.addEventListener('DOMContentLoaded', function () {
             let name = input.getAttribute('name');
             let id = input.getAttribute('id');
             if (name) {
-                name = name.replace(/\[\d+\]/, `[${currentIndex}]`);
+                name = name.replace(/\[\d+\]/g, `[${currentIndex}]`);
                 input.setAttribute('name', name);
-                input.value = '';
+                // Reset the value
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    input.checked = false;
+                } else {
+                    input.value = '';
+                }
             }
             if (id) {
-                id = id.replace(/\[\d+\]/, `[${currentIndex}]`);
+                id = id.replace(/\[\d+\]/g, `[${currentIndex}]`);
                 input.setAttribute('id', id);
             }
         });
@@ -128,6 +139,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (hiddenProcessesInput) {
             hiddenProcessesInput.id = `projects[${currentIndex}].processes`;
             hiddenProcessesInput.value = '';
+        }
+
+        // Update process chips container id
+        const processChipsContainer = newSection.querySelector('.process-chips');
+        if (processChipsContainer) {
+            processChipsContainer.id = `process-chips-${currentIndex}`;
         }
 
         // Update process chips
@@ -163,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.querySelectorAll('.process-chip').forEach(chip => {
-        const sectionIndex = chip.closest('.process-chips').id.split('-').pop();
+        const processChipsContainer = chip.closest('.process-chips');
+        const sectionIndex = processChipsContainer.id.split('-').pop();
         chip.onclick = function () {
             selectProcess(chip, sectionIndex);
         };

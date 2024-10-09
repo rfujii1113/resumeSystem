@@ -18,11 +18,11 @@ public class UserInfoDto {
     private String userName;
     private String userNameRomaji;
     private String email;
-    private boolean gender;
+    private Boolean gender;
     private LocalDate birthDate;
     private String currentAddress;
     private String permanentAddress;
-    private boolean spouse;
+    private Boolean spouse;
     private String lastSchool;
     private String lastSchoolType;
     private String major;
@@ -30,7 +30,7 @@ public class UserInfoDto {
     private String educationCourse;
     private String nearestStation;
     private String role;
-    private boolean deleteFlag;
+    private Boolean deleteFlag;
     private String selfPr;
 
     // convert entity to dto 
@@ -40,11 +40,11 @@ public class UserInfoDto {
                 .userName(user.getUserName())
                 .userNameRomaji(user.getUserNameRomaji())
                 .email(user.getEmail())
-                .gender(user.isGender())
+                .gender(user.getGender())
                 .birthDate(user.getBirthDate())
                 .currentAddress(user.getCurrentAddress())
                 .permanentAddress(user.getPermanentAddress())
-                .spouse(user.isSpouse())
+                .spouse(user.getSpouse())
                 .lastSchool(user.getLastSchool())
                 .lastSchoolType(user.getLastSchoolType())
                 .major(user.getMajor())
@@ -52,8 +52,31 @@ public class UserInfoDto {
                 .educationCourse(user.getEducationCourse())
                 .nearestStation(user.getNearestStation())
                 .role(user.getRole())
-                .deleteFlag(user.isDeleteFlag())
+                .deleteFlag(user.getDeleteFlag())
                 .selfPr(user.getSelfPr())
+                .build();
+    }
+
+    public Users toEntity() {
+        return Users.builder()
+                .userId(this.userId)
+                .userName(this.userName)
+                .userNameRomaji(this.userNameRomaji)
+                .email(this.email)
+                .gender(this.gender)
+                .birthDate(this.birthDate)
+                .currentAddress(this.currentAddress)
+                .permanentAddress(this.permanentAddress)
+                .spouse(this.spouse)
+                .lastSchool(this.lastSchool)
+                .lastSchoolType(this.lastSchoolType)
+                .major(this.major)
+                .graduationDate(this.graduationDate)
+                .educationCourse(this.educationCourse)
+                .nearestStation(this.nearestStation)
+                .role(this.role)
+                .deleteFlag(this.deleteFlag)
+                .selfPr(this.selfPr)
                 .build();
     }
 }

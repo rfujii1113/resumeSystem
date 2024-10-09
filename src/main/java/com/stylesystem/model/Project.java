@@ -2,8 +2,11 @@ package com.stylesystem.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,6 +26,7 @@ public class Project {
     private LocalDate endDate;
     private String location;
     private String projectType;
+    private String responsibility;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,9 +34,15 @@ public class Project {
 
     @ManyToMany
     @JoinTable(
-            name = "skill_project",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
+        name = "project_skill",
+        joinColumns = @JoinColumn(name = "project_id"),
+        inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-    private List<Skill> skills;
+    @Builder.Default
+    private ArrayList<Skill> skills = new ArrayList<>();
+
+    @Type(ListArrayType.class) 
+    @Column(name = "processes", columnDefinition = "text[]")
+    @Builder.Default
+    private List<String> processes = new ArrayList<>();
 }
