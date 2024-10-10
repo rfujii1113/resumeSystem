@@ -13,7 +13,6 @@
                     <th>名前</th>
                     <th>名前(英語)</th>
                     <th>社員番号</th>
-                    <th>ロール</th>
                     <th/>
                 </tr>
             </thead>
@@ -22,7 +21,6 @@
                     <td th:text="${user.userName}"/>
                     <td th:text="${user.userNameRomaji}"/>
                     <td th:text="${user.userId}"/>
-                    <td th:text="${user.role}"/>
                     <td>
                         <form th:action="@{/resume/form}" method="get">
                             <input type="hidden" name="userId" th:value="${user.userId}">

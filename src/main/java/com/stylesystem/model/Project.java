@@ -32,16 +32,12 @@ public class Project {
     @JoinColumn(name = "user_id")
     private Users users;
 
-    @ManyToMany
-    @JoinTable(
-        name = "project_skill",
-        joinColumns = @JoinColumn(name = "project_id"),
-        inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
+    @Type(ListArrayType.class)
+    @Column(name = "skills", columnDefinition = "text[]")
     @Builder.Default
-    private ArrayList<Skill> skills = new ArrayList<>();
+    private List<String> skills = new ArrayList<>();
 
-    @Type(ListArrayType.class) 
+    @Type(ListArrayType.class)
     @Column(name = "processes", columnDefinition = "text[]")
     @Builder.Default
     private List<String> processes = new ArrayList<>();

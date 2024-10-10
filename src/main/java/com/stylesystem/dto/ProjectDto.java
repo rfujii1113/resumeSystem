@@ -31,6 +31,7 @@ public class ProjectDto {
             .location(project.getLocation())
             .startDate(project.getStartDate())
             .endDate(project.getEndDate())
+            .skills(project.getSkills())
             .processes(project.getProcesses())
             .responsibility(project.getResponsibility())
             .build();
@@ -38,13 +39,14 @@ public class ProjectDto {
 
     // Convert ProjectDto to Project
     public Project toEntity() {
-        Project project = new Project();
-        project.setProjectName(this.projectName);
-        project.setLocation(this.location);
-        project.setStartDate(this.startDate);
-        project.setEndDate(this.endDate);
-        project.setProcesses(this.processes);
-        project.setResponsibility(this.responsibility);
-        return project;
+        return Project.builder()
+                .projectName(this.projectName)
+                .location(this.location)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .processes(this.processes)
+                .skills(this.skills) 
+                .responsibility(this.responsibility)
+                .build();
     }
 }

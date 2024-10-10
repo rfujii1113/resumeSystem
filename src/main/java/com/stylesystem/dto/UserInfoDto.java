@@ -29,8 +29,6 @@ public class UserInfoDto {
     private LocalDate graduationDate;
     private String educationCourse;
     private String nearestStation;
-    private String role;
-    private Boolean deleteFlag;
     private String selfPr;
 
     // convert entity to dto 
@@ -51,8 +49,6 @@ public class UserInfoDto {
                 .graduationDate(user.getGraduationDate())
                 .educationCourse(user.getEducationCourse())
                 .nearestStation(user.getNearestStation())
-                .role(user.getRole())
-                .deleteFlag(user.getDeleteFlag())
                 .selfPr(user.getSelfPr())
                 .build();
     }
@@ -74,9 +70,27 @@ public class UserInfoDto {
                 .graduationDate(this.graduationDate)
                 .educationCourse(this.educationCourse)
                 .nearestStation(this.nearestStation)
-                .role(this.role)
-                .deleteFlag(this.deleteFlag)
                 .selfPr(this.selfPr)
                 .build();
     }
+
+    // this 
+    public void updateEntity(Users user) {
+        user.setUserName(this.userName);
+        user.setUserNameRomaji(this.userNameRomaji);
+        user.setEmail(this.email);
+        user.setGender(this.gender);
+        user.setBirthDate(this.birthDate);
+        user.setCurrentAddress(this.currentAddress);
+        user.setPermanentAddress(this.permanentAddress);
+        user.setSpouse(this.spouse);
+        user.setLastSchool(this.lastSchool);
+        user.setLastSchoolType(this.lastSchoolType);
+        user.setMajor(this.major);
+        user.setGraduationDate(this.graduationDate);
+        user.setEducationCourse(this.educationCourse);
+        user.setNearestStation(this.nearestStation);
+        user.setSelfPr(this.selfPr);
+    }
+    
 }

@@ -20,25 +20,25 @@ public class UserRegistService {
         return userRepository.findByUserId(userId);
     }
 
-    public void registerNewUser(UserAuthDto userDto) {
+    public void registerNewUser(UserAuthDto userAuthDto) {
         // パスワードが一致しない場合は例外をスロー
-        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+        if (!userAuthDto.getPassword().equals(userAuthDto.getConfirmPassword())) {
             throw new IllegalArgumentException("パスワードが一致しません。");
         }
 
         // 既に存在するユーザーの場合は例外をスロー
-        if (findByUserId(userDto.getUserId()).isPresent()) {
+        if (findByUserId(userAuthDto.getUserId()).isPresent()) {
             throw new IllegalArgumentException("既に存在するユーザーです。別の社員番号を使用してください。");
         }
 
         // パスワードをハッシュ化して保存
-        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-        userDto.setPassword(encodedPassword);
+        String encodedPassword = passwordEncoder.encode(userAuthDto.getPassword());
+        userAuthDto.setPassword(encodedPassword);
 
         Users users = Users.builder()
-            .userId(userDto.getUserId())
-            .password(userDto.getPassword())
-            .role(userDto.getRole())
+            .userId(userAuthDto.getUserId())
+            .password(userAuthDto.getPassword())
+            .role(userAuthDto.getRole())
             .deleteFlag(false)
             .build();
 
