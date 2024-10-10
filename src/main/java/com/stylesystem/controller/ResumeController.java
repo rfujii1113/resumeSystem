@@ -16,7 +16,6 @@ import com.stylesystem.service.ResumeService;
 import com.stylesystem.service.UserDeleteService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/resume")
@@ -35,8 +34,8 @@ public class ResumeController {
         return "resumeList";
     }
 
-    @GetMapping("resume/view")
-    public String resumeView(@RequestParam String param) {
+    @GetMapping("/view")
+    public String resumeView() {
         return "resumeView";
     }
 
