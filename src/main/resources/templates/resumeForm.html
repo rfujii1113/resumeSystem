@@ -72,8 +72,8 @@
                     <label>
                         区分
                         <select th:field="*{userInfo.lastSchoolType}">
-                            <option value="4年制" selected>4年制</option>
-                            <option value="2年制">2年制</option>
+                            <option value="4年制" th:selected="${userInfo.lastSchoolType == '4年制'}">4年制</option>
+                            <option value="2年制" th:selected="${userInfo.lastSchoolType == '2年制'}">2年制</option>
                         </select>
                     </label>
                     <label>

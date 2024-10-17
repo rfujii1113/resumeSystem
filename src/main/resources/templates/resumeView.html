@@ -15,8 +15,7 @@
             <div class="header-buttons">
                 <button type="button" onclick="window.print()" class="print-button">印刷</button>
                 <button type="button" class="export-button">EXCEL Export</button>
-                <button type="button" th:onclick="|window.location.href='@{/resume/form}'|"
-                    class="edit-button">編集</button>
+                <button type="button" th:onclick="|window.location.href='@{/resume/form(userId=${resumeDto.userInfo.userId})}'|" class="edit-button">編集</button>
             </div>
         </div>
 

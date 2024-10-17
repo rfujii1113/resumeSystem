@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
@@ -36,8 +37,12 @@ public class ResumeController {
     }
 
     @GetMapping("/view")
-    public String resumeView(Model model) {
-        ResumeDto resumeDto = resumeService.getResumeForCurrentUser();
+    public String resumeView(@RequestParam("userId") String userId, Model model) {
+        ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
+        if (resumeDto == null) {
+            model.addAttribute("errorMessage", "Resume not found");
+            return "errorPage"; 
+        }
         model.addAttribute("resumeDto", resumeDto);
         return "resumeView";
     }
@@ -46,18 +51,15 @@ public class ResumeController {
     public String showResumeForm(Model model) {
         ResumeDto resumeDto = resumeService.getResumeForCurrentUser();
 
-        // If the user does not have a resume, create a new one
         if (resumeDto == null) {
             resumeDto = ResumeDto.builder()
                     .userInfo(new UserInfoDto())
                     .projects(new ArrayList<>())
                     .build();
         } else {
-            // Ensure userInfo is not null
             if (resumeDto.getUserInfo() == null) {
                 resumeDto.setUserInfo(new UserInfoDto());
             }
-            // Ensure projects list is not null
             if (resumeDto.getProjects() == null) {
                 resumeDto.setProjects(new ArrayList<>());
             }
@@ -69,6 +71,6 @@ public class ResumeController {
     @PostMapping("/save")
     public String saveResume(@ModelAttribute ResumeDto resumeDto) {
         resumeService.saveResume(resumeDto);
-        return "redirect:/resume/view";
+        return "redirect:/resume/view?userId=" + resumeDto.getUserInfo().getUserId();
     }
 }

@@ -11,5 +11,8 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     List<Project> findByUsers(Users users);
+    
     void deleteByUsers(Users users);
+
+    List<Project> findByUsers_UserId(String userId);
 }
