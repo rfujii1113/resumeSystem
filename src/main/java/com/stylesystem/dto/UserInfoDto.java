@@ -20,6 +20,7 @@ public class UserInfoDto {
     private String email;
     private Boolean gender;
     private LocalDate birthDate;
+    private String nationality;
     private String currentAddress;
     private String permanentAddress;
     private Boolean spouse;
@@ -30,6 +31,7 @@ public class UserInfoDto {
     private String educationCourse;
     private String nearestStation;
     private String selfPr;
+    private Boolean deleteFlag;
 
     // convert entity to dto 
     public static UserInfoDto fromEntity(Users user) {
@@ -40,6 +42,7 @@ public class UserInfoDto {
                 .email(user.getEmail())
                 .gender(user.getGender())
                 .birthDate(user.getBirthDate())
+                .nationality(user.getNationality())
                 .currentAddress(user.getCurrentAddress())
                 .permanentAddress(user.getPermanentAddress())
                 .spouse(user.getSpouse())
@@ -50,9 +53,11 @@ public class UserInfoDto {
                 .educationCourse(user.getEducationCourse())
                 .nearestStation(user.getNearestStation())
                 .selfPr(user.getSelfPr())
+                .deleteFlag(user.getDeleteFlag())
                 .build();
     }
 
+    // convert dto to entity
     public Users toEntity() {
         return Users.builder()
                 .userId(this.userId)
@@ -61,6 +66,7 @@ public class UserInfoDto {
                 .email(this.email)
                 .gender(this.gender)
                 .birthDate(this.birthDate)
+                .nationality(this.nationality)
                 .currentAddress(this.currentAddress)
                 .permanentAddress(this.permanentAddress)
                 .spouse(this.spouse)
@@ -71,16 +77,18 @@ public class UserInfoDto {
                 .educationCourse(this.educationCourse)
                 .nearestStation(this.nearestStation)
                 .selfPr(this.selfPr)
+                .deleteFlag(this.deleteFlag)
                 .build();
     }
 
-    // this 
+    // update entity with dto
     public void updateEntity(Users user) {
         user.setUserName(this.userName);
         user.setUserNameRomaji(this.userNameRomaji);
         user.setEmail(this.email);
         user.setGender(this.gender);
         user.setBirthDate(this.birthDate);
+        user.setNationality(this.nationality);
         user.setCurrentAddress(this.currentAddress);
         user.setPermanentAddress(this.permanentAddress);
         user.setSpouse(this.spouse);

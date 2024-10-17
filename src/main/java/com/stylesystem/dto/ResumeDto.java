@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.util.List;
+import java.util.ArrayList; 
 
 @Data
 @NoArgsConstructor
@@ -14,5 +15,7 @@ import java.util.List;
 public class ResumeDto {
 
     private UserInfoDto userInfo;
-    private List<ProjectDto> projects;
+    
+    @Builder.Default
+    private List<ProjectDto> projects = new ArrayList<>(); 
 }

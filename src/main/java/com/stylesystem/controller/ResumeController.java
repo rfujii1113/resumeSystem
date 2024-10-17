@@ -1,6 +1,7 @@
 package com.stylesystem.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -35,13 +36,33 @@ public class ResumeController {
     }
 
     @GetMapping("/view")
-    public String resumeView() {
+    public String resumeView(Model model) {
+        ResumeDto resumeDto = resumeService.getResumeForCurrentUser();
+        model.addAttribute("resumeDto", resumeDto);
         return "resumeView";
     }
 
     @GetMapping("/form")
     public String showResumeForm(Model model) {
-        model.addAttribute("resumeDto", new ResumeDto());
+        ResumeDto resumeDto = resumeService.getResumeForCurrentUser();
+
+        // If the user does not have a resume, create a new one
+        if (resumeDto == null) {
+            resumeDto = ResumeDto.builder()
+                    .userInfo(new UserInfoDto())
+                    .projects(new ArrayList<>())
+                    .build();
+        } else {
+            // Ensure userInfo is not null
+            if (resumeDto.getUserInfo() == null) {
+                resumeDto.setUserInfo(new UserInfoDto());
+            }
+            // Ensure projects list is not null
+            if (resumeDto.getProjects() == null) {
+                resumeDto.setProjects(new ArrayList<>());
+            }
+        }
+        model.addAttribute("resumeDto", resumeDto);
         return "resumeForm";
     }
 
