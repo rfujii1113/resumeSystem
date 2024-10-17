@@ -1,7 +1,34 @@
 document.addEventListener('DOMContentLoaded', function () {
     let selectedSkills = {}; // { sectionIndex: [skills] }
     let selectedProcesses = {}; // { sectionIndex: [processes] }
-    let sectionCount = 1; // Initialize section count to 1 (section 0 already exists)
+    let sectionCount = document.querySelectorAll('.experience').length; // Initialize based on existing sections
+
+    // Initialize selectedSkills and selectedProcesses based on existing form data
+    document.querySelectorAll('.experience').forEach((section, index) => {
+        // Initialize selectedSkills
+        const skillsInput = section.querySelector(`input[name="projects[${index}].skills"]`);
+        if (skillsInput && skillsInput.value) {
+            selectedSkills[index] = skillsInput.value.split(',');
+            selectedSkills[index].forEach(skill => {
+                const skillChip = section.querySelector(`.skill-chip:contains("${skill}")`);
+                if (skillChip) {
+                    skillChip.classList.add('selected');
+                }
+            });
+        }
+
+        // Initialize selectedProcesses
+        const processesInput = section.querySelector(`input[name="projects[${index}].processes"]`);
+        if (processesInput && processesInput.value) {
+            selectedProcesses[index] = processesInput.value.split(',');
+            selectedProcesses[index].forEach(process => {
+                const processChip = section.querySelector(`.process-chip:contains("${process}")`);
+                if (processChip) {
+                    processChip.classList.add('selected');
+                }
+            });
+        }
+    });
 
     function openSkillPopup(sectionIndex) {
         const skillPopup = document.getElementById('skill-popup');
@@ -26,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function selectSkill(skillElement) {
         const skillName = skillElement.textContent.trim();
-        const sectionIndex = document.getElementById('skill-popup').dataset.sectionIndex;
+        const skillPopup = document.getElementById('skill-popup');
+        const sectionIndex = skillPopup.dataset.sectionIndex;
 
         if (!selectedSkills[sectionIndex]) {
             selectedSkills[sectionIndex] = [];
@@ -95,7 +123,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addExperienceSection() {
         const experienceContainer = document.getElementById('experience-sections');
-        const newSection = document.querySelector('.experience').cloneNode(true);
+        const templateSection = document.querySelector('.experience');
+        const newSection = templateSection.cloneNode(true);
 
         // Update the current index
         const currentIndex = sectionCount;

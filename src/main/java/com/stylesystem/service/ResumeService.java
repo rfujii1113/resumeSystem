@@ -44,7 +44,7 @@ public class ResumeService {
 
         for (ProjectDto projectDto : resumeDto.getProjects()) {
             Project project = projectDto.toEntity();
-            project.setUsers(users); 
+            project.setUsers(users);
             projectRepository.save(project);
         }
     }
@@ -67,13 +67,17 @@ public class ResumeService {
                 .map(ProjectDto::fromEntity)
                 .collect(Collectors.toList());
 
+        // 프로젝트가 없고, userInfoDto의 필수 필드가 비어있으면 null 반환
+        if (projectDtos.isEmpty() && (userInfoDto == null || userInfoDto.getUserName() == null)) {
+            return null;
+        }
+
         // ResumeDto 생성
         ResumeDto resumeDto = ResumeDto.builder()
                 .userInfo(userInfoDto)
                 .projects(projectDtos)
                 .build();
-                
+
         return resumeDto;
     }
 }
-

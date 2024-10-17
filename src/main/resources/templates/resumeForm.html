@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Resume Form</title>
     <link rel="stylesheet" th:href="@{/css/resumeForm.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="/js/resumeForm.js" defer></script>
 </head>
+
 <body>
     <div class="container a4-container">
         <div class="header">
             <button type="submit" form="resume-form" class="save-button">保存</button>
             <button type="button" class="export-button">EXCEL Export</button>
         </div>
-        
+
         <form id="resume-form" th:action="@{/resume/save}" th:object="${resumeDto}" method="post">
             <!-- Personal Information Section -->
             <section class="personal-info">
-                <h2>人的情報</h2>   
+                <h2>人的情報</h2>
                 <div class="input-group">
                     <label>
                         名前(漢字)
-                        <input type="text" name="userInfo.userName" placeholder="" required>
+                        <input type="text" th:field="*{userInfo.userName}" placeholder="" required>
                     </label>
                     <label>
                         名前(ローマ字)
-                        <input type="text" name="userInfo.userNameRomaji" placeholder="" required>
+                        <input type="text" th:field="*{userInfo.userNameRomaji}" placeholder="" required>
                     </label>
                     <label>
                         性別
-                        <select name="userInfo.gender" required>
-                            <option value="false" selected>男性</option>
+                        <select th:field="*{userInfo.gender}" required>
+                            <option value="false">男性</option>
                             <option value="true">女性</option>
                         </select>
                     </label>
                     <label>
                         生年月日
-                        <input type="date" name="userInfo.birthDate" required>
+                        <input type="date" th:field="*{userInfo.birthDate}" required>
                     </label>
                     <label>
                         国籍
-                        <input type="text" name="userInfo.nationality" placeholder="">
+                        <input type="text" th:field="*{userInfo.nationality}" placeholder="">
                     </label>
                     <label>
                         配偶者
-                        <select name="userInfo.spouse">
-                            <option value="false" selected>無</option>
+                        <select th:field="*{userInfo.spouse}">
+                            <option value="false">無</option>
                             <option value="true">有</option>
                         </select>
                     </label>
@@ -52,11 +54,11 @@
                 <div class="input-group">
                     <label>
                         現住所
-                        <input type="text" name="userInfo.currentAddress" placeholder="">
+                        <input type="text" th:field="*{userInfo.currentAddress}" placeholder="">
                     </label>
                     <label>
                         最寄り駅
-                        <input type="text" name="userInfo.nearestStation" placeholder="">
+                        <input type="text" th:field="*{userInfo.nearestStation}" placeholder="">
                     </label>
                 </div>
             </section>
@@ -67,22 +69,22 @@
                 <div class="input-group">
                     <label>
                         区分
-                        <select name="userInfo.lastSchoolType">
+                        <select th:field="*{userInfo.lastSchoolType}">
                             <option value="4年制" selected>4年制</option>
                             <option value="2年制">2年制</option>
                         </select>
                     </label>
                     <label>
                         学校名
-                        <input type="text" name="userInfo.lastSchool" placeholder="">
+                        <input type="text" th:field="*{userInfo.lastSchool}" placeholder="">
                     </label>
                     <label>
                         卒業年月
-                        <input type="date" name="userInfo.graduationDate">
+                        <input type="date" th:field="*{userInfo.graduationDate}">
                     </label>
                     <label>
                         専攻名
-                        <input type="text" name="userInfo.major" placeholder="">
+                        <input type="text" th:field="*{userInfo.major}" placeholder="">
                     </label>
                 </div>
             </section>
@@ -94,19 +96,19 @@
                     <div class="input-group">
                         <label>
                             プロジェクト名
-                            <input type="text" name="projects[0].projectName" placeholder="">
+                            <input type="text" th:field="*{projects[0].projectName}" placeholder="">
                         </label>
                         <label>
                             作業場所
-                            <input type="text" name="projects[0].location" placeholder="">
+                            <input type="text" th:field="*{projects[0].location}" placeholder="">
                         </label>
                         <label>
                             開始日
-                            <input type="date" name="projects[0].startDate">
+                            <input type="date" th:field="*{projects[0].startDate}">
                         </label>
                         <label>
                             終了日
-                            <input type="date" name="projects[0].endDate">
+                            <input type="date" th:field="*{projects[0].endDate}">
                         </label>
                     </div>
                     <div class="input-group">
@@ -131,7 +133,8 @@
                         <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
                     </div>
                     <div class="responsibility">
-                        <textarea name="projects[0].responsibility" placeholder="担当した業務を簡単に記入してください。" maxlength="500" style="overflow: hidden; resize: none;"></textarea>
+                        <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。" maxlength="500"
+                            style="overflow: hidden; resize: none;"></textarea>
                     </div>
                 </section>
             </div>
@@ -143,7 +146,8 @@
                 <div class="input-group">
                     <label>
                         自己PR
-                        <textarea name="userInfo.selfPr" placeholder="簡単に自己PRしてください。" style="overflow: hidden; resize: none;"></textarea>
+                        <textarea th:field="*{userInfo.selfPr}" placeholder="簡単に自己PRしてください。"
+                            style="overflow: hidden; resize: none;"></textarea>
                     </label>
                 </div>
             </section>
@@ -192,4 +196,5 @@
         </div>
     </div>
 </body>
+
 </html>
