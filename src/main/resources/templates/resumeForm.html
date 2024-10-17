@@ -11,8 +11,10 @@
 <body>
     <div class="container a4-container">
         <div class="header">
+            <!-- キャンセルボタンを左側に追加 -->
+            <a th:href="@{/resume/view}" class="cancel-button" onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
+            <!-- 保存ボタン -->
             <button type="submit" form="resume-form" class="save-button">保存</button>
-            <button type="button" class="export-button">EXCEL Export</button>
         </div>
 
         <form id="resume-form" th:action="@{/resume/save}" th:object="${resumeDto}" method="post">

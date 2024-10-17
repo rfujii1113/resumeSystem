@@ -10,10 +10,14 @@
 <body>
     <div class="container a4-container">
         <div class="header">
-            <button type="button" onclick="window.print()" class="print-button">印刷</button>
-            <button type="button" th:onclick="|window.location.href='@{/resume/form}'|" class="edit-button">
-                編集
-            </button>            
+            <a th:href="@{/login}" class="cancel-button">戻る</a>
+
+            <div class="header-buttons">
+                <button type="button" onclick="window.print()" class="print-button">印刷</button>
+                <button type="button" class="export-button">EXCEL Export</button>
+                <button type="button" th:onclick="|window.location.href='@{/resume/form}'|"
+                    class="edit-button">編集</button>
+            </div>
         </div>
 
         <div class="resume-view" th:if="${resumeDto != null}">
