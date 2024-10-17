@@ -48,17 +48,18 @@ public class ResumeController {
     }
 
     @GetMapping("/form")
-    public String showResumeForm(Model model) {
-        ResumeDto resumeDto = resumeService.getResumeForCurrentUser();
+    public String showResumeForm(@RequestParam("userId") String userId, Model model) {
+        ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
 
         if (resumeDto == null) {
             resumeDto = ResumeDto.builder()
-                    .userInfo(new UserInfoDto())
+                    .userInfo(UserInfoDto.builder().userId(userId).build()) 
                     .projects(new ArrayList<>())
                     .build();
         } else {
             if (resumeDto.getUserInfo() == null) {
                 resumeDto.setUserInfo(new UserInfoDto());
+                resumeDto.getUserInfo().setUserId(userId); 
             }
             if (resumeDto.getProjects() == null) {
                 resumeDto.setProjects(new ArrayList<>());

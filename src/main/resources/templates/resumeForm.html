@@ -12,12 +12,15 @@
     <div class="container a4-container">
         <div class="header">
             <!-- キャンセルボタンを左側に追加 -->
-            <a th:href="@{/resume/view}" class="cancel-button" onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
+            <a th:href="@{/resume/view(userId=${resumeDto.userInfo.userId})}" class="cancel-button" onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
             <!-- 保存ボタン -->
             <button type="submit" form="resume-form" class="save-button">保存</button>
         </div>
 
         <form id="resume-form" th:action="@{/resume/save}" th:object="${resumeDto}" method="post">
+            <!-- ユーザーIDを送信するためのhidden input -->
+            <input type="hidden" th:field="*{userInfo.userId}" />
+            
             <!-- Personal Information Section -->
             <section class="personal-info">
                 <h2>人的情報</h2>
@@ -72,8 +75,8 @@
                     <label>
                         区分
                         <select th:field="*{userInfo.lastSchoolType}">
-                            <option value="4年制" th:selected="${userInfo.lastSchoolType == '4年制'}">4年制</option>
-                            <option value="2年制" th:selected="${userInfo.lastSchoolType == '2年制'}">2年制</option>
+                            <option value="4年制">4年制</option>
+                            <option value="2年制">2年制</option>
                         </select>
                     </label>
                     <label>
