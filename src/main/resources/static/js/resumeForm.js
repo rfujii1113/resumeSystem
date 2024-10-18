@@ -1,21 +1,27 @@
+// src/main/resources/static/js/resumeForm.js
+
 document.addEventListener('DOMContentLoaded', function () {
-    let selectedSkills = {}; // { sectionIndex: [skills] }
+    let selectedSkills = {}; // { sectionIndex: { os: [], db: [], language: [], tool: [] } }
     let selectedProcesses = {}; // { sectionIndex: [processes] }
     let sectionCount = document.querySelectorAll('.experience').length; // Initialize based on existing sections
 
     // Initialize selectedSkills and selectedProcesses based on existing form data
     document.querySelectorAll('.experience').forEach((section, index) => {
-        // Initialize selectedSkills
-        const skillsInput = section.querySelector(`input[name="projects[${index}].skills"]`);
-        if (skillsInput && skillsInput.value) {
-            selectedSkills[index] = skillsInput.value.split(',');
-            selectedSkills[index].forEach(skill => {
-                const skillChip = section.querySelector(`.skill-chip:contains("${skill}")`);
-                if (skillChip) {
-                    skillChip.classList.add('selected');
-                }
-            });
-        }
+        // Initialize selectedSkills for each category
+        selectedSkills[index] = { os: [], db: [], language: [], tool: [] };
+
+        ['os', 'db', 'language', 'tool'].forEach(category => {
+            const skillsInput = section.querySelector(`input[name="projects[${index}].skills.${category}"]`);
+            if (skillsInput && skillsInput.value) {
+                selectedSkills[index][category] = skillsInput.value.split(',');
+                selectedSkills[index][category].forEach(skill => {
+                    const skillChip = section.querySelector(`.skill-chip:contains("${skill}")`);
+                    if (skillChip) {
+                        skillChip.classList.add('selected');
+                    }
+                });
+            }
+        });
 
         // Initialize selectedProcesses
         const processesInput = section.querySelector(`input[name="projects[${index}].processes"]`);
@@ -36,10 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
         skillPopup.style.display = 'block';
 
         // Display current skills for the section
-        const currentSkills = selectedSkills[sectionIndex] || [];
+        const currentSkills = selectedSkills[sectionIndex] || { os: [], db: [], language: [], tool: [] };
         document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
             const skillName = chip.textContent.trim();
-            if (currentSkills.includes(skillName)) {
+            const category = chip.parentElement.getAttribute('data-category');
+            if (currentSkills[category].includes(skillName)) {
                 chip.classList.add('selected');
             } else {
                 chip.classList.remove('selected');
@@ -55,18 +62,49 @@ document.addEventListener('DOMContentLoaded', function () {
         const skillName = skillElement.textContent.trim();
         const skillPopup = document.getElementById('skill-popup');
         const sectionIndex = skillPopup.dataset.sectionIndex;
+        const category = skillElement.parentElement.getAttribute('data-category');
 
         if (!selectedSkills[sectionIndex]) {
-            selectedSkills[sectionIndex] = [];
+            selectedSkills[sectionIndex] = { os: [], db: [], language: [], tool: [] };
         }
 
-        if (!selectedSkills[sectionIndex].includes(skillName)) {
-            selectedSkills[sectionIndex].push(skillName);
+        if (!selectedSkills[sectionIndex][category].includes(skillName)) {
+            selectedSkills[sectionIndex][category].push(skillName);
             skillElement.classList.add('selected');
         } else {
-            selectedSkills[sectionIndex] = selectedSkills[sectionIndex].filter(skill => skill !== skillName);
+            selectedSkills[sectionIndex][category] = selectedSkills[sectionIndex][category].filter(skill => skill !== skillName);
             skillElement.classList.remove('selected');
         }
+    }
+
+    function applySelectedSkills() {
+        const skillPopup = document.getElementById('skill-popup');
+        const sectionIndex = skillPopup.dataset.sectionIndex;
+
+        // Update hidden inputs for each category
+        ['os', 'db', 'language', 'tool'].forEach(category => {
+            const hiddenSkillsInput = document.getElementById(`projects[${sectionIndex}].skills.${category}`);
+            if (hiddenSkillsInput) {
+                hiddenSkillsInput.value = selectedSkills[sectionIndex][category].join(',');
+            }
+
+            // Update the skill display
+            const selectedSkillsContainer = document.querySelector(`#selected-skills-${sectionIndex}-${category}`);
+            if (selectedSkillsContainer) {
+                // Clear existing displayed skills
+                selectedSkillsContainer.innerHTML = '';
+
+                // Add selected skills from the category
+                selectedSkills[sectionIndex][category].forEach(skillName => {
+                    const skillTag = document.createElement('span');
+                    skillTag.className = 'skill-chip selected';
+                    skillTag.textContent = skillName;
+                    selectedSkillsContainer.appendChild(skillTag);
+                });
+            }
+        });
+
+        closeSkillPopup();
     }
 
     function selectProcess(processElement, sectionIndex) {
@@ -89,36 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (hiddenProcessesInput) {
             hiddenProcessesInput.value = selectedProcesses[sectionIndex].join(',');
         }
-    }
-
-    function applySelectedSkills() {
-        const skillPopup = document.getElementById('skill-popup');
-        const sectionIndex = skillPopup.dataset.sectionIndex;
-        const selectedSkillsContainer = document.getElementById(`selected-skills-${sectionIndex}`);
-        const hiddenSkillsInput = document.getElementById(`projects[${sectionIndex}].skills`);
-
-        if (!hiddenSkillsInput) {
-            console.error(`Hidden skills input not found for section ${sectionIndex}`);
-            closeSkillPopup();
-            return;
-        }
-
-        selectedSkillsContainer.innerHTML = '';
-
-        if (selectedSkills[sectionIndex]) {
-            selectedSkills[sectionIndex].forEach(skillName => {
-                const skillTag = document.createElement('span');
-                skillTag.className = 'skill-chip selected';
-                skillTag.textContent = skillName;
-                selectedSkillsContainer.appendChild(skillTag);
-            });
-
-            hiddenSkillsInput.value = selectedSkills[sectionIndex].join(',');
-        } else {
-            hiddenSkillsInput.value = '';
-        }
-
-        closeSkillPopup();
     }
 
     function addExperienceSection() {
@@ -151,19 +159,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Update selected skills container
-        const selectedSkillsContainer = newSection.querySelector('.skill-display');
-        selectedSkillsContainer.id = `selected-skills-${currentIndex}`;
-        selectedSkillsContainer.innerHTML = '';
+        // Reset selected skills
+        ['os', 'db', 'language', 'tool'].forEach(category => {
+            const hiddenSkillsInput = newSection.querySelector(`input[type="hidden"][name="projects[${currentIndex}].skills.${category}"]`);
+            if (hiddenSkillsInput) {
+                hiddenSkillsInput.value = '';
+            }
+        });
 
-        // Update hidden skills input
-        const hiddenSkillsInput = newSection.querySelector('input[type="hidden"][name$=".skills"]');
-        if (hiddenSkillsInput) {
-            hiddenSkillsInput.id = `projects[${currentIndex}].skills`;
-            hiddenSkillsInput.value = '';
-        }
-
-        // Update hidden processes input
+        // Reset selected processes
         const hiddenProcessesInput = newSection.querySelector('input[type="hidden"][name$=".processes"]');
         if (hiddenProcessesInput) {
             hiddenProcessesInput.id = `projects[${currentIndex}].processes`;
@@ -185,11 +189,22 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         });
 
+        // Update skill display
+        ['os', 'db', 'language', 'tool'].forEach(category => {
+            const selectedSkillsContainer = newSection.querySelector(`#selected-skills-${currentIndex}-${category}`);
+            if (selectedSkillsContainer) {
+                selectedSkillsContainer.id = `selected-skills-${currentIndex}-${category}`;
+                selectedSkillsContainer.innerHTML = '';
+            }
+        });
+
         // Update skill add button
         const skillAddButton = newSection.querySelector('.skill-add-button');
-        skillAddButton.onclick = function () {
-            openSkillPopup(currentIndex);
-        };
+        if (skillAddButton) {
+            skillAddButton.onclick = function () {
+                openSkillPopup(currentIndex);
+            };
+        }
 
         // Clear responsibility textarea
         const responsibilityTextarea = newSection.querySelector('textarea[name$=".responsibility"]');
@@ -199,15 +214,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Append the new section
         experienceContainer.appendChild(newSection);
+
+        // Initialize selectedSkills for the new section
+        selectedSkills[currentIndex] = { os: [], db: [], language: [], tool: [] };
+        selectedProcesses[currentIndex] = [];
     }
 
-    // Initial event listeners
-    document.querySelectorAll('.skill-add-button').forEach((button, index) => {
-        button.onclick = function () {
-            openSkillPopup(index);
-        };
-    });
-
+    // Initial event listeners for process chips
     document.querySelectorAll('.process-chip').forEach(chip => {
         const processChipsContainer = chip.closest('.process-chips');
         const sectionIndex = processChipsContainer.id.split('-').pop();
@@ -216,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     });
 
+    // Initial event listeners for skill chips in popup
     document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
         chip.onclick = function () {
             selectSkill(chip);

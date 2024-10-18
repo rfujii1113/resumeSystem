@@ -10,11 +10,12 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class Skill {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long skillId;
+    private Long id;
 
-    private String skillName;
-    private String skillCategory;
+    private String os;
+    private String db;
+    private String language;
+    private String tool;
 }

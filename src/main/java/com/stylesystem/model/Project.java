@@ -32,13 +32,13 @@ public class Project {
     @JoinColumn(name = "user_id")
     private Users users;
 
-    @Type(ListArrayType.class)
-    @Column(name = "skills", columnDefinition = "text[]")
-    @Builder.Default
-    private List<String> skills = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "skill_id", referencedColumnName = "id")
+    private Skill skills; 
 
     @Type(ListArrayType.class)
     @Column(name = "processes", columnDefinition = "text[]")
     @Builder.Default
     private List<String> processes = new ArrayList<>();
 }
+

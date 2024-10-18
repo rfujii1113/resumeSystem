@@ -49,6 +49,7 @@ public class ResumeService {
         for (ProjectDto projectDto : resumeDto.getProjects()) {
             Project project = projectDto.toEntity();
             project.setUsers(users);
+            // CascadeType.ALL is used to save the skills for the project
             projectRepository.save(project);
         }
     }

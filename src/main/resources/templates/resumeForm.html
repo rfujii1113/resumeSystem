@@ -12,7 +12,8 @@
     <div class="container a4-container">
         <div class="header">
             <!-- キャンセルボタンを左側に追加 -->
-            <a th:href="@{/resume/view(userId=${resumeDto.userInfo.userId})}" class="cancel-button" onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
+            <a th:href="@{/resume/view(userId=${resumeDto.userInfo.userId})}" class="cancel-button"
+                onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
             <!-- 保存ボタン -->
             <button type="submit" form="resume-form" class="save-button">保存</button>
         </div>
@@ -20,7 +21,7 @@
         <form id="resume-form" th:action="@{/resume/save}" th:object="${resumeDto}" method="post">
             <!-- ユーザーIDを送信するためのhidden input -->
             <input type="hidden" th:field="*{userInfo.userId}" />
-            
+
             <!-- Personal Information Section -->
             <section class="personal-info">
                 <h2>人的情報</h2>
@@ -129,17 +130,22 @@
                             <input type="hidden" name="projects[0].processes" id="projects[0].processes">
                         </label>
                     </div>
+                    <!-- Skill -->
                     <div class="input-group tech">
                         <label class="skill-label">
                             選択したスキル
                             <div class="skill-display" id="selected-skills-0"></div>
-                            <input type="hidden" name="projects[0].skills" id="projects[0].skills">
+                            <!-- hidden input for skill category -->
+                            <input type="hidden" name="projects[0].skills.os" id="projects[0].skills.os">
+                            <input type="hidden" name="projects[0].skills.db" id="projects[0].skills.db">
+                            <input type="hidden" name="projects[0].skills.language" id="projects[0].skills.language">
+                            <input type="hidden" name="projects[0].skills.tool" id="projects[0].skills.tool">
                         </label>
                         <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
                     </div>
                     <div class="responsibility">
-                        <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。" maxlength="500"
-                            style="overflow: hidden; resize: none;"></textarea>
+                        <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。"
+                            maxlength="500" style="overflow: hidden; resize: none;"></textarea>
                     </div>
                 </section>
             </div>
@@ -165,41 +171,40 @@
                 <h2>スキル追加</h2>
                 <div class="skill-category">
                     <h3>Language</h3>
-                    <div class="skill-chips" id="language-skills">
-                        <!-- Example Chips -->
-                        <span class="skill-chip">JavaScript</span>
-                        <span class="skill-chip">Python</span>
-                        <span class="skill-chip">Java</span>
+                    <div class="skill-chips" id="language-skills-popup">
+                        <span class="skill-chip" onclick="selectSkill(this, 'language')">JavaScript</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'language')">Python</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'language')">Java</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>DB</h3>
-                    <div class="skill-chips" id="db-skills">
-                        <span class="skill-chip">MySQL</span>
-                        <span class="skill-chip">PostgreSQL</span>
-                        <span class="skill-chip">MongoDB</span>
+                    <div class="skill-chips" id="db-skills-popup">
+                        <span class="skill-chip" onclick="selectSkill(this, 'db')">MySQL</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'db')">PostgreSQL</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'db')">MongoDB</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>OS</h3>
-                    <div class="skill-chips" id="os-skills">
-                        <span class="skill-chip">Linux</span>
-                        <span class="skill-chip">Windows</span>
-                        <span class="skill-chip">macOS</span>
+                    <div class="skill-chips" id="os-skills-popup">
+                        <span class="skill-chip" onclick="selectSkill(this, 'os')">Linux</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'os')">Windows</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'os')">macOS</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Tools</h3>
-                    <div class="skill-chips" id="tool-skills">
-                        <span class="skill-chip">Docker</span>
-                        <span class="skill-chip">Kubernetes</span>
-                        <span class="skill-chip">Git</span>
+                    <div class="skill-chips" id="tool-skills-popup">
+                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Docker</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Kubernetes</span>
+                        <span class="skill-chip" onclick="selectSkill(this, 'tool')">Git</span>
                     </div>
                 </div>
                 <button type="button" class="apply-button">適用</button>
             </div>
         </div>
-    </div>
+
 </body>
 
 </html>
