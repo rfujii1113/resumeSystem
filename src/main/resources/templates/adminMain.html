@@ -6,14 +6,17 @@
 </head>
 <body>
     <div class="admin-container">
-        <form th:action="@{/register}" method="get">
+        <form th:action="@{/resume/list}" method="get">
+            <button type="submit">職務経歴書照会</button>
+        </form>
+        <form th:action="@{/account/management}" method="get">
+            <button type="submit">アカウント管理</button>
+        </form>
+        <form th:action="@{/account/register}" method="get">
             <button type="submit">アカウント新規作成</button>
         </form>
         <form th:action="@{/password/reset}" method="get">
             <button type="submit">パスワード変更</button>
-        </form>
-        <form th:action="@{/resumeList}" method="get">
-            <button type="submit">職務経歴書照会</button>
         </form>
         <form th:action="@{/logout}" method="post">
             <button type="submit">ログアウト</button>

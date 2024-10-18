@@ -6,11 +6,11 @@
 </head>
 <body>
     <div class="user-container">
+        <form th:action="@{/resume/view}" method="get">
+            <button type="submit">職務経歴書照会</button>
+        </form>
         <form th:action="@{/password/reset}" method="get">
             <button type="submit">パスワード変更</button>
-        </form>
-        <form th:action="@{/resumeview}" method="get">
-            <button type="submit">職務経歴書照会</button>
         </form>
         <form th:action="@{/logout}" method="post">
             <button type="submit">ログアウト</button>

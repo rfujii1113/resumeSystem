@@ -1,7 +1,5 @@
 package com.stylesystem.model;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +17,4 @@ public class Skill {
 
     private String skillName;
     private String skillCategory;
-
-    @ManyToMany(mappedBy = "skills")
-    private List<Project> projects;
 }

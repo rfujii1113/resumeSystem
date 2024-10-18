@@ -64,7 +64,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
         @Override
         public boolean isEnabled() {
-            return !users.isDeleteFlag();
+            return !users.getDeleteFlag();
         }
     }
 }

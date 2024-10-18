@@ -1,0 +1,243 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 50%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.a4-container {
+    max-width: 800px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.cancel-button {
+    background: #ff0000;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: small;
+    text-decoration: none; 
+}
+
+.cancel-button:hover {
+    background: #cc0000;
+}
+
+.save-button,
+.export-button,
+.skill-add-button{
+    background-color: #4A90E2;
+    color: #ffffff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-button:hover,
+.export-button:hover{
+    background-color: #357ABD;
+}
+
+h2 {
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    border-bottom: 1px solid #ccc;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.input-group label {
+    flex: 1 1 calc(10% - 15px);
+    display: flex;
+    flex-direction: column;
+    color: #bbb;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="month"],
+select,
+textarea {
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #4A90E2;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+textarea {
+    resize: none;
+    height: 120px;
+    overflow: hidden;
+}
+
+.history-add-button {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+.add-button:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+}
+
+
+/* modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.skill-chip, .process-chip {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.skill-chip:hover, .process-chip:hover {
+    background-color: #4A90E2;
+    color: #fff;
+}
+
+.skill-chip.selected, .process-chip.selected {
+    background-color: #4A90E2;
+    color: #fff;
+}
+
+.apply-button {
+    background-color: #4A90E2;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.apply-button:hover {
+    background-color: #357ABD;
+}
+
+.skill-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.skill-select {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.skill-add-button {
+    margin-left: auto;
+    align-self: center;
+}
+
+.process-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
