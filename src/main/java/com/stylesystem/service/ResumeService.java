@@ -30,14 +30,15 @@ public class ResumeService {
     @Transactional
     public void saveResume(ResumeDto resumeDto) {
 
-        // Get the current user's ID
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserId = authentication.getName();
+        String userId = resumeDto.getUserInfo().getUserId();
+        if (userId == null || userId.isEmpty()) {
+            throw new IllegalArgumentException("userId is required");
+        }
 
-        // Get the user entity for the current user
-        Users users = userRepository.findByUserId(currentUserId)
+        Users users = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
+        // Update the user info
         resumeDto.getUserInfo().updateEntity(users);
         userRepository.save(users);
 
@@ -91,18 +92,18 @@ public class ResumeService {
         if (user == null) {
             return null;
         }
-    
+
         UserInfoDto userInfoDto = UserInfoDto.fromEntity(user);
-    
+
         List<ProjectDto> projectDtos = user.getProjects().stream()
                 .map(ProjectDto::fromEntity)
                 .collect(Collectors.toList());
-    
+
         ResumeDto resumeDto = ResumeDto.builder()
                 .userInfo(userInfoDto)
                 .projects(projectDtos)
                 .build();
-    
+
         return resumeDto;
     }
 }
