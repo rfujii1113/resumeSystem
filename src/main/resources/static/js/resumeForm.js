@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedSkills = {}; // { sectionIndex: { os: [], db: [], language: [], tool: [] } }
     let selectedProcesses = {}; // { sectionIndex: [processes] }
 
-    // Initialize based on existing sections
-    let sectionCount = document.querySelectorAll('.experience').length; 
+    // 초기 섹션 수를 .experience-item의 개수로 설정
+    let sectionCount = document.querySelectorAll('.experience-item').length; 
 
-    // Initialize selectedSkills and selectedProcesses based on existing form data
-    document.querySelectorAll('.experience').forEach((section, index) => {
-        // Initialize selectedSkills for each category
+    // 기존 폼 데이터 기반으로 selectedSkills와 selectedProcesses 초기화
+    document.querySelectorAll('.experience-item').forEach((section, index) => {
+        // 각 카테고리에 대한 selectedSkills 초기화
         selectedSkills[index] = { os: [], db: [], language: [], tool: [] };
 
         ['os', 'db', 'language', 'tool'].forEach(category => {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Initialize selectedProcesses
+        // selectedProcesses 초기화
         const processesInput = section.querySelector(`input[name="projects[${index}].processes"]`);
         if (processesInput && processesInput.value) {
             selectedProcesses[index] = processesInput.value.split(',');
@@ -39,6 +39,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
+
+        // 프로세스 칩 이벤트 리스너 설정
+        const processChips = section.querySelectorAll('.process-chip');
+        processChips.forEach(chip => {
+            chip.onclick = function () {
+                selectProcess(chip, index);
+            };
+        });
+
+        // 스킬 추가 버튼 이벤트 리스너 설정
+        const skillAddButton = section.querySelector('.skill-add-button');
+        if (skillAddButton) {
+            skillAddButton.onclick = function () {
+                openSkillPopup(index);
+            };
+        }
     });
 
     function openSkillPopup(sectionIndex) {
@@ -46,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         skillPopup.dataset.sectionIndex = sectionIndex;
         skillPopup.style.display = 'block';
 
-        // Display current skills for the section
+        // 해당 섹션의 현재 스킬 표시
         const currentSkills = selectedSkills[sectionIndex] || { os: [], db: [], language: [], tool: [] };
         document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
             const skillName = chip.textContent.trim();
@@ -85,20 +101,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const skillPopup = document.getElementById('skill-popup');
         const sectionIndex = skillPopup.dataset.sectionIndex;
 
-        // Update hidden inputs for each category
+        // 각 카테고리에 대한 숨은 입력값 업데이트
         ['os', 'db', 'language', 'tool'].forEach(category => {
-            const hiddenSkillsInput = document.getElementById(`projects[${sectionIndex}].skills.${category}`);
+            const hiddenSkillsInput = document.querySelector(`input[name="projects[${sectionIndex}].skills.${category}"]`);
             if (hiddenSkillsInput) {
                 hiddenSkillsInput.value = selectedSkills[sectionIndex][category].join(',');
             }
 
-            // Update the skill display
+            // 스킬 디스플레이 업데이트
             const selectedSkillsContainer = document.querySelector(`#selected-skills-${sectionIndex}-${category}`);
             if (selectedSkillsContainer) {
-                // Clear existing displayed skills
+                // 기존 표시된 스킬 초기화
                 selectedSkillsContainer.innerHTML = '';
 
-                // Add selected skills from the category
+                // 선택된 스킬 추가
                 selectedSkills[sectionIndex][category].forEach(skillName => {
                     const skillTag = document.createElement('span');
                     skillTag.className = 'skill-chip selected';
@@ -126,8 +142,8 @@ document.addEventListener('DOMContentLoaded', function () {
             processElement.classList.remove('selected');
         }
 
-        // Update the hidden input
-        const hiddenProcessesInput = document.getElementById(`projects[${sectionIndex}].processes`);
+        // 숨은 입력값 업데이트
+        const hiddenProcessesInput = document.querySelector(`input[name="projects[${sectionIndex}].processes"]`);
         if (hiddenProcessesInput) {
             hiddenProcessesInput.value = selectedProcesses[sectionIndex].join(',');
         }
@@ -135,14 +151,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addExperienceSection() {
         const experienceContainer = document.getElementById('experience-sections');
-        const templateSection = document.querySelector('.experience');
+        const templateSection = document.querySelector('.experience-item');
         const newSection = templateSection.cloneNode(true);
 
-        // Update the current index
+        // 현재 인덱스 설정
         const currentIndex = sectionCount;
         sectionCount++;
 
-        // Update input fields
+        // 입력 필드 업데이트
         const inputs = newSection.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             let name = input.getAttribute('name');
@@ -150,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (name) {
                 name = name.replace(/\[\d+\]/g, `[${currentIndex}]`);
                 input.setAttribute('name', name);
-                // Reset the value
+                // 값 초기화
                 if (input.type === 'checkbox' || input.type === 'radio') {
                     input.checked = false;
                 } else {
@@ -158,33 +174,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
             if (id) {
-                id = id.replace(/\[\d+\]/g, `[${currentIndex}]`);
+                id = id.replace(/\d+/, currentIndex);
                 input.setAttribute('id', id);
             }
         });
 
-        // Reset selected skills
-        ['os', 'db', 'language', 'tool'].forEach(category => {
-            const hiddenSkillsInput = newSection.querySelector(`input[type="hidden"][name="projects[${currentIndex}].skills.${category}"]`);
-            if (hiddenSkillsInput) {
-                hiddenSkillsInput.value = '';
+        // 클론된 섹션 내의 모든 ID 업데이트
+        const elementsWithId = newSection.querySelectorAll('[id]');
+        elementsWithId.forEach(element => {
+            let id = element.getAttribute('id');
+            if (id) {
+                id = id.replace(/\d+/, currentIndex);
+                element.setAttribute('id', id);
             }
         });
 
-        // Reset selected processes
-        const hiddenProcessesInput = newSection.querySelector('input[type="hidden"][name$=".processes"]');
-        if (hiddenProcessesInput) {
-            hiddenProcessesInput.id = `projects[${currentIndex}].processes`;
-            hiddenProcessesInput.value = '';
-        }
-
-        // Update process chips container id
-        const processChipsContainer = newSection.querySelector('.process-chips');
-        if (processChipsContainer) {
-            processChipsContainer.id = `process-chips-${currentIndex}`;
-        }
-
-        // Update process chips
+        // 프로세스 칩 이벤트 리스너 설정
         const processChips = newSection.querySelectorAll('.process-chip');
         processChips.forEach(chip => {
             chip.classList.remove('selected');
@@ -193,16 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         });
 
-        // Update skill display
-        ['os', 'db', 'language', 'tool'].forEach(category => {
-            const selectedSkillsContainer = newSection.querySelector(`#selected-skills-${currentIndex}-${category}`);
-            if (selectedSkillsContainer) {
-                selectedSkillsContainer.id = `selected-skills-${currentIndex}-${category}`;
-                selectedSkillsContainer.innerHTML = '';
-            }
-        });
-
-        // Update skill add button
+        // 스킬 추가 버튼 이벤트 리스너 설정
         const skillAddButton = newSection.querySelector('.skill-add-button');
         if (skillAddButton) {
             skillAddButton.onclick = function () {
@@ -210,30 +206,21 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         }
 
-        // Clear responsibility textarea
+        // 책임사항 텍스트 영역 초기화
         const responsibilityTextarea = newSection.querySelector('textarea[name$=".responsibility"]');
         if (responsibilityTextarea) {
             responsibilityTextarea.value = '';
         }
 
-        // Append the new section
+        // 새 섹션 추가
         experienceContainer.appendChild(newSection);
 
-        // Initialize selectedSkills for the new section
+        // 새 섹션에 대한 selectedSkills와 selectedProcesses 초기화
         selectedSkills[currentIndex] = { os: [], db: [], language: [], tool: [] };
         selectedProcesses[currentIndex] = [];
     }
 
-    // Initial event listeners for process chips
-    document.querySelectorAll('.process-chip').forEach(chip => {
-        const processChipsContainer = chip.closest('.process-chips');
-        const sectionIndex = processChipsContainer.id.split('-').pop();
-        chip.onclick = function () {
-            selectProcess(chip, sectionIndex);
-        };
-    });
-
-    // Initial event listeners for skill chips in popup
+    // 스킬 팝업 내 스킬 칩 이벤트 리스너 설정
     document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
         chip.onclick = function () {
             const category = chip.getAttribute('data-category');
@@ -241,13 +228,13 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     });
 
-    // Popup apply button
+    // 팝업 적용 버튼 이벤트 리스너 설정
     document.querySelector('.apply-button').addEventListener('click', applySelectedSkills);
 
-    // "Add Experience" button
+    // "경력 추가" 버튼 이벤트 리스너 설정
     document.querySelector('.history-add-button').addEventListener('click', addExperienceSection);
 
-    // Expose functions to global scope if needed
+    // 전역 범위에 함수 노출 (필요 시)
     window.openSkillPopup = openSkillPopup;
     window.closeSkillPopup = closeSkillPopup;
     window.selectSkill = selectSkill;

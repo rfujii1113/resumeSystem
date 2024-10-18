@@ -240,8 +240,7 @@ textarea {
 }
 
 .selected-skill-category h4 {
-    font-size: 1.1em;
-    color: #4A90E2;
+    color: #333;
     margin-bottom: 5px;
 }
 
