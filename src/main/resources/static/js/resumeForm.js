@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedProcesses = {}; // { sectionIndex: [processes] }
 
     // 초기 섹션 수를 .experience-item의 개수로 설정
-    let sectionCount = document.querySelectorAll('.experience-item').length; 
+    let sectionCount = document.querySelectorAll('.experience-item').length;
 
     // 기존 폼 데이터 기반으로 selectedSkills와 selectedProcesses 초기화
     document.querySelectorAll('.experience-item').forEach((section, index) => {
@@ -17,13 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const skillsInput = section.querySelector(`input[name="projects[${index}].skills.${category}"]`);
             if (skillsInput && skillsInput.value) {
                 selectedSkills[index][category] = skillsInput.value.split(',');
-                selectedSkills[index][category].forEach(skill => {
-                    const skillChips = section.querySelectorAll(`.skill-chip`);
-                    const skillChip = Array.from(skillChips).find(chip => chip.textContent.trim() === skill);
-                    if (skillChip) {
-                        skillChip.classList.add('selected');
-                    }
-                });
             }
         });
 
@@ -31,13 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const processesInput = section.querySelector(`input[name="projects[${index}].processes"]`);
         if (processesInput && processesInput.value) {
             selectedProcesses[index] = processesInput.value.split(',');
-            selectedProcesses[index].forEach(process => {
-                const processChips = section.querySelectorAll(`.process-chip`);
-                const processChip = Array.from(processChips).find(chip => chip.textContent.trim() === process);
-                if (processChip) {
-                    processChip.classList.add('selected');
-                }
-            });
+        } else {
+            selectedProcesses[index] = [];
         }
 
         // 프로세스 칩 이벤트 리스너 설정
@@ -46,6 +34,11 @@ document.addEventListener('DOMContentLoaded', function () {
             chip.onclick = function () {
                 selectProcess(chip, index);
             };
+            // 선택 상태 초기화
+            chip.classList.remove('selected');
+            if (selectedProcesses[index].includes(chip.textContent.trim())) {
+                chip.classList.add('selected');
+            }
         });
 
         // 스킬 추가 버튼 이벤트 리스너 설정
@@ -55,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 openSkillPopup(index);
             };
         }
+
+        // 스킬 디스플레이 업데이트
+        updateSkillDisplay(index);
     });
 
     function openSkillPopup(sectionIndex) {
@@ -107,8 +103,16 @@ document.addEventListener('DOMContentLoaded', function () {
             if (hiddenSkillsInput) {
                 hiddenSkillsInput.value = selectedSkills[sectionIndex][category].join(',');
             }
+        });
 
-            // 스킬 디스플레이 업데이트
+        // 스킬 디스플레이 업데이트
+        updateSkillDisplay(sectionIndex);
+
+        closeSkillPopup();
+    }
+
+    function updateSkillDisplay(sectionIndex) {
+        ['os', 'db', 'language', 'tool'].forEach(category => {
             const selectedSkillsContainer = document.querySelector(`#selected-skills-${sectionIndex}-${category}`);
             if (selectedSkillsContainer) {
                 // 기존 표시된 스킬 초기화
@@ -123,8 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
         });
-
-        closeSkillPopup();
     }
 
     function selectProcess(processElement, sectionIndex) {
@@ -189,6 +191,20 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        // 섹션 제목 업데이트
+        const sectionTitle = newSection.querySelector('h3 span');
+        if (sectionTitle) {
+            sectionTitle.textContent = currentIndex + 1; // 인덱스는 0부터 시작하므로 +1
+        }
+
+        // 스킬 디스플레이 초기화
+        ['os', 'db', 'language', 'tool'].forEach(category => {
+            const selectedSkillsContainer = newSection.querySelector(`#selected-skills-${currentIndex}-${category}`);
+            if (selectedSkillsContainer) {
+                selectedSkillsContainer.innerHTML = '';
+            }
+        });
+
         // 프로세스 칩 이벤트 리스너 설정
         const processChips = newSection.querySelectorAll('.process-chip');
         processChips.forEach(chip => {
@@ -234,11 +250,4 @@ document.addEventListener('DOMContentLoaded', function () {
     // "경력 추가" 버튼 이벤트 리스너 설정
     document.querySelector('.history-add-button').addEventListener('click', addExperienceSection);
 
-    // 전역 범위에 함수 노출 (필요 시)
-    window.openSkillPopup = openSkillPopup;
-    window.closeSkillPopup = closeSkillPopup;
-    window.selectSkill = selectSkill;
-    window.selectProcess = selectProcess;
-    window.applySelectedSkills = applySelectedSkills;
-    window.addExperienceSection = addExperienceSection;
 });
