@@ -24,20 +24,16 @@
             <section class="personal-info">
                 <h2>人的情報</h2>
                 <div class="info-group">
-                    <p><strong>名前(漢字):</strong> <span th:text="${resumeDto.userInfo.userName}">名前</span></p>
-                    <p><strong>名前(ローマ字):</strong> <span th:text="${resumeDto.userInfo.userNameRomaji}">ローマ字</span></p>
-                    <p><strong>性別:</strong>
-                        <span th:text="${resumeDto.userInfo.gender} ? '女性' : '男性'">性別</span>
-                    </p>
-                    <p><strong>生年月日:</strong> <span th:text="${resumeDto.userInfo.birthDate}">生年月日</span></p>
-                    <p><strong>国籍:</strong> <span th:text="${resumeDto.userInfo.nationality}">国籍</span></p>
-                    <p><strong>配偶者:</strong>
-                        <span th:text="${resumeDto.userInfo.spouse} ? '有' : '無'">配偶者</span>
-                    </p>
+                    <p>名前(漢字) <span th:text="${resumeDto.userInfo.userName}">名前</span></p>
+                    <p>名前(ローマ字) <span th:text="${resumeDto.userInfo.userNameRomaji}">ローマ字</span></p>
+                    <p>性別 <span th:text="${resumeDto.userInfo.gender} ? '女性' : '男性'">性別</span></p>
+                    <p>生年月日 <span th:text="${resumeDto.userInfo.birthDate}">生年月日</span></p>
+                    <p>国籍 <span th:text="${resumeDto.userInfo.nationality}">国籍</span></p>
+                    <p>配偶者 <span th:text="${resumeDto.userInfo.spouse} ? '有' : '無'">配偶者</span></p>
                 </div>
                 <div class="info-group">
-                    <p><strong>現住所:</strong> <span th:text="${resumeDto.userInfo.currentAddress}">現住所</span></p>
-                    <p><strong>最寄り駅:</strong> <span th:text="${resumeDto.userInfo.nearestStation}">最寄り駅</span></p>
+                    <p>現住所 <span th:text="${resumeDto.userInfo.currentAddress}">現住所</span></p>
+                    <p>最寄り駅 <span th:text="${resumeDto.userInfo.nearestStation}">最寄り駅</span></p>
                 </div>
             </section>
 
@@ -45,10 +41,10 @@
             <section class="education">
                 <h2>学歴</h2>
                 <div class="info-group">
-                    <p><strong>区分:</strong> <span th:text="${resumeDto.userInfo.lastSchoolType}">区分</span></p>
-                    <p><strong>学校名:</strong> <span th:text="${resumeDto.userInfo.lastSchool}">学校名</span></p>
-                    <p><strong>卒業年月:</strong> <span th:text="${resumeDto.userInfo.graduationDate}">卒業年月</span></p>
-                    <p><strong>専攻名:</strong> <span th:text="${resumeDto.userInfo.major}">専攻名</span></p>
+                    <p>区分 <span th:text="${resumeDto.userInfo.lastSchoolType}">区分</span></p>
+                    <p>学校名 <span th:text="${resumeDto.userInfo.lastSchool}">学校名</span></p>
+                    <p>卒業年月 <span th:text="${resumeDto.userInfo.graduationDate}">卒業年月</span></p>
+                    <p>専攻名 <span th:text="${resumeDto.userInfo.major}">専攻名</span></p>
                 </div>
             </section>
 
@@ -58,15 +54,15 @@
                 <div th:each="project, iterStat : ${resumeDto.projects}">
                     <div class="experience-item">
                         <h3>プロジェクト <span th:text="${iterStat.index + 1}">1</span></h3>
-                        <p><strong>プロジェクト名:</strong> <span th:text="${project.projectName}">プロジェクト名</span></p>
-                        <p><strong>作業場所:</strong> <span th:text="${project.location}">作業場所</span></p>
-                        <p><strong>開始日:</strong> <span th:text="${project.startDate}">開始日</span></p>
-                        <p><strong>終了日:</strong> <span th:text="${project.endDate}">終了日</span></p>
-                        <p><strong>担当したプロセス:</strong>
+                        <p>プロジェクト名: <span th:text="${project.projectName}">プロジェクト名</span></p>
+                        <p>作業場所: <span th:text="${project.location}">作業場所</span></p>
+                        <p>開始日: <span th:text="${project.startDate}">開始日</span></p>
+                        <p>終了日: <span th:text="${project.endDate}">終了日</span></p>
+                        <p>担当したプロセス:
                             <span th:text="${#strings.arrayJoin(project.processes, ', ')}">プロセス</span>
                         </p>
                         <div>
-                            <strong>選択したスキル:</strong>
+                            選択したスキル:
                             <div class="skill-display">
                                 <div class="selected-skill-category">
                                     <h4>OS</h4>
@@ -94,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p><strong>担当業務:</strong></p>
+                        <p>担当業務: </p>
                         <p th:text="${project.responsibility}">担当業務内容</p>
                     </div>
                 </div>

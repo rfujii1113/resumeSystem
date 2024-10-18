@@ -72,8 +72,6 @@ h2 {
 
 .info-group, .input-group {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
     margin-bottom: 20px;
     align-items: center;
 }
@@ -82,12 +80,12 @@ h2 {
     flex: 1 1 calc(50% - 15px);
     display: flex;
     flex-direction: column;
-    color: #555;
+    color: #bbb;
     font-size: 1em;
+    margin-bottom: 5px;
 }
 
-.info-group p strong {
-    margin-bottom: 5px;
+.info-group p span {
     color: #333;
 }
 
@@ -136,7 +134,7 @@ h2 {
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 20px;
-    cursor: default; /* 뷰에서는 클릭하지 않으므로 커서를 default로 변경 */
+    cursor: default; 
     transition: background-color 0.3s, color 0.3s;
     background-color: #e0e0e0;
     color: #333;
