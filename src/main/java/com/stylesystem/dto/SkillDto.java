@@ -28,15 +28,6 @@ public class SkillDto {
                 .build();
     }
 
-    // public static SkillDto fromEntity(Skill skill) {
-    //     return SkillDto.builder()
-    //             .os(List.of(skill.getOs().split(",")))
-    //             .db(List.of(skill.getDb().split(",")))
-    //             .language(List.of(skill.getLanguage().split(",")))
-    //             .tool(List.of(skill.getTool().split(",")))
-    //             .build();
-    // }
-
     public static SkillDto fromEntity(Skill skill) {
         return SkillDto.builder()
                 .os(skill.getOs() != null && !skill.getOs().isEmpty() ? List.of(skill.getOs().split(",")) : List.of())

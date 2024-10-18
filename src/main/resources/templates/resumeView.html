@@ -65,9 +65,35 @@
                         <p><strong>担当したプロセス:</strong>
                             <span th:text="${#strings.arrayJoin(project.processes, ', ')}">プロセス</span>
                         </p>
-                        <p><strong>選択したスキル:</strong>
-                            <span th:text="${#strings.arrayJoin(project.skills, ', ')}">スキル</span>
-                        </p>
+                        <div>
+                            <strong>選択したスキル:</strong>
+                            <div class="skill-display">
+                                <div class="selected-skill-category">
+                                    <h4>OS</h4>
+                                    <div class="selected-skills-list">
+                                        <span th:each="osSkill : ${project.skills.os}" class="skill-chip" th:text="${osSkill}">Skill</span>
+                                    </div>
+                                </div>
+                                <div class="selected-skill-category">
+                                    <h4>DB</h4>
+                                    <div class="selected-skills-list">
+                                        <span th:each="dbSkill : ${project.skills.db}" class="skill-chip" th:text="${dbSkill}">Skill</span>
+                                    </div>
+                                </div>
+                                <div class="selected-skill-category">
+                                    <h4>Language</h4>
+                                    <div class="selected-skills-list">
+                                        <span th:each="langSkill : ${project.skills.language}" class="skill-chip" th:text="${langSkill}">Skill</span>
+                                    </div>
+                                </div>
+                                <div class="selected-skill-category">
+                                    <h4>Tools</h4>
+                                    <div class="selected-skills-list">
+                                        <span th:each="toolSkill : ${project.skills.tool}" class="skill-chip" th:text="${toolSkill}">Skill</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <p><strong>担当業務:</strong></p>
                         <p th:text="${project.responsibility}">担当業務内容</p>
                     </div>

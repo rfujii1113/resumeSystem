@@ -1,9 +1,12 @@
 // src/main/resources/static/js/resumeForm.js
 
 document.addEventListener('DOMContentLoaded', function () {
+
     let selectedSkills = {}; // { sectionIndex: { os: [], db: [], language: [], tool: [] } }
     let selectedProcesses = {}; // { sectionIndex: [processes] }
-    let sectionCount = document.querySelectorAll('.experience').length; // Initialize based on existing sections
+
+    // Initialize based on existing sections
+    let sectionCount = document.querySelectorAll('.experience').length; 
 
     // Initialize selectedSkills and selectedProcesses based on existing form data
     document.querySelectorAll('.experience').forEach((section, index) => {
@@ -15,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (skillsInput && skillsInput.value) {
                 selectedSkills[index][category] = skillsInput.value.split(',');
                 selectedSkills[index][category].forEach(skill => {
-                    const skillChip = section.querySelector(`.skill-chip:contains("${skill}")`);
+                    const skillChips = section.querySelectorAll(`.skill-chip`);
+                    const skillChip = Array.from(skillChips).find(chip => chip.textContent.trim() === skill);
                     if (skillChip) {
                         skillChip.classList.add('selected');
                     }
@@ -28,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (processesInput && processesInput.value) {
             selectedProcesses[index] = processesInput.value.split(',');
             selectedProcesses[index].forEach(process => {
-                const processChip = section.querySelector(`.process-chip:contains("${process}")`);
+                const processChips = section.querySelectorAll(`.process-chip`);
+                const processChip = Array.from(processChips).find(chip => chip.textContent.trim() === process);
                 if (processChip) {
                     processChip.classList.add('selected');
                 }
@@ -45,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const currentSkills = selectedSkills[sectionIndex] || { os: [], db: [], language: [], tool: [] };
         document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
             const skillName = chip.textContent.trim();
-            const category = chip.parentElement.getAttribute('data-category');
+            const category = chip.getAttribute('data-category');
             if (currentSkills[category].includes(skillName)) {
                 chip.classList.add('selected');
             } else {
@@ -58,11 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('skill-popup').style.display = 'none';
     }
 
-    function selectSkill(skillElement) {
+    function selectSkill(skillElement, category) {
         const skillName = skillElement.textContent.trim();
         const skillPopup = document.getElementById('skill-popup');
         const sectionIndex = skillPopup.dataset.sectionIndex;
-        const category = skillElement.parentElement.getAttribute('data-category');
 
         if (!selectedSkills[sectionIndex]) {
             selectedSkills[sectionIndex] = { os: [], db: [], language: [], tool: [] };
@@ -232,7 +236,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial event listeners for skill chips in popup
     document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
         chip.onclick = function () {
-            selectSkill(chip);
+            const category = chip.getAttribute('data-category');
+            selectSkill(chip, category);
         };
     });
 
