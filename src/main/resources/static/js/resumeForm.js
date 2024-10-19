@@ -250,4 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // "경력 추가" 버튼 이벤트 리스너 설정
     document.querySelector('.history-add-button').addEventListener('click', addExperienceSection);
 
+    // 팝업 클로즈 버튼 이벤트 리스너 설정
+    document.querySelector('.close-button').addEventListener('click', closeSkillPopup);
+
 });
