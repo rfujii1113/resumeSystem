@@ -12,7 +12,8 @@
     <div class="container a4-container">
         <div class="header">
             <!-- キャンセルボタンを左側に追加 -->
-            <a th:href="@{/resume/view(userId=${resumeDto.userInfo.userId})}" class="cancel-button" onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
+            <a th:href="@{/resume/view(userId=${resumeDto.userInfo.userId})}" class="cancel-button"
+                onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
             <!-- 保存ボタン -->
             <button type="submit" form="resume-form" class="save-button">保存</button>
         </div>
@@ -20,7 +21,7 @@
         <form id="resume-form" th:action="@{/resume/save}" th:object="${resumeDto}" method="post">
             <!-- ユーザーIDを送信するためのhidden input -->
             <input type="hidden" th:field="*{userInfo.userId}" />
-            
+
             <!-- Personal Information Section -->
             <section class="personal-info">
                 <h2>人的情報</h2>
@@ -95,55 +96,81 @@
             </section>
 
             <!-- Experience Sections -->
-            <div id="experience-sections">
-                <section class="experience">
-                    <h2>経歴</h2>
-                    <div class="input-group">
-                        <label>
-                            プロジェクト名
-                            <input type="text" th:field="*{projects[0].projectName}" placeholder="">
-                        </label>
-                        <label>
-                            作業場所
-                            <input type="text" th:field="*{projects[0].location}" placeholder="">
-                        </label>
-                        <label>
-                            開始日
-                            <input type="date" th:field="*{projects[0].startDate}">
-                        </label>
-                        <label>
-                            終了日
-                            <input type="date" th:field="*{projects[0].endDate}">
-                        </label>
-                    </div>
-                    <div class="input-group">
-                        <label>
-                            担当したプロセス
-                            <div class="process-chips" id="process-chips-0">
-                                <span class="process-chip">調査分析</span>
-                                <span class="process-chip">設計</span>
-                                <span class="process-chip">開発</span>
-                                <span class="process-chip">テスト</span>
-                                <span class="process-chip">運用保守</span>
-                            </div>
-                            <input type="hidden" name="projects[0].processes" id="projects[0].processes">
-                        </label>
-                    </div>
-                    <div class="input-group tech">
-                        <label class="skill-label">
-                            選択したスキル
-                            <div class="skill-display" id="selected-skills-0"></div>
-                            <input type="hidden" name="projects[0].skills" id="projects[0].skills">
-                        </label>
-                        <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
-                    </div>
-                    <div class="responsibility">
-                        <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。" maxlength="500"
-                            style="overflow: hidden; resize: none;"></textarea>
-                    </div>
-                </section>
-            </div>
-            <button type="button" class="history-add-button">経歴追加</button>
+            <section class="experience">
+                <h2>経歴</h2>
+                <div id="experience-sections">
+                    <section class="experience-item">
+                        <h3>プロジェクト <span>1</span></h3>
+                        <div class="input-group">
+                            <label>
+                                プロジェクト名
+                                <input type="text" th:field="*{projects[0].projectName}" placeholder="">
+                            </label>
+                            <label>
+                                作業場所
+                                <input type="text" th:field="*{projects[0].location}" placeholder="">
+                            </label>
+                            <label>
+                                開始日
+                                <input type="date" th:field="*{projects[0].startDate}">
+                            </label>
+                            <label>
+                                終了日
+                                <input type="date" th:field="*{projects[0].endDate}">
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>
+                                担当したプロセス
+                                <div class="process-chips" id="process-chips-0">
+                                    <span class="process-chip">調査分析</span>
+                                    <span class="process-chip">設計</span>
+                                    <span class="process-chip">開発</span>
+                                    <span class="process-chip">テスト</span>
+                                    <span class="process-chip">運用保守</span>
+                                </div>
+                                <input type="hidden" name="projects[0].processes" id="projects[0].processes">
+                            </label>
+                        </div>
+                        <!-- Skill -->
+                        <div class="input-group tech">
+                            <label class="skill-label">
+                                選択したスキル
+                                <div class="skill-display" id="selected-skills-0">
+                                    <div class="selected-skill-category">
+                                        <h4>OS</h4>
+                                        <div class="selected-skills-list" id="selected-skills-0-os"></div>
+                                    </div>
+                                    <div class="selected-skill-category">
+                                        <h4>DB</h4>
+                                        <div class="selected-skills-list" id="selected-skills-0-db"></div>
+                                    </div>
+                                    <div class="selected-skill-category">
+                                        <h4>Language</h4>
+                                        <div class="selected-skills-list" id="selected-skills-0-language"></div>
+                                    </div>
+                                    <div class="selected-skill-category">
+                                        <h4>Tools</h4>
+                                        <div class="selected-skills-list" id="selected-skills-0-tool"></div>
+                                    </div>
+                                </div>
+                                <!-- hidden input for skill category -->
+                                <input type="hidden" name="projects[0].skills.os" id="projects[0].skills.os">
+                                <input type="hidden" name="projects[0].skills.db" id="projects[0].skills.db">
+                                <input type="hidden" name="projects[0].skills.language"
+                                    id="projects[0].skills.language">
+                                <input type="hidden" name="projects[0].skills.tool" id="projects[0].skills.tool">
+                            </label>
+                            <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
+                        </div>
+                        <div class="responsibility">
+                            <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。"
+                                maxlength="500" style="overflow: hidden; resize: none;"></textarea>
+                        </div>
+                    </section>
+                </div>
+                <button type="button" class="history-add-button">経歴追加</button>
+            </section>
 
             <!-- Summary Section -->
             <section class="summary">
@@ -165,40 +192,40 @@
                 <h2>スキル追加</h2>
                 <div class="skill-category">
                     <h3>Language</h3>
-                    <div class="skill-chips" id="language-skills">
-                        <!-- Example Chips -->
-                        <span class="skill-chip">JavaScript</span>
-                        <span class="skill-chip">Python</span>
-                        <span class="skill-chip">Java</span>
+                    <div class="skill-chips" data-category="language" id="language-skills-popup">
+                        <span class="skill-chip" data-category="language">JavaScript</span>
+                        <span class="skill-chip" data-category="language">Python</span>
+                        <span class="skill-chip" data-category="language">Java</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>DB</h3>
-                    <div class="skill-chips" id="db-skills">
-                        <span class="skill-chip">MySQL</span>
-                        <span class="skill-chip">PostgreSQL</span>
-                        <span class="skill-chip">MongoDB</span>
+                    <div class="skill-chips" data-category="db" id="db-skills-popup">
+                        <span class="skill-chip" data-category="db">MySQL</span>
+                        <span class="skill-chip" data-category="db">PostgreSQL</span>
+                        <span class="skill-chip" data-category="db">MongoDB</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>OS</h3>
-                    <div class="skill-chips" id="os-skills">
-                        <span class="skill-chip">Linux</span>
-                        <span class="skill-chip">Windows</span>
-                        <span class="skill-chip">macOS</span>
+                    <div class="skill-chips" data-category="os" id="os-skills-popup">
+                        <span class="skill-chip" data-category="os">Linux</span>
+                        <span class="skill-chip" data-category="os">Windows</span>
+                        <span class="skill-chip" data-category="os">macOS</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Tools</h3>
-                    <div class="skill-chips" id="tool-skills">
-                        <span class="skill-chip">Docker</span>
-                        <span class="skill-chip">Kubernetes</span>
-                        <span class="skill-chip">Git</span>
+                    <div class="skill-chips" data-category="tool" id="tool-skills-popup">
+                        <span class="skill-chip" data-category="tool">Docker</span>
+                        <span class="skill-chip" data-category="tool">Kubernetes</span>
+                        <span class="skill-chip" data-category="tool">Git</span>
                     </div>
                 </div>
                 <button type="button" class="apply-button">適用</button>
             </div>
         </div>
+
     </div>
 </body>
 

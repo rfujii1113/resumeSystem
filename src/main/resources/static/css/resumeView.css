@@ -1,45 +1,35 @@
 /* resumeView.css */
 
+/* 기본 스타일은 resumeForm.css와 동일하게 유지 */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
     margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 50%;
+    margin: 20px auto;
+    background-color: #ffffff;
     padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .a4-container {
-    width: 210mm;
-    min-height: 297mm;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
 }
 
 .header {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     padding: 10px 0;
 }
 
-.header button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.header button:hover {
-    background-color: #45a049;
-}
-
 .cancel-button {
-    justify-content: flex-start;
     background: #ff0000;
     color: #ffffff;
     border: none;
@@ -57,66 +47,145 @@ body {
     background: #cc0000;
 }
 
-.resume-view {
-    width: 100%;
+.header-buttons button {
+    background-color: #4A90E2;
+    color: #ffffff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+    font-size: small;
 }
 
-.resume-view section {
-    margin-bottom: 30px;
+.header-buttons button:hover {
+    background-color: #357ABD;
 }
 
-.resume-view h2 {
-    border-bottom: 2px solid #4CAF50;
-    padding-bottom: 5px;
+h2 {
+    padding-bottom: 10px;
     margin-bottom: 15px;
-    color: #333;
+    font-size: 1.5em;
+    border-bottom: 1px solid #ccc;
+}
+
+.info-group, .input-group {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
 }
 
 .info-group p {
-    margin: 8px 0;
-    font-size: 16px;
+    flex: 1 1 calc(50% - 15px);
+    display: flex;
+    flex-direction: column;
+    color: #bbb;
+    font-size: 1em;
+    margin-bottom: 5px;
 }
 
-.info-group p strong {
-    display: inline-block;
-    width: 150px;
-    color: #555;
+.info-group p span {
+    color: #333;
 }
 
 .experience-item {
-    border: 1px solid #ddd;
+    background-color: #f9f9f9;
     padding: 15px;
+    border-radius: 6px;
     margin-bottom: 15px;
-    border-radius: 5px;
-    background-color: #fafafa;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
 }
 
 .experience-item h3 {
-    margin-top: 0;
-    color: #4CAF50;
+    margin-bottom: 10px;
+    color: #4A90E2;
 }
 
-.summary .info-group p {
-    font-size: 16px;
-    line-height: 1.5;
+.experience-item p {
+    margin: 5px 0;
+    font-size: 1em;
 }
 
-/* print style */
+.summary {
+    margin-top: 30px;
+}
+
+.selected-skill-category {
+    margin-bottom: 10px;
+}
+
+.selected-skill-category h4 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.selected-skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.skill-chip {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: default; 
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.skill-chip.selected {
+    background-color: #4A90E2;
+    color: #fff;
+}
+
+/* Print styles */
 @media print {
-    .header {
+    .header-buttons,
+    .cancel-button,
+    .export-button,
+    .edit-button,
+    .print-button {
         display: none;
     }
 
     body {
+        background-color: #ffffff;
+    }
+
+    .container {
+        box-shadow: none;
+        border: none;
+        width: 100%;
         margin: 0;
         padding: 0;
     }
+}
 
-    .a4-container {
-        box-shadow: none;
-        margin: 0;
-        padding: 0;
-        width: auto;
-        min-height: auto;
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-group, .experience-item, .summary {
+        flex-direction: column;
+    }
+
+    .selected-skills-list {
+        flex-direction: column;
+    }
+
+    .info-group p {
+        flex: 1 1 100%;
     }
 }

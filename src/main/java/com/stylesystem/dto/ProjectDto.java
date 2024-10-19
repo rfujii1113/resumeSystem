@@ -21,7 +21,7 @@ public class ProjectDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private List<String> processes;
-    private List<String> skills;
+    private SkillDto skills; 
     private String responsibility;
 
     // Convert Project to ProjectDto
@@ -31,8 +31,8 @@ public class ProjectDto {
             .location(project.getLocation())
             .startDate(project.getStartDate())
             .endDate(project.getEndDate())
-            .skills(project.getSkills())
             .processes(project.getProcesses())
+            .skills(SkillDto.fromEntity(project.getSkills()))
             .responsibility(project.getResponsibility())
             .build();
     }
@@ -45,7 +45,7 @@ public class ProjectDto {
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .processes(this.processes)
-                .skills(this.skills) 
+                .skills(skills.toEntity())
                 .responsibility(this.responsibility)
                 .build();
     }

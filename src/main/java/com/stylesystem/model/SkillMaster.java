@@ -4,18 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "skill")
+@Table(name = "skill_master")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Skill {
+public class SkillMaster {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String os;
-    private String db;
-    private String language;
-    private String tool;
+    private String name;
+    private String category; 
 }

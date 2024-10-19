@@ -73,12 +73,12 @@ h2 {
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 20px;
-    align-items: center;
+    align-items: flex-start;  /* スキル追加 button position */
 }
 
 .input-group label {
-    flex: 1 1 calc(10% - 15px);
     display: flex;
+    flex: 1 1 calc(10% - 15px);
     flex-direction: column;
     color: #bbb;
 }
@@ -143,6 +143,14 @@ textarea {
 
     .input-group {
         flex-direction: column;
+    }
+    
+    .skill-display {
+        gap: 10px;
+    }
+
+    .selected-skills-list {
+        flex-direction: column; 
     }
 }
 
@@ -220,24 +228,41 @@ textarea {
 
 .skill-display {
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+    flex-direction: column; 
+    gap: 15px; 
     margin-top: 10px;
 }
 
-.skill-select {
+.selected-skill-category {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column; 
+    gap: 5px;
 }
 
-.skill-add-button {
-    margin-left: auto;
-    align-self: center;
+.selected-skill-category h4 {
+    color: #333;
+    margin-bottom: 5px;
 }
 
-.process-chips {
+.selected-skills-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 5px;
+}
+
+.skill-chip {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: default; 
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.skill-chip.selected {
+    background-color: #4A90E2;
+    color: #fff;
 }
