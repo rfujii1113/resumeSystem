@@ -32,13 +32,28 @@ public class Project {
     @JoinColumn(name = "user_id")
     private Users users;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "skill_id", referencedColumnName = "id")
-    private Skill skills; 
+    @Type(ListArrayType.class)
+    @Column(name = "os", columnDefinition = "text[]")
+    @Builder.Default
+    private List<String> os = new ArrayList<>();
+
+    @Type(ListArrayType.class)
+    @Column(name = "db", columnDefinition = "text[]")
+    @Builder.Default
+    private List<String> db = new ArrayList<>();
+
+    @Type(ListArrayType.class)
+    @Column(name = "language", columnDefinition = "text[]")
+    @Builder.Default
+    private List<String> language = new ArrayList<>();
+
+    @Type(ListArrayType.class)
+    @Column(name = "tool", columnDefinition = "text[]")
+    @Builder.Default
+    private List<String> tool = new ArrayList<>();
 
     @Type(ListArrayType.class)
     @Column(name = "processes", columnDefinition = "text[]")
     @Builder.Default
     private List<String> processes = new ArrayList<>();
 }
-

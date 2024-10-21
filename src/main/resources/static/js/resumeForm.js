@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedSkills[index] = { os: [], db: [], language: [], tool: [] };
 
         ['os', 'db', 'language', 'tool'].forEach(category => {
-            const skillsInput = section.querySelector(`input[name="projects[${index}].skills.${category}"]`);
+            const skillsInput = section.querySelector(`input[name="projects[${index}].${category}"]`);
             if (skillsInput && skillsInput.value) {
                 selectedSkills[index][category] = skillsInput.value.split(',');
             }
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 각 카테고리에 대한 숨은 입력값 업데이트
         ['os', 'db', 'language', 'tool'].forEach(category => {
-            const hiddenSkillsInput = document.querySelector(`input[name="projects[${sectionIndex}].skills.${category}"]`);
+            const hiddenSkillsInput = document.querySelector(`input[name="projects[${sectionIndex}].${category}"]`);
             if (hiddenSkillsInput) {
                 hiddenSkillsInput.value = selectedSkills[sectionIndex][category].join(',');
             }
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 팝업 적용 버튼 이벤트 리스너 설정
     document.querySelector('.apply-button').addEventListener('click', applySelectedSkills);
 
-    // "경력 추가" 버튼 이벤트 리스너 설정
+    // "経歴追加" 버튼 이벤트 리스너 설정
     document.querySelector('.history-add-button').addEventListener('click', addExperienceSection);
 
     // 팝업 클로즈 버튼 이벤트 리스너 설정
