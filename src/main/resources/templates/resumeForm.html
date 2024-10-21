@@ -154,12 +154,13 @@
                                 <div class="selected-skills-list" id="selected-skills-0-tool"></div>
                                 <input type="hidden" name="projects[0].tool" id="projects[0].tool">
                             </label>
+                            <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
                         </div>
                         <div class="responsibility">
                             <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。"
                                 maxlength="500" style="overflow: hidden; resize: none;"></textarea>
                         </div>
-                    </section>
+                    </section>  
                 </div>
                 <button type="button" class="history-add-button">経歴追加</button>
             </section>

@@ -37,6 +37,6 @@ public class Users {
     private String nearestStation;
     private String selfPr;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Project> projects;
 }

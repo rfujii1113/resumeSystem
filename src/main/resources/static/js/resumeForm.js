@@ -1,5 +1,3 @@
-// src/main/resources/static/js/resumeForm.js
-
 document.addEventListener('DOMContentLoaded', function () {
 
     let selectedSkills = {}; // { sectionIndex: { os: [], db: [], language: [], tool: [] } }

@@ -30,10 +30,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
-    // Apache POI for Excel manipulation
-    implementation 'org.apache.poi:poi:5.2.3'       
-    implementation 'org.apache.poi:poi-ooxml:5.2.3'   
-
     // DB
     implementation 'org.postgresql:postgresql:42.5.4'
 
@@ -46,6 +42,10 @@ dependencies {
 
     // postgresqlのArrayを扱うためのライブラリ
     implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.8.3'
+
+    // Apache POI for Excel manipulation
+    implementation 'org.apache.poi:poi:5.2.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
 }
 
 tasks.named('test') {
