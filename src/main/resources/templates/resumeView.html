@@ -14,7 +14,10 @@
 
             <div class="header-buttons">
                 <button type="button" onclick="window.print()" class="print-button">印刷</button>
-                <button type="button" class="export-button">EXCEL Export</button>
+                    <form action="/startManage" method="post">
+                        <input type="hidden" name="userId"th:value="${resumeDto.userInfo.userId}">
+                        <button type="submit" class="export-button">EXCEL Export</button>
+                    </form>
                 <button type="button" th:onclick="|window.location.href='@{/resume/form(userId=${resumeDto.userInfo.userId})}'|" class="edit-button">編集</button>
             </div>
         </div>
