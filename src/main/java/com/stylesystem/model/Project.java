@@ -38,6 +38,11 @@ public class Project {
     private List<String> os = new ArrayList<>();
 
     @Type(ListArrayType.class)
+    @Column(name = "hw", columnDefinition = "text[]")
+    @Builder.Default
+    private List<String> hw = new ArrayList<>();
+
+    @Type(ListArrayType.class)
     @Column(name = "db", columnDefinition = "text[]")
     @Builder.Default
     private List<String> db = new ArrayList<>();
