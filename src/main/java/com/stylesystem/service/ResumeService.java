@@ -1,23 +1,22 @@
 package com.stylesystem.service;
 
+import com.stylesystem.dto.ProjectDto;
 import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
-import com.stylesystem.dto.ProjectDto;
-import com.stylesystem.model.Users;
 import com.stylesystem.model.Project;
-import com.stylesystem.repository.UserRepository;
+import com.stylesystem.model.Users;
 import com.stylesystem.repository.ProjectRepository;
 import com.stylesystem.repository.ResumeRepository;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.stylesystem.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +48,6 @@ public class ResumeService {
         for (ProjectDto projectDto : resumeDto.getProjects()) {
             Project project = projectDto.toEntity();
             project.setUsers(users);
-            // CascadeType.ALL is used to save the skills for the project
             projectRepository.save(project);
         }
     }

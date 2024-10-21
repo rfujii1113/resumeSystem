@@ -1,14 +1,11 @@
 package com.stylesystem.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.stylesystem.model.Project;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-
-import com.stylesystem.model.Project;
 
 @Data
 @NoArgsConstructor
@@ -20,21 +17,32 @@ public class ProjectDto {
     private String location;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<String> processes;
-    private SkillDto skills; 
+    @Builder.Default
+    private List<String> processes = new ArrayList<>();
+    @Builder.Default
+    private List<String> os = new ArrayList<>();
+    @Builder.Default
+    private List<String> db = new ArrayList<>();
+    @Builder.Default
+    private List<String> language = new ArrayList<>();
+    @Builder.Default
+    private List<String> tool = new ArrayList<>();
     private String responsibility;
 
     // Convert Project to ProjectDto
     public static ProjectDto fromEntity(Project project) {
         return ProjectDto.builder()
-            .projectName(project.getProjectName())
-            .location(project.getLocation())
-            .startDate(project.getStartDate())
-            .endDate(project.getEndDate())
-            .processes(project.getProcesses())
-            .skills(SkillDto.fromEntity(project.getSkills()))
-            .responsibility(project.getResponsibility())
-            .build();
+                .projectName(project.getProjectName())
+                .location(project.getLocation())
+                .startDate(project.getStartDate())
+                .endDate(project.getEndDate())
+                .processes(project.getProcesses())
+                .os(project.getOs())
+                .db(project.getDb())
+                .language(project.getLanguage())
+                .tool(project.getTool())
+                .responsibility(project.getResponsibility())
+                .build();
     }
 
     // Convert ProjectDto to Project
@@ -45,7 +53,10 @@ public class ProjectDto {
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .processes(this.processes)
-                .skills(skills.toEntity())
+                .os(this.os)
+                .db(this.db)
+                .language(this.language)
+                .tool(this.tool)
                 .responsibility(this.responsibility)
                 .build();
     }

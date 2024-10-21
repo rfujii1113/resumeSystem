@@ -135,33 +135,25 @@
                         <!-- Skill -->
                         <div class="input-group tech">
                             <label class="skill-label">
-                                選択したスキル
-                                <div class="skill-display" id="selected-skills-0">
-                                    <div class="selected-skill-category">
-                                        <h4>OS</h4>
-                                        <div class="selected-skills-list" id="selected-skills-0-os"></div>
-                                    </div>
-                                    <div class="selected-skill-category">
-                                        <h4>DB</h4>
-                                        <div class="selected-skills-list" id="selected-skills-0-db"></div>
-                                    </div>
-                                    <div class="selected-skill-category">
-                                        <h4>Language</h4>
-                                        <div class="selected-skills-list" id="selected-skills-0-language"></div>
-                                    </div>
-                                    <div class="selected-skill-category">
-                                        <h4>Tools</h4>
-                                        <div class="selected-skills-list" id="selected-skills-0-tool"></div>
-                                    </div>
-                                </div>
-                                <!-- hidden input for skill category -->
-                                <input type="hidden" name="projects[0].skills.os" id="projects[0].skills.os">
-                                <input type="hidden" name="projects[0].skills.db" id="projects[0].skills.db">
-                                <input type="hidden" name="projects[0].skills.language"
-                                    id="projects[0].skills.language">
-                                <input type="hidden" name="projects[0].skills.tool" id="projects[0].skills.tool">
+                                OS
+                                <div class="selected-skills-list" id="selected-skills-0-os"></div>
+                                <input type="hidden" name="projects[0].os" id="projects[0].os">
                             </label>
-                            <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
+                            <label class="skill-label">
+                                DB
+                                <div class="selected-skills-list" id="selected-skills-0-db"></div>
+                                <input type="hidden" name="projects[0].db" id="projects[0].db">
+                            </label>
+                            <label class="skill-label">
+                                Language
+                                <div class="selected-skills-list" id="selected-skills-0-language"></div>
+                                <input type="hidden" name="projects[0].language" id="projects[0].language">
+                            </label>
+                            <label class="skill-label">
+                                Tools
+                                <div class="selected-skills-list" id="selected-skills-0-tool"></div>
+                                <input type="hidden" name="projects[0].tool" id="projects[0].tool">
+                            </label>
                         </div>
                         <div class="responsibility">
                             <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。"
