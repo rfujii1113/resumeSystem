@@ -5,10 +5,17 @@ import org.springframework.stereotype.Service;
 import com.stylesystem.model.SkillMaster;
 import com.stylesystem.repository.SkillMasterRepository;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class SkillMasterService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SkillMasterService.class);
 
     private final SkillMasterRepository skillMasterRepository;
 
@@ -17,8 +24,10 @@ public class SkillMasterService {
     }
 
     public List<SkillMaster> getSkillsByCategory(String category) {
-        return skillMasterRepository.findByCategory(category);
-    }
+        List<SkillMaster> skills = skillMasterRepository.findByCategory(category);
+        logger.debug("Category: {}, Skills: {}", category, skills);
+        return skills;
+    } 
 
     public List<SkillMaster> getAllSkills() {
         return skillMasterRepository.findAll();
@@ -30,5 +39,17 @@ public class SkillMasterService {
 
     public void deleteSkill(Long id) {
         skillMasterRepository.deleteById(id);
+    }
+
+    public Map<String, List<SkillMaster>> getSkillsGroupedByCategory(Map<String, String> categoryDisplayNames) {
+        Map<String, List<SkillMaster>> skillsByCategory = new LinkedHashMap<>();
+
+        for (String category : categoryDisplayNames.keySet()) {
+            List<SkillMaster> skillsInCategory = getSkillsByCategory(category);
+            logger.debug("Category: {}, Skills in Category: {}", category, skillsInCategory);
+            skillsByCategory.put(category, skillsInCategory);
+        }
+
+        return skillsByCategory;
     }
 }

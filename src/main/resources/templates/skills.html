@@ -12,8 +12,6 @@
 <body>
     <div class="skills-management-container">
         <h2>スキル管理</h2>
-
-        <!-- 스킬 추가 폼 -->
         <form th:action="@{/admin/skills}" th:object="${newSkill}" method="post" class="add-skill-form">
             <div class="input-group">
                 <label>
@@ -32,8 +30,6 @@
                 <button type="submit">追加</button>
             </div>
         </form>
-
-        <!-- 스킬 목록 테이블 -->
         <table>
             <thead>
                 <tr>

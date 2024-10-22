@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    const categories = ['os', 'db', 'language', 'tool']; 
     let selectedSkills = {}; // { sectionIndex: { os: [], db: [], language: [], tool: [] } }
     let selectedProcesses = {}; // { sectionIndex: [processes] }
 
@@ -9,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // 기존 폼 데이터 기반으로 selectedSkills와 selectedProcesses 초기화
     document.querySelectorAll('.experience-item').forEach((section, index) => {
         // 각 카테고리에 대한 selectedSkills 초기화
-        selectedSkills[index] = { os: [], db: [], language: [], tool: [] };
+        selectedSkills[index] = { os: [], db: [], language: [], tool: []};
 
-        ['os', 'db', 'language', 'tool'].forEach(category => {
+        categories.forEach(category => {
             const skillsInput = section.querySelector(`input[name="projects[${index}].${category}"]`);
             if (skillsInput && skillsInput.value) {
                 selectedSkills[index][category] = skillsInput.value.split(',');
@@ -42,15 +43,16 @@ document.addEventListener('DOMContentLoaded', function () {
         // 스킬 추가 버튼 이벤트 리스너 설정
         const skillAddButton = section.querySelector('.skill-add-button');
         if (skillAddButton) {
-            skillAddButton.onclick = function () {
+            skillAddButton.addEventListener('click', function () {
                 openSkillPopup(index);
-            };
+            });
         }
 
         // 스킬 디스플레이 업데이트
         updateSkillDisplay(index);
     });
 
+    // 이벤트 리스너가 함수 내부에서 사용될 수 있도록 함수들을 DOMContentLoaded 외부로 이동합니다.
     function openSkillPopup(sectionIndex) {
         const skillPopup = document.getElementById('skill-popup');
         skillPopup.dataset.sectionIndex = sectionIndex;
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const sectionIndex = skillPopup.dataset.sectionIndex;
 
         // 각 카테고리에 대한 숨은 입력값 업데이트
-        ['os', 'db', 'language', 'tool'].forEach(category => {
+        categories.forEach(category => {
             const hiddenSkillsInput = document.querySelector(`input[name="projects[${sectionIndex}].${category}"]`);
             if (hiddenSkillsInput) {
                 hiddenSkillsInput.value = selectedSkills[sectionIndex][category].join(',');
@@ -110,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateSkillDisplay(sectionIndex) {
-        ['os', 'db', 'language', 'tool'].forEach(category => {
+        categories.forEach(category => {
             const selectedSkillsContainer = document.querySelector(`#selected-skills-${sectionIndex}-${category}`);
             if (selectedSkillsContainer) {
                 // 기존 표시된 스킬 초기화
@@ -196,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // 스킬 디스플레이 초기화
-        ['os', 'db', 'language', 'tool'].forEach(category => {
+        categories.forEach(category => {
             const selectedSkillsContainer = newSection.querySelector(`#selected-skills-${currentIndex}-${category}`);
             if (selectedSkillsContainer) {
                 selectedSkillsContainer.innerHTML = '';
@@ -215,9 +217,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // 스킬 추가 버튼 이벤트 리스너 설정
         const skillAddButton = newSection.querySelector('.skill-add-button');
         if (skillAddButton) {
-            skillAddButton.onclick = function () {
+            skillAddButton.addEventListener('click', function () {
                 openSkillPopup(currentIndex);
-            };
+            });
         }
 
         // 책임사항 텍스트 영역 초기화

@@ -4,6 +4,7 @@ import com.stylesystem.dto.ProjectDto;
 import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
 import com.stylesystem.model.Project;
+import com.stylesystem.model.SkillMaster;
 import com.stylesystem.model.Users;
 import com.stylesystem.repository.ProjectRepository;
 import com.stylesystem.repository.ResumeRepository;
@@ -15,16 +16,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 @RequiredArgsConstructor
 public class ResumeService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ResumeService.class);
+
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
     private final ResumeRepository resumeRepository;
+    private final SkillMasterService skillMasterService;
 
     @Transactional
     public void saveResume(ResumeDto resumeDto) {
@@ -104,5 +113,21 @@ public class ResumeService {
                 .build();
 
         return resumeDto;
+    }
+
+      public Map<String, String> getCategoryDisplayNames() {
+        Map<String, String> categoryDisplayNames = new LinkedHashMap<>();
+        categoryDisplayNames.put("language", "Language");
+        categoryDisplayNames.put("db", "DB");
+        categoryDisplayNames.put("os", "OS");
+        categoryDisplayNames.put("hw", "Hardware"); 
+        categoryDisplayNames.put("tool", "Tools");
+        return categoryDisplayNames;
+    }
+
+    public Map<String, List<SkillMaster>> getSkillsByCategory(Map<String, String> categoryDisplayNames) {
+        Map<String, List<SkillMaster>> skillsByCategory = skillMasterService.getSkillsGroupedByCategory(categoryDisplayNames);
+        logger.debug("Skills By Category: {}", skillsByCategory);
+        return skillsByCategory;
     }
 }
