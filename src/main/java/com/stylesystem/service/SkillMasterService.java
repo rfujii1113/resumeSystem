@@ -30,7 +30,9 @@ public class SkillMasterService {
     } 
 
     public List<SkillMaster> getAllSkills() {
-        return skillMasterRepository.findAll();
+        List<SkillMaster> skills = skillMasterRepository.findAll();
+        logger.debug("All Skills: {}", skills);
+        return skills;
     }
 
     public void saveSkill(SkillMaster skillMaster) {

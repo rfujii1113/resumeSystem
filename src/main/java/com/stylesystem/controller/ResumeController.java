@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,6 @@ import com.stylesystem.service.ResumeService;
 import com.stylesystem.service.UserDeleteService;
 
 import lombok.RequiredArgsConstructor;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/resume")
@@ -74,14 +73,9 @@ public class ResumeController {
             }
         }
 
-        // Get the category display names and skills by category
-        Map<String, String> categoryDisplayNames = resumeService.getCategoryDisplayNames();
-        Map<String, List<SkillMaster>> skillsByCategory = resumeService.getSkillsByCategory(categoryDisplayNames);
-
-        logger.debug("Category Display Names: {}", categoryDisplayNames);
+        // Get the skills grouped by category
+        Map<String, List<SkillMaster>> skillsByCategory = resumeService.getSkillsByCategory();
         logger.debug("Skills By Category: {}", skillsByCategory);
-
-        model.addAttribute("categoryDisplayNames", categoryDisplayNames);
         model.addAttribute("skillsByCategory", skillsByCategory);
         model.addAttribute("resumeDto", resumeDto);
         return "resumeForm";

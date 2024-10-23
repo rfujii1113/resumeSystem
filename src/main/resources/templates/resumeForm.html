@@ -185,14 +185,11 @@
                 <span class="close-button" onclick="closeSkillPopup()">&times;</span>
                 <h2>スキル追加</h2>
                 <!-- スキルカテゴリ -->
-                <div th:each="category : ${categoryDisplayNames.keySet()}">
+                <div th:each="category : ${skillsByCategory}">
                     <div class="skill-category">
-                        <h3 th:text="${categoryDisplayNames[category]}">Category Name</h3>
-                        <div class="skill-chips" th:attr="data-category=${category}"
-                            th:id="${category + '-skills-popup'}">
-                            <!-- スキルチップ -->
-                            <span class="skill-chip" th:each="skill : ${skillsByCategory[category]}"
-                                th:attr="data-category=${category}" th:text="${skill.name}">Skill Name</span>
+                        <h3 th:text="${category.key}"></h3>
+                        <div class="skill-chips" th:each="skill : ${category.value}">
+                            <span class="skill-chip" th:text="${skill.name}"></span>
                         </div>
                     </div>
                 </div>
