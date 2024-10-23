@@ -5,10 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedProcesses = {}; // { sectionIndex: [processes] }
     let sectionCount = document.querySelectorAll('.experience-item').length;
 
+    // 각 섹션에 data-index 값 설정
+    document.querySelectorAll('.experience-item').forEach((section, index) => {
+        section.dataset.index = index;
+    });
+
     // 이벤트 위임 방식으로 스킬 추가 버튼에 이벤트 리스너 등록
     document.body.addEventListener('click', function (event) {
         if (event.target.classList.contains('skill-add-button')) {
-            const sectionIndex = event.target.closest('.experience-item').dataset.index;
+            const section = event.target.closest('.experience-item');
+            const sectionIndex = section ? section.dataset.index : undefined;
+            console.log('Section Index:', sectionIndex); // 로그로 확인
             openSkillPopup(sectionIndex);
         }
     });
@@ -21,6 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function openSkillPopup(sectionIndex) {
+        if (sectionIndex === undefined) {
+            console.error("Section index is undefined!");
+            return;
+        }
+        console.log(`Opening skill popup for section: ${sectionIndex}`); // 로그 추가
         const skillPopup = document.getElementById('skill-popup');
         skillPopup.dataset.sectionIndex = sectionIndex;
         skillPopup.style.display = 'block';
@@ -63,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function applySelectedSkills() {
         const skillPopup = document.getElementById('skill-popup');
         const sectionIndex = skillPopup.dataset.sectionIndex;
+        console.log(`Selected skills for section ${sectionIndex}:`, selectedSkills[sectionIndex]);
 
         // 각 카테고리에 대한 숨은 입력값 업데이트
         categories.forEach(category => {
@@ -83,6 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedSkillsContainer = document.querySelector(`#selected-skills-${sectionIndex}-${category}`);
             if (selectedSkillsContainer) {
                 selectedSkillsContainer.innerHTML = '';
+
+                console.log(`Updating skills for ${category} in section ${sectionIndex}:`, selectedSkills[sectionIndex][category]);
 
                 // 선택된 스킬 추가
                 selectedSkills[sectionIndex][category].forEach(skillName => {
@@ -155,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     });
 
-    // '적용' 버튼 클릭 이벤트 리스너 설정
+    // '適用' 버튼 클릭 이벤트 리스너 설정
     document.querySelector('.apply-button').addEventListener('click', applySelectedSkills);
 
     // 팝업 닫기 버튼 이벤트 리스너 설정
