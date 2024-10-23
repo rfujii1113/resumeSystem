@@ -11,11 +11,11 @@ import lombok.Data;
 public class ResumeEditDTO {
     private String userId;
 	private String userName;
-	private String gender;
+	private Boolean gender;
 	private LocalDate birthDate;
 	private String currentAddress;
 	private String permanentAddress;
-	private String spouse;
+	private Boolean spouse;
 	private String lastSchool;
 	private String lastSchoolType;
 	private LocalDate graduationDate;

@@ -55,6 +55,7 @@ public class ResumeController {
             resumeDto = ResumeDto.builder()
                     .userInfo(UserInfoDto.builder().userId(userId).build()) 
                     .projects(new ArrayList<>())
+                    .SkillMasters(new ArrayList<>())
                     .build();
         } else {
             if (resumeDto.getUserInfo() == null) {
@@ -63,6 +64,9 @@ public class ResumeController {
             }
             if (resumeDto.getProjects() == null) {
                 resumeDto.setProjects(new ArrayList<>());
+            }
+            if(resumeDto.getSkillMasters() == null){
+                resumeDto.setSkillMasters(new ArrayList<>());
             }
         }
         model.addAttribute("resumeDto", resumeDto);

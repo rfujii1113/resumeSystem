@@ -43,7 +43,7 @@
                     </label>
                     <label>
                         生年月日
-                        <input type="date" th:field="*{userInfo.birthDate}" required>
+                        <input type="date"th:field="*{userInfo.birthDate}"required>
                     </label>
                     <label>
                         国籍
@@ -86,7 +86,7 @@
                     </label>
                     <label>
                         卒業年月
-                        <input type="date" th:field="*{userInfo.graduationDate}">
+                        <input type="date" th:field="*{userInfo.graduationDate}"required>
                     </label>
                     <label>
                         専攻名
@@ -112,11 +112,11 @@
                             </label>
                             <label>
                                 開始日
-                                <input type="date" th:field="*{projects[0].startDate}">
+                                <input type="date" th:field="*{projects[0].startDate}"required>
                             </label>
                             <label>
                                 終了日
-                                <input type="date" th:field="*{projects[0].endDate}">
+                                <input type="date" th:field="*{projects[0].endDate}"required>
                             </label>
                         </div>
                         <div class="input-group">

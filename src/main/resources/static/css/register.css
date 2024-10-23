@@ -31,6 +31,7 @@ body {
 
 
 .register-container input[type="text"],
+.register-container input[type="email"],
 .register-container input[type="password"],
 .register-container select {
     width: calc(100% - 2rem);
