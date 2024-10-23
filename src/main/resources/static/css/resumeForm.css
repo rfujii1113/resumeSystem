@@ -173,7 +173,9 @@ textarea {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 600px;
+    max-width: 800px;
+    max-height: 500px;  
+    overflow-y: auto;   /* スクロールバー */
     border-radius: 8px;
 }
 
@@ -209,6 +211,27 @@ textarea {
 .skill-chip.selected, .process-chip.selected {
     background-color: #4A90E2;
     color: #fff;
+}
+
+.skill-chips {
+    display: inline-flex;
+    flex-wrap: wrap; 
+    gap: 10px;       
+    justify-content: flex-start; 
+    max-width: 100%;       
+}
+
+.skill-chip {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: default; 
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #ffffff;
+    color: #333;
+    white-space: nowrap; /* 긴 텍스트는 줄바꿈 없이 한 줄로 유지 */
 }
 
 .apply-button {
@@ -248,21 +271,4 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-}
-
-.skill-chip {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    cursor: default; 
-    transition: background-color 0.3s, color 0.3s;
-    background-color: #ffffff;
-    color: #333;
-}
-
-.skill-chip.selected {
-    background-color: #4A90E2;
-    color: #fff;
 }

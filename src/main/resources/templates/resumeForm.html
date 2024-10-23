@@ -182,21 +182,22 @@
         <!-- Skill Popup Modal -->
         <div id="skill-popup" class="modal">
             <div class="modal-content">
-                <span class="close-button" onclick="closeSkillPopup()">&times;</span>
+                <span class="close-button">&times;</span>
                 <h2>スキル追加</h2>
                 <!-- スキルカテゴリ -->
                 <div th:each="category : ${skillsByCategory}">
                     <div class="skill-category">
                         <h3 th:text="${category.key}"></h3>
                         <div class="skill-chips" th:each="skill : ${category.value}">
-                            <span class="skill-chip" th:text="${skill.name}"></span>
+                            <span class="skill-chip" th:text="${skill.name}"
+                                th:attr="data-category=${category.key}"></span>
                         </div>
                     </div>
                 </div>
                 <button type="button" class="apply-button">適用</button>
             </div>
         </div>
-        
+
     </div>
 </body>
 
