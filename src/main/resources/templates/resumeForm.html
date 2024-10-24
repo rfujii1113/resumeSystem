@@ -43,7 +43,7 @@
                     </label>
                     <label>
                         生年月日
-                        <input type="date"th:field="*{userInfo.birthDate}"required>
+                        <input type="date" th:field="*{userInfo.birthDate}" required>
                     </label>
                     <label>
                         国籍
@@ -86,7 +86,7 @@
                     </label>
                     <label>
                         卒業年月
-                        <input type="date" th:field="*{userInfo.graduationDate}"required>
+                        <input type="date" th:field="*{userInfo.graduationDate}" required>
                     </label>
                     <label>
                         専攻名
@@ -96,73 +96,58 @@
             </section>
 
             <!-- Experience Sections -->
-            <section class="experience">
-                <h2>経歴</h2>
-                <div id="experience-sections">
-                    <section class="experience-item" data-index="0">
-                        <h3>プロジェクト <span>1</span></h3>
-                        <div class="input-group">
-                            <label>
-                                プロジェクト名
-                                <input type="text" th:field="*{projects[0].projectName}" placeholder="">
-                            </label>
-                            <label>
-                                作業場所
-                                <input type="text" th:field="*{projects[0].location}" placeholder="">
-                            </label>
-                            <label>
-                                開始日
-                                <input type="date" th:field="*{projects[0].startDate}"required>
-                            </label>
-                            <label>
-                                終了日
-                                <input type="date" th:field="*{projects[0].endDate}"required>
-                            </label>
-                        </div>
-                        <div class="input-group">
-                            <label>
-                                担当したプロセス
-                                <div class="process-chips" id="process-chips-0">
-                                    <span class="process-chip">調査分析</span>
-                                    <span class="process-chip">設計</span>
-                                    <span class="process-chip">開発</span>
-                                    <span class="process-chip">テスト</span>
-                                    <span class="process-chip">運用保守</span>
-                                </div>
-                                <input type="hidden" name="projects[0].processes" id="projects[0].processes">
-                            </label>
-                        </div>
-                        <!-- Skill -->
-                        <div class="input-group tech">
-                            <label class="skill-label">
-                                OS
-                                <div class="selected-skills-list" id="selected-skills-0-os"></div>
-                                <input type="hidden" name="projects[0].os" id="projects[0].os">
-                            </label>
-                            <label class="skill-label">
-                                DB
-                                <div class="selected-skills-list" id="selected-skills-0-db"></div>
-                                <input type="hidden" name="projects[0].db" id="projects[0].db">
-                            </label>
-                            <label class="skill-label">
-                                Language
-                                <div class="selected-skills-list" id="selected-skills-0-language"></div>
-                                <input type="hidden" name="projects[0].language" id="projects[0].language">
-                            </label>
-                            <label class="skill-label">
-                                Tools
-                                <div class="selected-skills-list" id="selected-skills-0-tool"></div>
-                                <input type="hidden" name="projects[0].tool" id="projects[0].tool">
-                            </label>
-                            <button type="button" class="skill-add-button">スキル追加</button>
-                        </div>
-                        <div class="responsibility">
-                            <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。"
-                                maxlength="500" style="overflow: hidden; resize: none;"></textarea>
-                        </div>
-                    </section>
+            <section class="experience-item" data-index="0">
+                <h3>プロジェクト <span>1</span></h3>
+                <div class="input-group">
+                    <label>
+                        プロジェクト名
+                        <input type="text" name="projects[0].projectName" placeholder="" />
+                    </label>
+                    <label>
+                        作業場所
+                        <input type="text" name="projects[0].location" placeholder="" />
+                    </label>
+                    <label>
+                        開始日
+                        <input type="date" name="projects[0].startDate" required />
+                    </label>
+                    <label>
+                        終了日
+                        <input type="date" name="projects[0].endDate" required />
+                    </label>
                 </div>
-                <button type="button" class="history-add-button">経歴追加</button>
+                <!-- unique project id -->
+                <input type="hidden" name="projects[0].ssid" value="${newProjectId}" />
+
+                <!-- Skill -->
+                <div class="input-group tech">
+                    <label class="skill-label">
+                        OS
+                        <div class="selected-skills-list" id="selected-skills-0-os"></div>
+                        <input type="hidden" name="projects[0].os" id="projects[0].os">
+                    </label>
+                    <label class="skill-label">
+                        DB
+                        <div class="selected-skills-list" id="selected-skills-0-db"></div>
+                        <input type="hidden" name="projects[0].db" id="projects[0].db">
+                    </label>
+                    <label class="skill-label">
+                        Language
+                        <div class="selected-skills-list" id="selected-skills-0-language"></div>
+                        <input type="hidden" name="projects[0].language" id="projects[0].language">
+                    </label>
+                    <label class="skill-label">
+                        Tools
+                        <div class="selected-skills-list" id="selected-skills-0-tool"></div>
+                        <input type="hidden" name="projects[0].tool" id="projects[0].tool">
+                    </label>
+                    <button type="button" class="skill-add-button" data-index="0">スキル追加</button>
+                </div>
+
+                <div class="responsibility">
+                    <textarea name="projects[0].responsibility" placeholder="担当した業務を簡単に記入してください。" maxlength="500"
+                        style="overflow: hidden; resize: none;"></textarea>
+                </div>
             </section>
 
             <!-- Summary Section -->

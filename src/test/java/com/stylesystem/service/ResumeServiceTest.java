@@ -35,9 +35,9 @@ public class ResumeServiceTest {
         String userId = "testUser";
         Users user = new Users();
         user.setUserId(userId);
-        when(userRepository.findByUserId(userId)).thenReturn(Optional.of(user));
 
         // when
+        when(userRepository.findByUserId(userId)).thenReturn(Optional.of(user));
         ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
 
         // then

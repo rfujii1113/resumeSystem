@@ -1,178 +1,107 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const categories = ['os', 'db', 'language', 'tool']; 
+    const categories = ['os', 'db', 'language', 'tool'];
     let selectedSkills = {}; // { sectionIndex: { os: [], db: [], language: [], tool: [] } }
-    let selectedProcesses = {}; // { sectionIndex: [processes] }
-    let sectionCount = document.querySelectorAll('.experience-item').length;
+    let sectionCount = 0; 
 
-    // 각 섹션에 data-index 값 설정
-    document.querySelectorAll('.experience-item').forEach((section, index) => {
-        section.dataset.index = index;
-    });
+    // Proejct id 생성 함수
+    function generateProjectId() {
+        return 'projectId-' + Date.now() + '-' + Math.random().toString(10);
+    }
 
-    // 이벤트 위임 방식으로 스킬 추가 버튼에 이벤트 리스너 등록
-    document.body.addEventListener('click', function (event) {
-        if (event.target.classList.contains('skill-add-button')) {
-            const section = event.target.closest('.experience-item');
-            const sectionIndex = section ? section.dataset.index : undefined;
-            console.log('Section Index:', sectionIndex); // 로그로 확인
-            openSkillPopup(sectionIndex);
-        }
-    });
-
-    // 이벤트 위임 방식으로 경력 추가 버튼에 이벤트 리스너 등록
+    // 경력 추가 버튼 클릭 이벤트
     document.body.addEventListener('click', function (event) {
         if (event.target.classList.contains('history-add-button')) {
             addExperienceSection();
         }
     });
 
-    function openSkillPopup(sectionIndex) {
-        if (sectionIndex === undefined) {
-            console.error("Section index is undefined!");
-            return;
+    // 스킬 추가 버튼 클릭 이벤트 (이벤트 위임 방식)
+    document.body.addEventListener('click', function (event) {
+        if (event.target.classList.contains('skill-add-button')) {
+            const sectionIndex = event.target.getAttribute('data-index');
+            openSkillPopup(sectionIndex);
         }
-        console.log(`Opening skill popup for section: ${sectionIndex}`); // 로그 추가
-        const skillPopup = document.getElementById('skill-popup');
-        skillPopup.dataset.sectionIndex = sectionIndex;
-        skillPopup.style.display = 'block';
-
-        // 팝업에서 해당 섹션의 현재 스킬 표시
-        const currentSkills = selectedSkills[sectionIndex] || { os: [], db: [], language: [], tool: [] };
-        document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
-            const skillName = chip.textContent.trim();
-            const category = chip.getAttribute('data-category');
-            if (currentSkills[category].includes(skillName)) {
-                chip.classList.add('selected');
-            } else {
-                chip.classList.remove('selected');
-            }
-        });
-    }
-
-    function closeSkillPopup() {
-        document.getElementById('skill-popup').style.display = 'none';
-    }
-
-    function selectSkill(skillElement, category) {
-        const skillName = skillElement.textContent.trim();
-        const skillPopup = document.getElementById('skill-popup');
-        const sectionIndex = skillPopup.dataset.sectionIndex;
-
-        if (!selectedSkills[sectionIndex]) {
-            selectedSkills[sectionIndex] = { os: [], db: [], language: [], tool: [] };
-        }
-
-        if (!selectedSkills[sectionIndex][category].includes(skillName)) {
-            selectedSkills[sectionIndex][category].push(skillName);
-            skillElement.classList.add('selected');
-        } else {
-            selectedSkills[sectionIndex][category] = selectedSkills[sectionIndex][category].filter(skill => skill !== skillName);
-            skillElement.classList.remove('selected');
-        }
-    }
-
-    function applySelectedSkills() {
-        const skillPopup = document.getElementById('skill-popup');
-        const sectionIndex = skillPopup.dataset.sectionIndex;
-        console.log(`Selected skills for section ${sectionIndex}:`, selectedSkills[sectionIndex]);
-
-        // 각 카테고리에 대한 숨은 입력값 업데이트
-        categories.forEach(category => {
-            const hiddenSkillsInput = document.querySelector(`input[name="projects[${sectionIndex}].${category}"]`);
-            if (hiddenSkillsInput) {
-                hiddenSkillsInput.value = selectedSkills[sectionIndex][category].join(',');
-            }
-        });
-
-        // 스킬 디스플레이 업데이트
-        updateSkillDisplay(sectionIndex);
-
-        closeSkillPopup();
-    }
-
-    function updateSkillDisplay(sectionIndex) {
-        categories.forEach(category => {
-            const selectedSkillsContainer = document.querySelector(`#selected-skills-${sectionIndex}-${category}`);
-            if (selectedSkillsContainer) {
-                selectedSkillsContainer.innerHTML = '';
-
-                console.log(`Updating skills for ${category} in section ${sectionIndex}:`, selectedSkills[sectionIndex][category]);
-
-                // 선택된 스킬 추가
-                selectedSkills[sectionIndex][category].forEach(skillName => {
-                    const skillTag = document.createElement('span');
-                    skillTag.className = 'skill-chip selected';
-                    skillTag.textContent = skillName;
-                    selectedSkillsContainer.appendChild(skillTag);
-                });
-            }
-        });
-    }
+    });
 
     function addExperienceSection() {
         const experienceContainer = document.getElementById('experience-sections');
-        const templateSection = document.querySelector('.experience-item');
-        const newSection = templateSection.cloneNode(true);
 
-        // 현재 인덱스 설정
-        const currentIndex = sectionCount;
-        sectionCount++;
+        // 새로운 섹션 HTML 구조
+        const newSection = document.createElement('section');
+        newSection.classList.add('experience-item');
+        newSection.dataset.index = sectionCount;
 
-        // 입력 필드 업데이트
-        const inputs = newSection.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            let name = input.getAttribute('name');
-            let id = input.getAttribute('id');
-            if (name) {
-                name = name.replace(/\[\d+\]/g, `[${currentIndex}]`);
-                input.setAttribute('name', name);
-                // 값 초기화
-                if (input.type === 'checkbox' || input.type === 'radio') {
-                    input.checked = false;
-                } else {
-                    input.value = '';
-                }
-            }
-            if (id) {
-                id = id.replace(/\d+/, currentIndex);
-                input.setAttribute('id', id);
-            }
-        });
+        // 새로운 project id 생성
+        const newProjectId = generateProjectId();
 
-        // 섹션 제목 업데이트
-        const sectionTitle = newSection.querySelector('h3 span');
-        if (sectionTitle) {
-            sectionTitle.textContent = currentIndex + 1; // 인덱스는 0부터 시작하므로 +1
-        }
+        newSection.innerHTML = `
+            <h3>プロジェクト <span>${sectionCount + 1}</span></h3>
+            <div class="input-group">
+                <label>
+                    プロジェクト名
+                    <input type="text" name="projects[${sectionCount}].projectName" placeholder="" />
+                </label>
+                <label>
+                    作業場所
+                    <input type="text" name="projects[${sectionCount}].location" placeholder="" />
+                </label>
+                <label>
+                    開始日
+                    <input type="date" name="projects[${sectionCount}].startDate" required />
+                </label>
+                <label>
+                    終了日
+                    <input type="date" name="projects[${sectionCount}].endDate" required />
+                </label>
+            </div>
+            <!-- 고유 ssid 숨겨진 필드 -->
+            <input type="hidden" name="projects[${sectionCount}].ssid" value="${newProjectId}" />
+            
+            <!-- Skill -->
+            <div class="input-group tech">
+                <label class="skill-label">
+                    OS
+                    <div class="selected-skills-list" id="selected-skills-${sectionCount}-os"></div>
+                    <input type="hidden" name="projects[${sectionCount}].os" id="projects[${sectionCount}].os">
+                </label>
+                <label class="skill-label">
+                    DB
+                    <div class="selected-skills-list" id="selected-skills-${sectionCount}-db"></div>
+                    <input type="hidden" name="projects[${sectionCount}].db" id="projects[${sectionCount}].db">
+                </label>
+                <label class="skill-label">
+                    Language
+                    <div class="selected-skills-list" id="selected-skills-${sectionCount}-language"></div>
+                    <input type="hidden" name="projects[${sectionCount}].language" id="projects[${sectionCount}].language">
+                </label>
+                <label class="skill-label">
+                    Tools
+                    <div class="selected-skills-list" id="selected-skills-${sectionCount}-tool"></div>
+                    <input type="hidden" name="projects[${sectionCount}].tool" id="projects[${sectionCount}].tool">
+                </label>
+                <button type="button" class="skill-add-button" data-index="${sectionCount}">スキル追加</button>
+            </div>
 
-        // 스킬 디스플레이 초기화
-        categories.forEach(category => {
-            const selectedSkillsContainer = newSection.querySelector(`#selected-skills-${currentIndex}-${category}`);
-            if (selectedSkillsContainer) {
-                selectedSkillsContainer.innerHTML = '';
-            }
-        });
+            <div class="responsibility">
+                <textarea name="projects[${sectionCount}].responsibility" placeholder="担当した業務を簡単に記入してください。" maxlength="500" style="overflow: hidden; resize: none;"></textarea>
+            </div>
+        `;
 
-        // 새 섹션 추가
+        // 섹션 추가
         experienceContainer.appendChild(newSection);
 
         // 새 섹션에 대한 selectedSkills 초기화
-        selectedSkills[currentIndex] = { os: [], db: [], language: [], tool: [] };
-        selectedProcesses[currentIndex] = [];
+        selectedSkills[sectionCount] = { os: [], db: [], language: [], tool: [] };
+
+        // 섹션 카운트 증가
+        sectionCount++;
     }
 
-    // 팝업 내 스킬 칩 클릭 이벤트 설정 (이벤트 위임 방식 사용)
-    document.querySelectorAll('#skill-popup .skill-chip').forEach(chip => {
-        chip.onclick = function () {
-            const category = chip.getAttribute('data-category');
-            selectSkill(chip, category);
-        };
-    });
+    // 스킬 선택 팝업 열기
+    function openSkillPopup(sectionIndex) {
+        // 팝업 열기 로직 추가
+        console.log(`Opening skill popup for section: ${sectionIndex}`);
+    }
 
-    // '適用' 버튼 클릭 이벤트 리스너 설정
-    document.querySelector('.apply-button').addEventListener('click', applySelectedSkills);
-
-    // 팝업 닫기 버튼 이벤트 리스너 설정
-    document.querySelector('.close-button').addEventListener('click', closeSkillPopup);
 });
