@@ -26,6 +26,8 @@ public class ProjectDto {
     @Builder.Default
     private List<String> os = new ArrayList<>();
     @Builder.Default
+    private List<String> hw = new ArrayList<>();
+    @Builder.Default
     private List<String> db = new ArrayList<>();
     @Builder.Default
     private List<String> language = new ArrayList<>();

@@ -99,7 +99,7 @@
             <section class="experience">
                 <h2>経歴</h2>
                 <div id="experience-sections">
-                    <section class="experience-item">
+                    <section class="experience-item" data-index="0">
                         <h3>プロジェクト <span>1</span></h3>
                         <div class="input-group">
                             <label>
@@ -154,13 +154,13 @@
                                 <div class="selected-skills-list" id="selected-skills-0-tool"></div>
                                 <input type="hidden" name="projects[0].tool" id="projects[0].tool">
                             </label>
-                            <button type="button" class="skill-add-button" onclick="openSkillPopup(0)">スキル追加</button>
+                            <button type="button" class="skill-add-button">スキル追加</button>
                         </div>
                         <div class="responsibility">
                             <textarea th:field="*{projects[0].responsibility}" placeholder="担当した業務を簡単に記入してください。"
                                 maxlength="500" style="overflow: hidden; resize: none;"></textarea>
                         </div>
-                    </section>  
+                    </section>
                 </div>
                 <button type="button" class="history-add-button">経歴追加</button>
             </section>
@@ -181,38 +181,16 @@
         <!-- Skill Popup Modal -->
         <div id="skill-popup" class="modal">
             <div class="modal-content">
-                <span class="close-button" onclick="closeSkillPopup()">&times;</span>
+                <span class="close-button">&times;</span>
                 <h2>スキル追加</h2>
-                <div class="skill-category">
-                    <h3>Language</h3>
-                    <div class="skill-chips" data-category="language" id="language-skills-popup">
-                        <span class="skill-chip" data-category="language">JavaScript</span>
-                        <span class="skill-chip" data-category="language">Python</span>
-                        <span class="skill-chip" data-category="language">Java</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>DB</h3>
-                    <div class="skill-chips" data-category="db" id="db-skills-popup">
-                        <span class="skill-chip" data-category="db">MySQL</span>
-                        <span class="skill-chip" data-category="db">PostgreSQL</span>
-                        <span class="skill-chip" data-category="db">MongoDB</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>OS</h3>
-                    <div class="skill-chips" data-category="os" id="os-skills-popup">
-                        <span class="skill-chip" data-category="os">Linux</span>
-                        <span class="skill-chip" data-category="os">Windows</span>
-                        <span class="skill-chip" data-category="os">macOS</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Tools</h3>
-                    <div class="skill-chips" data-category="tool" id="tool-skills-popup">
-                        <span class="skill-chip" data-category="tool">Docker</span>
-                        <span class="skill-chip" data-category="tool">Kubernetes</span>
-                        <span class="skill-chip" data-category="tool">Git</span>
+                <!-- スキルカテゴリ -->
+                <div th:each="category : ${skillsByCategory}">
+                    <div class="skill-category">
+                        <h3 th:text="${category.key}"></h3>
+                        <div class="skill-chips" th:each="skill : ${category.value}">
+                            <span class="skill-chip" th:text="${skill.name}"
+                                th:attr="data-category=${category.key}"></span>
+                        </div>
                     </div>
                 </div>
                 <button type="button" class="apply-button">適用</button>
