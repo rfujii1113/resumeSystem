@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,12 +17,16 @@ public class ProjectDto {
 
     private String projectName;
     private String location;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
     private LocalDate endDate;
     @Builder.Default
     private List<String> processes = new ArrayList<>();
     @Builder.Default
     private List<String> os = new ArrayList<>();
+    @Builder.Default
+    private List<String> hw = new ArrayList<>();
     @Builder.Default
     private List<String> db = new ArrayList<>();
     @Builder.Default
@@ -35,6 +41,7 @@ public class ProjectDto {
                 .projectName(project.getProjectName())
                 .location(project.getLocation())
                 .startDate(project.getStartDate())
+                
                 .endDate(project.getEndDate())
                 .processes(project.getProcesses())
                 .os(project.getOs())

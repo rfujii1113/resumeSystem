@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Users {
-
     @Id
     private String userId;
 

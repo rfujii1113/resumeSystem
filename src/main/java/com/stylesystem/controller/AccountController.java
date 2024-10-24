@@ -5,6 +5,11 @@ import com.stylesystem.dto.UserAuthDto;
 import com.stylesystem.service.UserDeleteService;
 import com.stylesystem.service.UserRegistService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +29,13 @@ public class AccountController {
     private final UserDeleteService userDeleteService;
     private final UserRegistService userService;
 
+    //JavaMail 用の拡張 MailSender インターフェース。
+    @Autowired
+    private JavaMailSender mailSender;
+    @Value("${spring.mail.username}") // プロパティから送信元アドレスを取得
+    private String fromEmail;
+
+
     @GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("userAuthDto", new UserAuthDto());
@@ -32,6 +44,15 @@ public class AccountController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserAuthDto userAuthDto, Model model) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(userAuthDto.getEmail()); // 宛先メールアドレス
+        message.setSubject("経歴書システムへようこそ"); // メールの件名
+        message.setText("以下のページからログイン\n"+"http://localhost:8080/login"+"\n\n初期パスワード:"+userAuthDto.getPassword()+"\n\n※このメールには返信を行わないでください※"); // メールの本文
+        message.setFrom(fromEmail); // 送信元のメールアドレス
+        mailSender.send(message); // メール送信
+
+        //PWハッシュ化ロジック
         try {
             userService.registerNewUser(userAuthDto);
         } catch (IllegalArgumentException e) {

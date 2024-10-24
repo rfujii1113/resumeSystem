@@ -14,4 +14,5 @@ public class UserAuthDto {
     private String password;
     private String confirmPassword; 
     private String role;
+    private String email;
 }

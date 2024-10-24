@@ -4,6 +4,7 @@ import com.stylesystem.dto.ProjectDto;
 import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
 import com.stylesystem.model.Project;
+import com.stylesystem.model.SkillMaster;
 import com.stylesystem.model.Users;
 import com.stylesystem.repository.ProjectRepository;
 import com.stylesystem.repository.ResumeRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +27,7 @@ public class ResumeService {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
     private final ResumeRepository resumeRepository;
+    private final SkillMasterService skillMasterService;
 
     @Transactional
     public void saveResume(ResumeDto resumeDto) {
@@ -104,5 +107,11 @@ public class ResumeService {
                 .build();
 
         return resumeDto;
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, List<SkillMaster>> getSkillsByCategory() {
+        List<SkillMaster> allSkills = skillMasterService.getAllSkills();
+        return allSkills.stream().collect(Collectors.groupingBy(SkillMaster::getCategory));
     }
 }

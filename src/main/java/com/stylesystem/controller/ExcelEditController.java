@@ -68,7 +68,11 @@ public class ExcelEditController {
 
 			//性別
 			cell = row.getCell(6);
-			cell.setCellValue(users.getGender());
+			if(users.getGender()==true){
+				cell.setCellValue("女");	
+			}else{
+				cell.setCellValue("男");
+			}
 
 			//生年月日
 			cell = row.getCell(8);
@@ -85,7 +89,11 @@ public class ExcelEditController {
 
 			//配偶者
 			cell = row.getCell(11);
-			cell.setCellValue(users.getSpouse());
+			if(users.getSpouse()==true){
+				cell.setCellValue("有");	
+			}else{
+				cell.setCellValue("無");
+			}
 
 			//最終学校
 			row = sheet.getRow(2);

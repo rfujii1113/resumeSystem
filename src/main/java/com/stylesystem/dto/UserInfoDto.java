@@ -3,6 +3,9 @@ package com.stylesystem.dto;
 import com.stylesystem.model.Users;
 
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,6 +22,7 @@ public class UserInfoDto {
     private String userNameRomaji;
     private String email;
     private Boolean gender;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
     private LocalDate birthDate;
     private String nationality;
     private String currentAddress;
@@ -27,6 +31,7 @@ public class UserInfoDto {
     private String lastSchool;
     private String lastSchoolType;
     private String major;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
     private LocalDate graduationDate;
     private String educationCourse;
     private String nearestStation;
