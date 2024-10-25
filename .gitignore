@@ -5,10 +5,6 @@
 # Spring Boot 
 /application.properties
 
-# PostgreSQL
-/data/
-*.sql
-
 # binary
 bin/
 
