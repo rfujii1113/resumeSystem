@@ -47,10 +47,19 @@ public class ResumeController {
     @GetMapping("/view")
     public String resumeView(@RequestParam("userId") String userId, Model model) {
         ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
+
         if (resumeDto == null) {
-            model.addAttribute("errorMessage", "Resume not found");
-            return "errorPage";
+            resumeDto = ResumeDto.builder()
+                    .userInfo(UserInfoDto.builder().userId(userId).build()) 
+                    .projects(new ArrayList<>()) 
+                    .SkillMasters(new ArrayList<>()) 
+                    .build();
         }
+
+        if (resumeDto.getProjects() == null) {
+            resumeDto.setProjects(new ArrayList<>());
+        }
+
         model.addAttribute("resumeDto", resumeDto);
         return "resumeView";
     }
