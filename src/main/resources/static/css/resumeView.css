@@ -108,8 +108,15 @@ h2 {
 }
 
 .experience-item p {
-    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0 10px 0;
     font-size: 1em;
+    color: #bbb;
+}
+
+.experience-item span {
+    color: #333;
 }
 
 .summary {

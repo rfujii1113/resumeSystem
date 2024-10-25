@@ -30,19 +30,20 @@ public class ResumeControllerTest {
     @Test
     public void testResumeView_ReturnsResumeView_WhenResumeExists() throws Exception {
         // given
-        String userId = "testUser";
+        String userId = "20241000";
         
         // Creating a ResumeDto object with a UserInfoDto containing the userId
         ResumeDto resumeDto = ResumeDto.builder()
             .userInfo(UserInfoDto.builder().userId(userId).build())
             .build();
 
+        // when
         when(resumeService.getResumeByUserId(userId)).thenReturn(resumeDto);
 
-        // when, then
+        // then
         mockMvc.perform(get("/resume/view")
                 .param("userId", userId))
-                // .andExpect(status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(model().attributeExists("resumeDto"))
                 .andExpect(view().name("resumeView"));
     }

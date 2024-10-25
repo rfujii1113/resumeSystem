@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface ProjectRepository extends JpaRepository<Project, Long> {
+public interface ProjectRepository extends JpaRepository<Project, String> {
 
     List<Project> findByUsers(Users users);
     

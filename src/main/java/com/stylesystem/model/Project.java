@@ -18,8 +18,8 @@ import java.util.List;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long projectId;
+    @Column(name = "project_id", updatable = false, nullable = false)
+    private String projectId;
 
     private String projectName;
     private LocalDate startDate;
