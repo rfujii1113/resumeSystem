@@ -19,6 +19,7 @@ import com.stylesystem.model.SkillMaster;
 import com.stylesystem.service.ResumeService;
 import com.stylesystem.service.UserDeleteService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,40 +42,43 @@ public class ResumeController {
     }
 
     @GetMapping("/view")
-    public String resumeView(@RequestParam("userId") String userId, Model model) {
+    public String resumeView(@RequestParam("userId") String userId, HttpSession session, Model model) {
         ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
 
         if (resumeDto == null) {
             resumeDto = ResumeDto.builder()
-                    .userInfo(UserInfoDto.builder().userId(userId).build()) 
-                    .projects(new ArrayList<>()) 
-                    .SkillMasters(new ArrayList<>()) 
+                    .userInfo(UserInfoDto.builder().userId(userId).build())
+                    .projects(new ArrayList<>())
+                    .SkillMasters(new ArrayList<>())
                     .build();
-        }else{
+        } else {
             log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
         }
+
+        // save the resumeDto in the session
+        session.setAttribute("resumeDto", resumeDto);
         model.addAttribute("resumeDto", resumeDto);
         return "resumeView";
     }
 
     @GetMapping("/form")
-    public String showResumeForm(@RequestParam("userId") String userId, Model model) {
-        ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
+    public String showResumeForm(@RequestParam("userId") String userId, HttpSession session, Model model) {
+        // get the resumeDto from the session
+        ResumeDto resumeDto = (ResumeDto) session.getAttribute("resumeDto");
 
-        // If the resume is not found, create a new one
+        // resumeDto is null if the user is creating a new resume
         if (resumeDto == null || resumeDto.getProjects() == null) {
             resumeDto = ResumeDto.builder()
                     .userInfo(UserInfoDto.builder().userId(userId).build())
                     .projects(new ArrayList<>())
                     .SkillMasters(new ArrayList<>())
                     .build();
-
-            // log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
+            session.setAttribute("resumeDto", resumeDto);
         } else {
             log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
         }
 
-        // Get the skills grouped by category
+        // add skills by category to the model
         Map<String, List<SkillMaster>> skillsByCategory = resumeService.getSkillsByCategory();
         model.addAttribute("skillsByCategory", skillsByCategory);
         model.addAttribute("resumeDto", resumeDto);
