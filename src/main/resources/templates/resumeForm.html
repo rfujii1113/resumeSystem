@@ -24,7 +24,7 @@
 
             <!-- Personal Information Section -->
             <section class="personal-info">
-                <h2>人的情報</h2>
+                <h2>個人情報</h2>
                 <div class="input-group">
                     <label>
                         名前(漢字)
@@ -46,8 +46,8 @@
                         <input type="date"th:field="*{userInfo.birthDate}"required>
                     </label>
                     <label>
-                        国籍
-                        <input type="text" th:field="*{userInfo.nationality}" placeholder="">
+                        本籍
+                        <input type="text" th:field="*{userInfo.permanentAddress}" placeholder="">
                     </label>
                     <label>
                         配偶者
@@ -121,7 +121,7 @@
                         </div>
                         <div class="input-group">
                             <label>
-                                担当したプロセス
+                                担当したプロセス 
                                 <div class="process-chips" id="process-chips-0">
                                     <span class="process-chip">調査分析</span>
                                     <span class="process-chip">設計</span>

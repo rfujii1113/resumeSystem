@@ -18,6 +18,7 @@ public class Users {
 
     private String role;
     private String password;
+    @Column(name = "delete_flag")
     private Boolean deleteFlag;
     private String userName;
     private String userNameRomaji;

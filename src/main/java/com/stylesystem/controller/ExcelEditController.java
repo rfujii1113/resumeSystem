@@ -54,14 +54,16 @@ public class ExcelEditController {
 		try (InputStream inputStream = resource.getInputStream();
 				Workbook workbook = new XSSFWorkbook(inputStream)) {
 
+			/*
+			 * @Param sheet Excelのシート指定
+			 * @Param row Excelの行を指定
+			 * @Param cell Excelの列を指定
+			 */
+			
 			// シートを取得
 			Sheet sheet = workbook.getSheetAt(0); // 1つ目のシートを取得
 
-			/*
-			 * row(横)
-			 * cell(縦)
-			 */
-			//個人情報入力名前
+			//個人情報入力 名前
 			Row row = sheet.getRow(0); //1行目
 			Cell cell = row.getCell(3); // D列
 			cell.setCellValue(users.getUserName());
@@ -102,7 +104,7 @@ public class ExcelEditController {
 
 			//専攻学科
 			cell = row.getCell(8);
-			cell.setCellValue(users.getLastSchoolType());
+			cell.setCellValue(users.getMajor());
 
 			//卒業年月
 			cell = row.getCell(11);
@@ -325,7 +327,8 @@ public class ExcelEditController {
 					listIndex++;
 				}
 			}
-			System.out.println(sum);
+			
+			//経験年数を算出しExcelに出力
 			sheet = workbook.getSheetAt(0); // 1つ目のシートを取得
 			row = sheet.getRow(3);
 			cell = row.getCell(8);
