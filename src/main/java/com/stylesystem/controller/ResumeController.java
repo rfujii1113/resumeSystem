@@ -71,7 +71,6 @@ public class ResumeController {
             resumeDto = ResumeDto.builder()
                     .userInfo(UserInfoDto.builder().userId(userId).build())
                     .projects(new ArrayList<>())
-                    .SkillMasters(new ArrayList<>())
                     .build();
             session.setAttribute("resumeDto", resumeDto);
         } else {

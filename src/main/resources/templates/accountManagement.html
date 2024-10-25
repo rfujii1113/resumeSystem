@@ -18,7 +18,7 @@
                     <th>名前</th>
                     <th>名前(英語)</th>
                     <th>社員番号</th>
-                    <th>ロール</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -27,12 +27,12 @@
                     <td th:text="${user.userNameRomaji}"/>
                     <td th:text="${user.userId}"/>
                     <td>
-                        <form th:action="@{/account/deactivate}" method="post" th:if="${user.deleteFlag != null and user.deleteFlag}"
+                        <form th:action="@{/account/deactivate}" method="post" th:if="${user.deleteFlag != null and user.deleteFlag == false}"
                               onsubmit="return confirmAction('削除')">
                             <input type="hidden" name="userId" th:value="${user.userId}">
                             <button type="submit">削除</button>
                         </form>
-                        <form th:action="@{/account/activate}" method="post" th:if="${user.deleteFlag != null and user.deleteFlag}"
+                        <form th:action="@{/account/activate}" method="post" th:if="${user.deleteFlag != null and user.deleteFlag == true}"
                               onsubmit="return confirmAction('復活')">
                             <input type="hidden" name="userId" th:value="${user.userId}">
                             <button type="submit">復活</button>

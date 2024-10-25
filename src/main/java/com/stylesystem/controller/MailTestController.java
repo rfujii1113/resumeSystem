@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MailTestController {
 
+    //application.propatiesから送信元のメールアドレスを取得
     @Value("${spring.mail.username}") // プロパティから送信元アドレスを取得
     private String fromEmail;
 
+    //JavaMailSender springで提供されているメールを送信するためのインターフェース
    @Autowired
     private JavaMailSender mailSender;
 
@@ -28,7 +30,11 @@ public class MailTestController {
 
     @PostMapping("/sendMail")
     public String postMethodName(@RequestParam(name = "mailAD") String mailAD) {
-        //メールを送るコード
+        /*
+          *メールを送るコード
+          *SimpleMailMessage Springで提供されているメールを送るためのクラス
+          *@Param mailAD viewから受け取った宛先のメールアドレス
+        */
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailAD); // 宛先メールアドレス
         message.setSubject("経歴書システムへようこそ"); // メールの件名

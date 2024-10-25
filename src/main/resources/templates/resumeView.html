@@ -31,13 +31,13 @@
         <div class="resume-view" th:if="${resumeDto != null}">
             <!-- Personal Information Section -->
             <section class="personal-info">
-                <h2>人的情報</h2>
+                <h2>個人情報</h2>
                 <div class="info-group">
                     <p>名前(漢字) <span th:text="${resumeDto.userInfo.userName}">名前</span></p>
                     <p>名前(ローマ字) <span th:text="${resumeDto.userInfo.userNameRomaji}">ローマ字</span></p>
                     <p>性別 <span th:text="${resumeDto.userInfo.gender} ? '女性' : '男性'">性別</span></p>
                     <p>生年月日 <span th:text="${resumeDto.userInfo.birthDate}">生年月日</span></p>
-                    <p>国籍 <span th:text="${resumeDto.userInfo.nationality}">国籍</span></p>
+                    <p>本籍 <span th:text="${resumeDto.userInfo.permanentAddress}">本籍</span></p>
                     <p>配偶者 <span th:text="${resumeDto.userInfo.spouse} ? '有' : '無'">配偶者</span></p>
                 </div>
                 <div class="info-group">

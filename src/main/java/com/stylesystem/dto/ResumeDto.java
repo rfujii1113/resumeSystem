@@ -7,8 +7,6 @@ import lombok.Builder;
 
 import java.util.List;
 
-import com.stylesystem.model.SkillMaster;
-
 import java.util.ArrayList; 
 
 @Data
@@ -21,7 +19,4 @@ public class ResumeDto {
     
     @Builder.Default
     private List<ProjectDto> projects = new ArrayList<>(); 
-
-    @Builder.Default
-    private List<SkillMaster> SkillMasters = new ArrayList<>();
 }
