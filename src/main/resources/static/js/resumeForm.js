@@ -58,18 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
             <!-- 生成されたProject IDを隠しフィールドに保存 -->
             <input type="hidden" name="projects[${sectionCount}].projectId" value="${newProjectId}" />
 
-            <!-- Process選択 -->
+             <!-- Process -->
             <div class="input-group">
                 <label>
-                    担当したプロセス
-                    <div class="process-chips" id="process-chips-${sectionCount}">
-                        <span class="process-chip">調査分析</span>
-                        <span class="process-chip">設計</span>
-                        <span class="process-chip">開発</span>
-                        <span class="process-chip">テスト</span>
-                        <span class="process-chip">運用保守</span>
+                    Ａ：調査分析 Ｂ：基本設計 Ｃ：詳細設計 Ｄ：製造単体 Ｅ：結合試験 Ｆ：総合テスト G : 保守運用
+                    <div class="process-chips" id="process-chips-0-processes">
+                        <span class="process-chip">A</span>
+                        <span class="process-chip">B</span>
+                        <span class="process-chip">C</span>
+                        <span class="process-chip">D</span>
+                        <span class="process-chip">E</span>
+                        <span class="process-chip">F</span>
+                        <span class="process-chip">G</span>
                     </div>
-                    <input type="hidden" name="projects[${sectionCount}].processes" id="projects[${sectionCount}].processes">
+                    <input type="hidden" name="projects[0].processes" id="projects[0].processes">
                 </label>
             </div>
 

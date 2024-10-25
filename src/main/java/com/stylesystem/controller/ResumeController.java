@@ -49,7 +49,7 @@ public class ResumeController {
             resumeDto = ResumeDto.builder()
                     .userInfo(UserInfoDto.builder().userId(userId).build())
                     .projects(new ArrayList<>())
-                    .SkillMasters(new ArrayList<>())
+                    .skillMasters(new ArrayList<>())
                     .build();
         } else {
             log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
