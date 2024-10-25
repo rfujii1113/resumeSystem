@@ -99,9 +99,8 @@
             <section class="experience">
                 <h2>経験</h2>
                 <div id="experience-sections">
-                    <!-- 기존 프로젝트 섹션이 여기 추가될 것입니다. -->
+                    <!-- Project Item -->
                     <section class="experience-item" data-index="0">
-                        <h3>プロジェクト <span>1</span></h3>
                         <div class="input-group">
                             <label>
                                 プロジェクト名
@@ -121,7 +120,8 @@
                             </label>
                         </div>
                         <!-- unique project id を保存-->
-                        <input type="hidden" name="projects[0].projectId" value="${newProjectId}" />
+                        <!-- <input type="hidden" name="projects[0].projectId" value="${newProjectId}" /> -->
+                        <input type="hidden" name="projects[0].projectId" id="projects[0].projectId" value="" />
 
                         <!-- Process -->
                         <div class="input-group">

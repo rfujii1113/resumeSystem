@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return 'projectId-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
     }
 
+    // 最初のプロジェクトセクションのProject IDを生成
+    const firstProjectIdField = document.getElementById('projects[0].projectId');
+    if (!firstProjectIdField.value) {
+        firstProjectIdField.value = generateProjectId();
+    }
+
     // 経歴追加ボタンクリックイベント
     document.body.addEventListener('click', function (event) {
         if (event.target.classList.contains('history-add-button')) {

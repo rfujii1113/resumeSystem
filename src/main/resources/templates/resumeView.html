@@ -55,7 +55,6 @@
                 <h2>経歴</h2>   
                 <div th:each="project, iterStat : ${resumeDto.projects}">
                     <div class="experience-item">
-                        <h3>プロジェクト <span th:text="${iterStat.index + 1}">1</span></h3>
                         <p>プロジェクト名  <span th:text="${project.projectName}">プロジェクト名</span></p>
                         <p>作業場所  <span th:text="${project.location}">作業場所</span></p>
                         <p>開始日  <span th:text="${project.startDate}">開始日</span></p>
