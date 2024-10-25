@@ -104,6 +104,7 @@ public class ResumeService {
     @Transactional(readOnly = true)
     public ResumeDto getResumeByUserId(String userId) {
         Users user = resumeRepository.findByUserId(userId).orElse(null);
+        
         if (user == null) {
             return null;
         }

@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ResumeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ResumeController.class);
-
     private final ResumeService resumeService;
     private final UserDeleteService userDeleteService;
 
@@ -54,12 +50,9 @@ public class ResumeController {
                     .projects(new ArrayList<>()) 
                     .SkillMasters(new ArrayList<>()) 
                     .build();
+        }else{
+            log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
         }
-
-        if (resumeDto.getProjects() == null) {
-            resumeDto.setProjects(new ArrayList<>());
-        }
-
         model.addAttribute("resumeDto", resumeDto);
         return "resumeView";
     }
@@ -68,43 +61,31 @@ public class ResumeController {
     public String showResumeForm(@RequestParam("userId") String userId, Model model) {
         ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
 
-        // If the resume does not exist, create a new one
-        if (resumeDto == null) {
+        // If the resume is not found, create a new one
+        if (resumeDto == null || resumeDto.getProjects() == null) {
             resumeDto = ResumeDto.builder()
                     .userInfo(UserInfoDto.builder().userId(userId).build())
                     .projects(new ArrayList<>())
                     .SkillMasters(new ArrayList<>())
                     .build();
 
-            log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
+            // log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
         } else {
-            if (resumeDto.getUserInfo() == null) {
-                resumeDto.setUserInfo(new UserInfoDto());
-                resumeDto.getUserInfo().setUserId(userId);
-            }
-            if (resumeDto.getProjects() == null) {
-                resumeDto.setProjects(new ArrayList<>());
-            }
-            if (resumeDto.getSkillMasters() == null) {
-                resumeDto.setSkillMasters(new ArrayList<>());
-            }
+            log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
         }
 
         // Get the skills grouped by category
         Map<String, List<SkillMaster>> skillsByCategory = resumeService.getSkillsByCategory();
         model.addAttribute("skillsByCategory", skillsByCategory);
         model.addAttribute("resumeDto", resumeDto);
-
         return "resumeForm";
     }
 
     @PostMapping("/save")
     public String saveResume(@ModelAttribute ResumeDto resumeDto) {
-        log.debug("Received ResumeDto: {}", resumeDto);
-
+        // log.debug("Received ResumeDto: {}", resumeDto);
         resumeService.saveResume(resumeDto);
-        log.debug("Resume saved for user: {}", resumeDto.getUserInfo().getUserId());
-
+        // log.debug("Resume saved for user: {}", resumeDto.getUserInfo().getUserId());
         return "redirect:/resume/view?userId=" + resumeDto.getUserInfo().getUserId();
     }
 }
