@@ -123,6 +123,21 @@
                         <!-- unique project id を保存-->
                         <input type="hidden" name="projects[0].projectId" value="${newProjectId}" />
 
+                        <!-- Process -->
+                        <div class="input-group">
+                            <label>
+                                担当したプロセス
+                                <div class="process-chips" id="process-chips-0-processes">
+                                    <span class="process-chip">調査分析</span>
+                                    <span class="process-chip">設計</span>
+                                    <span class="process-chip">開発</span>
+                                    <span class="process-chip">テスト</span>
+                                    <span class="process-chip">運用保守</span>
+                                </div>
+                                <input type="hidden" name="projects[0].processes" id="projects[0].processes">
+                            </label>
+                        </div>
+
                         <!-- Skill -->
                         <div class="input-group tech">
                             <label class="skill-label">

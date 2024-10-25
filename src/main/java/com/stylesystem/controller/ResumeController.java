@@ -66,6 +66,8 @@ public class ResumeController {
                     .projects(new ArrayList<>())
                     .SkillMasters(new ArrayList<>())
                     .build();
+
+            log.debug("Projects in ResumeDto: {}", resumeDto.getProjects());
         } else {
             if (resumeDto.getUserInfo() == null) {
                 resumeDto.setUserInfo(new UserInfoDto());
@@ -74,16 +76,16 @@ public class ResumeController {
             if (resumeDto.getProjects() == null) {
                 resumeDto.setProjects(new ArrayList<>());
             }
-            if(resumeDto.getSkillMasters() == null){
+            if (resumeDto.getSkillMasters() == null) {
                 resumeDto.setSkillMasters(new ArrayList<>());
             }
         }
 
         // Get the skills grouped by category
         Map<String, List<SkillMaster>> skillsByCategory = resumeService.getSkillsByCategory();
-        logger.debug("Skills By Category: {}", skillsByCategory);
         model.addAttribute("skillsByCategory", skillsByCategory);
         model.addAttribute("resumeDto", resumeDto);
+
         return "resumeForm";
     }
 

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let sectionCount = 1; // 첫 번째 섹션은 이미 HTML에 추가된 상태이므로 1로 시작
     let selectedSkills = {}; // 각 프로젝트 섹션별로 스킬을 저장 {sectionIndex: {os: [], db: [], language: [], tool: []}}
+    let selectedProcesses = {}; // 각 프로젝트 섹션별로 선택된 프로세스를 저장 {sectionIndex: []}
 
     // Project ID 생성 함수
     function generateProjectId() {
@@ -50,7 +51,22 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <!-- 생성된 Project ID가 숨겨진 필드 -->
             <input type="hidden" name="projects[${sectionCount}].projectId" value="${newProjectId}" />
-            
+
+            <!-- Process 선택 -->
+            <div class="input-group">
+                <label>
+                    担当したプロセス
+                    <div class="process-chips" id="process-chips-${sectionCount}">
+                        <span class="process-chip">調査分析</span>
+                        <span class="process-chip">設計</span>
+                        <span class="process-chip">開発</span>
+                        <span class="process-chip">テスト</span>
+                        <span class="process-chip">運用保守</span>
+                    </div>
+                    <input type="hidden" name="projects[${sectionCount}].processes" id="projects[${sectionCount}].processes">
+                </label>
+            </div>
+
             <!-- Skill -->
             <div class="input-group tech">
                 <label class="skill-label">
@@ -84,12 +100,38 @@ document.addEventListener('DOMContentLoaded', function () {
         // 섹션 추가
         experienceContainer.appendChild(newSection);
 
-        // 새 섹션에 대한 selectedSkills 초기화
+        // 새 섹션에 대한 selectedSkills와 selectedProcesses 초기화
         selectedSkills[sectionCount] = { os: [], db: [], language: [], tool: [] };
+        selectedProcesses[sectionCount] = [];
 
         // 섹션 카운트 증가
         sectionCount++;
     }
+
+    // Process 칩 클릭 이벤트 처리
+    document.body.addEventListener('click', function (event) {
+        if (event.target.classList.contains('process-chip')) {
+            const sectionIndex = event.target.closest('.experience-item').dataset.index;
+            const processName = event.target.innerText;
+
+            // 선택/해제 스타일 적용
+            event.target.classList.toggle('selected');
+
+            // selectedProcesses 업데이트
+            if (!selectedProcesses[sectionIndex]) selectedProcesses[sectionIndex] = [];
+
+            if (selectedProcesses[sectionIndex].includes(processName)) {
+                // 이미 선택된 경우 제거
+                selectedProcesses[sectionIndex] = selectedProcesses[sectionIndex].filter(p => p !== processName);
+            } else {
+                // 선택되지 않은 경우 추가
+                selectedProcesses[sectionIndex].push(processName);
+            }
+
+            // 선택된 프로세스들을 hidden input에 저장
+            document.getElementById(`projects[${sectionIndex}].processes`).value = selectedProcesses[sectionIndex].join(', ');
+        }
+    });
 
     // 스킬 선택 팝업 열기
     function openSkillPopup(sectionIndex) {
