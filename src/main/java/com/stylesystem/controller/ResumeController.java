@@ -22,7 +22,9 @@ import com.stylesystem.service.ResumeService;
 import com.stylesystem.service.UserDeleteService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/resume")
 @RequiredArgsConstructor
@@ -87,7 +89,11 @@ public class ResumeController {
 
     @PostMapping("/save")
     public String saveResume(@ModelAttribute ResumeDto resumeDto) {
+        log.debug("Received ResumeDto: {}", resumeDto);
+
         resumeService.saveResume(resumeDto);
+        log.debug("Resume saved for user: {}", resumeDto.getUserInfo().getUserId());
+
         return "redirect:/resume/view?userId=" + resumeDto.getUserInfo().getUserId();
     }
 }

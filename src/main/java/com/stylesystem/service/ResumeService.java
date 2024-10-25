@@ -10,6 +10,8 @@ import com.stylesystem.repository.ProjectRepository;
 import com.stylesystem.repository.ResumeRepository;
 import com.stylesystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ResumeService {
@@ -31,6 +34,11 @@ public class ResumeService {
 
     @Transactional
     public void saveResume(ResumeDto resumeDto) {
+
+         // 로그 추가: 전달받은 ResumeDto 확인
+         log.debug("Saving Resume for User ID: {}", resumeDto.getUserInfo().getUserId());
+         log.debug("Projects to save: {}", resumeDto.getProjects());
+         log.debug("Skills to save: {}", resumeDto.getSkillMasters());
 
         String userId = resumeDto.getUserInfo().getUserId();
         if (userId == null || userId.isEmpty()) {
@@ -50,8 +58,14 @@ public class ResumeService {
         // Save the projects for the user
         for (ProjectDto projectDto : resumeDto.getProjects()) {
             Project project = projectDto.toEntity();
+
+            // projectId가 존재하지 않으면 예외를 던짐
+            if (project.getProjectId() == null || project.getProjectId().isEmpty()) {
+                throw new IllegalArgumentException("projectId is required for project: " + project.getProjectName());
+            }
+
             project.setUsers(users);
-            projectRepository.save(project);
+            projectRepository.save(project); // projectId를 수동으로 설정한 후 저장
         }
     }
 

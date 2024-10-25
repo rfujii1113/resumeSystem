@@ -96,58 +96,67 @@
             </section>
 
             <!-- Experience Sections -->
-            <section class="experience-item" data-index="0">
-                <h3>プロジェクト <span>1</span></h3>
-                <div class="input-group">
-                    <label>
-                        プロジェクト名
-                        <input type="text" name="projects[0].projectName" placeholder="" />
-                    </label>
-                    <label>
-                        作業場所
-                        <input type="text" name="projects[0].location" placeholder="" />
-                    </label>
-                    <label>
-                        開始日
-                        <input type="date" name="projects[0].startDate" required />
-                    </label>
-                    <label>
-                        終了日
-                        <input type="date" name="projects[0].endDate" required />
-                    </label>
-                </div>
-                <!-- unique project id -->
-                <input type="hidden" name="projects[0].ssid" value="${newProjectId}" />
+            <section class="experience">
+                <h2>経験</h2>
+                <div id="experience-sections">
+                    <!-- 기존 프로젝트 섹션이 여기 추가될 것입니다. -->
+                    <section class="experience-item" data-index="0">
+                        <h3>プロジェクト <span>1</span></h3>
+                        <div class="input-group">
+                            <label>
+                                プロジェクト名
+                                <input type="text" name="projects[0].projectName" placeholder="" />
+                            </label>
+                            <label>
+                                作業場所
+                                <input type="text" name="projects[0].location" placeholder="" />
+                            </label>
+                            <label>
+                                開始日
+                                <input type="date" name="projects[0].startDate" required />
+                            </label>
+                            <label>
+                                終了日
+                                <input type="date" name="projects[0].endDate" required />
+                            </label>
+                        </div>
+                        <!-- unique project id を保存-->
+                        <input type="hidden" name="projects[0].projectId" value="${newProjectId}" />
 
-                <!-- Skill -->
-                <div class="input-group tech">
-                    <label class="skill-label">
-                        OS
-                        <div class="selected-skills-list" id="selected-skills-0-os"></div>
-                        <input type="hidden" name="projects[0].os" id="projects[0].os">
-                    </label>
-                    <label class="skill-label">
-                        DB
-                        <div class="selected-skills-list" id="selected-skills-0-db"></div>
-                        <input type="hidden" name="projects[0].db" id="projects[0].db">
-                    </label>
-                    <label class="skill-label">
-                        Language
-                        <div class="selected-skills-list" id="selected-skills-0-language"></div>
-                        <input type="hidden" name="projects[0].language" id="projects[0].language">
-                    </label>
-                    <label class="skill-label">
-                        Tools
-                        <div class="selected-skills-list" id="selected-skills-0-tool"></div>
-                        <input type="hidden" name="projects[0].tool" id="projects[0].tool">
-                    </label>
-                    <button type="button" class="skill-add-button" data-index="0">スキル追加</button>
+                        <!-- Skill -->
+                        <div class="input-group tech">
+                            <label class="skill-label">
+                                OS
+                                <div class="selected-skills-list" id="selected-skills-0-os"></div>
+                                <input type="hidden" name="projects[0].os" id="projects[0].os">
+                            </label>
+                            <label class="skill-label">
+                                DB
+                                <div class="selected-skills-list" id="selected-skills-0-db"></div>
+                                <input type="hidden" name="projects[0].db" id="projects[0].db">
+                            </label>
+                            <label class="skill-label">
+                                Language
+                                <div class="selected-skills-list" id="selected-skills-0-language"></div>
+                                <input type="hidden" name="projects[0].language" id="projects[0].language">
+                            </label>
+                            <label class="skill-label">
+                                Tools
+                                <div class="selected-skills-list" id="selected-skills-0-tool"></div>
+                                <input type="hidden" name="projects[0].tool" id="projects[0].tool">
+                            </label>
+                            <button type="button" class="skill-add-button" data-index="0">スキル追加</button>
+                        </div>
+
+                        <div class="responsibility">
+                            <textarea name="projects[0].responsibility" placeholder="担当した業務を簡単に記入してください。" maxlength="500"
+                                style="overflow: hidden; resize: none;"></textarea>
+                        </div>
+                    </section>
                 </div>
 
-                <div class="responsibility">
-                    <textarea name="projects[0].responsibility" placeholder="担当した業務を簡単に記入してください。" maxlength="500"
-                        style="overflow: hidden; resize: none;"></textarea>
-                </div>
+                <!-- 경력 추가 버튼 -->
+                <button type="button" class="history-add-button">+ プロジェクト追加</button>
             </section>
 
             <!-- Summary Section -->
@@ -173,8 +182,7 @@
                     <div class="skill-category">
                         <h3 th:text="${category.key}"></h3>
                         <div class="skill-chips" th:each="skill : ${category.value}">
-                            <span class="skill-chip" th:text="${skill.name}"
-                                th:attr="data-category=${category.key}"></span>
+                            <span class="skill-chip" th:text="${skill.name}" th:attr="data-category=${category.key}"></span>
                         </div>
                     </div>
                 </div>
