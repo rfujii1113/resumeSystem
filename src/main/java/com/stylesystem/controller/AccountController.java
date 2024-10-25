@@ -1,6 +1,6 @@
 package com.stylesystem.controller;
 
-import com.stylesystem.dto.UserInfoDto;
+import com.stylesystem.repository.UsersRepository;
 import com.stylesystem.dto.UserAuthDto;
 import com.stylesystem.service.UserDeleteService;
 import com.stylesystem.service.UserRegistService;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,6 +26,7 @@ public class AccountController {
 
     private final UserDeleteService userDeleteService;
     private final UserRegistService userService;
+    private final UsersRepository usersRepository;
 
     //JavaMail 用の拡張 MailSender インターフェース。
     @Autowired
@@ -45,8 +44,12 @@ public class AccountController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserAuthDto userAuthDto, Model model) {
 
+        /*
+          *メールを送るロジック
+          *SimpleMailMessage Springで提供されているメールを送るためのクラス
+        */
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(userAuthDto.getEmail()); // 宛先メールアドレス
+        message.setTo(userAuthDto.getEmail()); // 宛先メールアドレスをviewから取得
         message.setSubject("経歴書システムへようこそ"); // メールの件名
         message.setText("以下のページからログイン\n"+"http://localhost:8080/login"+"\n\n初期パスワード:"+userAuthDto.getPassword()+"\n\n※このメールには返信を行わないでください※"); // メールの本文
         message.setFrom(fromEmail); // 送信元のメールアドレス
@@ -64,10 +67,8 @@ public class AccountController {
 
     @GetMapping("/management")
     public String accountManagement(Model model) {
-        List<UserInfoDto> userInfoList = userDeleteService.getAllActiveUsers().stream()
-                .map(UserInfoDto::fromEntity)
-                .collect(Collectors.toList());
-        model.addAttribute("users", userInfoList);
+        //usersテーブルのデータを全件取得delete_flagの順に並び替えmodelに格納
+        model.addAttribute("users", usersRepository.findAllByOrderByDeleteFlag());
         return "accountManagement";
     }
 
