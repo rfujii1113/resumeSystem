@@ -9,17 +9,12 @@
 - 経歴書の作成&編集
 - 経歴書のExcel出力機能
 
-### 環境構築
-1. **実行環境**
+### 実行環境
    - Java 17 以上
    - PostgreSQL
    - Springboot framework 3.x
    - Thymeleaf 3.x
 
-2. **プロジェクトのクローン**
-   ```bash
-   https://github.com/rfujii1113/resumeSystem.git
-  
 ### 計画書のスキル追加のため必要なDDLのPath(スキル追加機能未実装)
 resources/data/skillMaster.sql
 
