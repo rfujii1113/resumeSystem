@@ -47,7 +47,6 @@ public class ExcelEditController {
 			throws IOException {
 		users = usersRepository.findByUserId(resumeEditDTO.getUserId());
 		projects = projectRepository.findByUsers_UserIdOrderByStartDateAsc(resumeEditDTO.getUserId());
-
 		// Excelテンプレートファイルのパスを指定
 		ClassPathResource resource = new ClassPathResource("static/excel/skillsheetTemplate.xlsx");
 		// テンプレートExcelファイルを読み込む
@@ -69,11 +68,14 @@ public class ExcelEditController {
 			cell.setCellValue(users.getUserName());
 
 			//性別
+			
 			cell = row.getCell(6);
-			if(users.getGender()==true){
-				cell.setCellValue("女");	
-			}else{
+			if(users.getGender()== null){
+				cell.setCellValue("");	
+			}else if(users.getGender()==false){
 				cell.setCellValue("男");
+			}else{
+				cell.setCellValue("女");	
 			}
 
 			//生年月日
@@ -91,10 +93,12 @@ public class ExcelEditController {
 
 			//配偶者
 			cell = row.getCell(11);
-			if(users.getSpouse()==true){
-				cell.setCellValue("有");	
-			}else{
+			if(users.getSpouse()==null){
+				cell.setCellValue("");	
+			}else if(users.getSpouse()==false){
 				cell.setCellValue("無");
+			}else{
+				cell.setCellValue("有");
 			}
 
 			//最終学校
@@ -155,6 +159,13 @@ public class ExcelEditController {
 				workbook.removeSheetAt(2);
 				workbook.removeSheetAt(1);
 			}
+
+			/*
+			 * @Param x Excel列のindex操作
+			 * @Param project listのindex操作
+			 * @Param sum 開発期間の合計値計算
+			 * @Param monthsBetween プロジェクトの開始期間と終了期間を計算
+			 */
 			int x = 0;
 			int listIndex = 0;
 			long sum = 0;
@@ -179,11 +190,19 @@ public class ExcelEditController {
 					//プロジェクト開始日
 					row = sheet.getRow(15 + x);
 					cell = row.getCell(1);
-					cell.setCellValue(project.getStartDate());
+					if(project.getStartDate() == null){
+						cell.setCellValue("");
+					}else{
+						cell.setCellValue(project.getStartDate());
+					}
 					//プロジェクト終了日
 					row = sheet.getRow(16 + x);
 					cell = row.getCell(1);
+					if(project.getEndDate() == null){
+						cell.setCellValue("");
+					}else{
 					cell.setCellValue(project.getEndDate());
+					}
 					//開発期間（mヶ月）
 					row = sheet.getRow(15 + x);
 					cell = row.getCell(4);
@@ -204,7 +223,7 @@ public class ExcelEditController {
 					if (project.getHw() == null || project.getOs() == null) {
 						cell.setCellValue("");
 					} else {
-						cell.setCellValue(String.join(",", project.getHw()) + ","
+						cell.setCellValue(String.join(",", project.getHw()) 
 								+ String.join(",", project.getOs()));
 					}
 					//DB
@@ -231,13 +250,23 @@ public class ExcelEditController {
 					} else {
 						cell.setCellValue(String.join(",", project.getTool()));
 					}
-					//Type
+					//担当
 					row = sheet.getRow(15 + x);
 					cell = row.getCell(10);
+					// if (project.getProcesses() == null) {
+					// 	cell.setCellValue("");
+					// } else {
+					// 	cell.setCellValue(String.join(",", project.getProcesses()) );
+					// }
 					if (project.getProcesses() == null) {
 						cell.setCellValue("");
 					} else {
-						cell.setCellValue(String.join(",", project.getProcesses()) + ",");
+						// A～Gのリストを取得してソート
+						List<String> processes = new ArrayList<>(project.getProcesses());
+						processes.sort(String::compareTo);
+					
+						// カンマで結合してセルに設定
+						cell.setCellValue(String.join(",", processes));
 					}
 					//row,listindexインクリメント
 					x += 2;
@@ -262,11 +291,19 @@ public class ExcelEditController {
 					//プロジェクト開始日
 					row = sheet.getRow(3 + x);
 					cell = row.getCell(1);
-					cell.setCellValue(project.getStartDate());
+					if(project.getStartDate() == null){
+						cell.setCellValue("");
+					}else{
+						cell.setCellValue(project.getStartDate());
+					}
 					//プロジェクト終了日
 					row = sheet.getRow(4 + x);
 					cell = row.getCell(1);
+					if(project.getEndDate() == null){
+						cell.setCellValue("");
+					}else{
 					cell.setCellValue(project.getEndDate());
+					}
 					//開発期間（mヶ月）
 					row = sheet.getRow(3 + x);
 					cell = row.getCell(4);
@@ -276,7 +313,6 @@ public class ExcelEditController {
 					}
 					cell.setCellValue(monthsBetween + "ヶ月");
 					sum =  sum + monthsBetween;
-					//作業場所
 					//作業場所
 					row = sheet.getRow(4 + x);
 					cell = row.getCell(5);

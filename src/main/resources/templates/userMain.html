@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>User Main</title>
     <link rel="stylesheet" th:href="@{/css/userMain.css}">
 </head>
+
 <body>
     <div class="user-container">
         <form th:action="@{/resume/view}" method="get">
-        
+            <input type="hidden" name="userId" th:value="${userId}">
             <button type="submit">職務経歴書照会</button>
         </form>
         <form th:action="@{/password/reset}" method="get">
+            <input type="hidden" name="userId" th:value="${userId}">
             <button type="submit">パスワード変更</button>
         </form>
         <form th:action="@{/logout}" method="post">
@@ -18,4 +21,5 @@
         </form>
     </div>
 </body>
+
 </html>

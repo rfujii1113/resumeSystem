@@ -15,12 +15,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Builder
 public class ProjectDto {
 
-    private String projectId;   // Unique identifier maked uuid
+    private String projectId; // Unique identifier maked uuid
     private String projectName;
     private String location;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // フォーマットを指定
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // フォーマットを指定
     private LocalDate endDate;
     @Builder.Default
     private List<String> processes = new ArrayList<>();

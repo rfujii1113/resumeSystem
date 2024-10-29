@@ -14,26 +14,28 @@ import java.util.Set;
 public interface ProjectRepository extends JpaRepository<Project, String> {
 
     List<Project> findByUsers(Users users);
-    
+
+    List<Project> findByProjectId(String projectId);
+
     void deleteByUsers(Users users);
 
     List<Project> findByUsers_UserId(String userId);
 
     // プロジェクト開始日が新しい順DESC
     List<Project> findByUsers_UserIdOrderByStartDateAsc(String userId);
-    
+
     // Language重複無し
     @Query(value = "SELECT DISTINCT unnest(p.language) FROM project p WHERE p.user_id = :userId", nativeQuery = true)
     Set<String> findDistinctLanguagesByUserId(@Param("userId") String userId); // 修正
-    
+
     // OS重複なし
     @Query(value = "SELECT DISTINCT unnest(p.os) FROM project p WHERE p.user_id = :userId", nativeQuery = true)
     Set<String> findDistinctOSByUserId(@Param("userId") String userId); // 修正
-    
+
     // DB重複無し
     @Query(value = "SELECT DISTINCT unnest(p.db) FROM project p WHERE p.user_id = :userId", nativeQuery = true)
     Set<String> findDistinctDBByUserId(@Param("userId") String userId); // 修正
-    
+
     // tool重複無し
     @Query(value = "SELECT DISTINCT unnest(p.tool) FROM project p WHERE p.user_id = :userId", nativeQuery = true)
     Set<String> findDistinctToolByUserId(@Param("userId") String userId); // 修正

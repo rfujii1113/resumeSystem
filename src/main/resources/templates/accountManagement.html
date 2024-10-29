@@ -18,6 +18,7 @@
                     <th>名前</th>
                     <th>名前(英語)</th>
                     <th>社員番号</th>
+                    <th>倫理削除</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,6 +37,12 @@
                               onsubmit="return confirmAction('復活')">
                             <input type="hidden" name="userId" th:value="${user.userId}">
                             <button type="submit">復活</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/password/reset}" method="get">
+                            <input type="hidden" name="userId" th:value="${user.userId}">
+                            <button type="submit">パスワード変更</button>
                         </form>
                     </td>
                 </tr>

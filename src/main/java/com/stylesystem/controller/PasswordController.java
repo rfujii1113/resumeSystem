@@ -3,11 +3,15 @@ package com.stylesystem.controller;
 import com.stylesystem.dto.ResetPasswordDto;
 import com.stylesystem.service.ResetPasswordService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
@@ -18,8 +22,10 @@ public class PasswordController {
     private final ResetPasswordService resetPasswordService;
 
     @GetMapping("/reset")
-    public String showResetPasswordForm(Model model) {
-        model.addAttribute("resetPasswordDto", new ResetPasswordDto());
+    public String showResetPasswordForm(@RequestParam("userId") String userId, Model model) {
+        ResetPasswordDto passwordDto = new ResetPasswordDto();
+        passwordDto.setUserId(userId);
+        model.addAttribute("resetPasswordDto", passwordDto);
         return "passwordReset";
     }
 
