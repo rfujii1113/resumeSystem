@@ -18,9 +18,6 @@
 ### 職務経歴書のスキル入力機能確認向DDLのPath
 resources/data/skillMaster.sql
 
-### JavaDoc
-http://127.0.0.1:3000/build/docs/javadoc/index.html
-
 ### DB,画面設計
 
 | ER図 | UI(wire frame) | UI(Mock) |
