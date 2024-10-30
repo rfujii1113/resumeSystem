@@ -18,6 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * ユーザーの経歴書（履歴書）を管理するサービスクラス。
+ * ユーザー情報の保存、更新、取得機能を提供します。
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,29 +31,36 @@ public class ResumeService {
     private final ProjectRepository projectRepository;
     private final ResumeRepository resumeRepository;
 
+    /**
+     * 指定された経歴書DTOを保存します。
+     * ユーザー情報の更新とプロジェクトの追加・削除を行います。
+     *
+     * @param resumeDto 保存する経歴書のDTO
+     * @throws IllegalArgumentException ユーザーIDやプロジェクトIDが無効な場合にスローされます
+     */
     @Transactional
     public void saveResume(ResumeDto resumeDto) {
 
-        // Get the user ID from the resume DTO
+        // 経歴書DTOからユーザーIDを取得
         String userId = resumeDto.getUserInfo().getUserId();
         if (userId == null || userId.isEmpty()) {
             throw new IllegalArgumentException("userId is required");
         }
 
-        // Get the user entity for the current user
+        // ユーザーエンティティを取得
         Users users = userRepository.findByUserId(userId);
         if (users == null) {
             throw new UsernameNotFoundException("User not found");
         }
 
-        // Update the user info
+        // ユーザー情報を更新
         resumeDto.getUserInfo().updateEntity(users);
         userRepository.save(users);
 
-        // Delete the projects for the user
+        // ユーザーに関連するプロジェクトを削除
         projectRepository.deleteByUsers(users);
 
-        // Save the projects for the user
+        // ユーザーに関連する新しいプロジェクトを保存
         for (ProjectDto projectDto : resumeDto.getProjects()) {
             Project project = projectDto.toEntity();
 
@@ -62,6 +73,12 @@ public class ResumeService {
         }
     }
 
+    /**
+     * 指定されたユーザーIDに基づいて経歴書を取得します。
+     *
+     * @param userId 経歴書を取得するユーザーID
+     * @return 指定されたユーザーIDに関連する経歴書DTO、存在しない場合はnull
+     */
     @Transactional(readOnly = true)
     public ResumeDto getResumeByUserId(String userId) {
         Users user = resumeRepository.findByUserId(userId).orElse(null);

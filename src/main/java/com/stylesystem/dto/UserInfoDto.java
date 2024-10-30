@@ -11,34 +11,114 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+/**
+ * ユーザーの基本情報を保持するデータ転送オブジェクト（DTO）。
+ * ユーザーの個人情報、学歴、住所情報を含みます。
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserInfoDto {
 
+    /**
+     * ユーザーのユニークID。
+     */
     private String userId;
+
+    /**
+     * ユーザーの名前。
+     */
     private String userName;
+
+    /**
+     * ユーザーのローマ字表記の名前。
+     */
     private String userNameRomaji;
+
+    /**
+     * ユーザーのメールアドレス。
+     */
     private String email;
+
+    /**
+     * ユーザーの性別（男性: true, 女性: false）。
+     */
     private Boolean gender;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
+
+    /**
+     * ユーザーの生年月日。フォーマットは「yyyy-MM-dd」です。
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
+
+    /**
+     * ユーザーの国籍。
+     */
     private String nationality;
+
+    /**
+     * 現住所。
+     */
     private String currentAddress;
+
+    /**
+     * 永住住所。
+     */
     private String permanentAddress;
+
+    /**
+     * 配偶者の有無（あり: true, なし: false）。
+     */
     private Boolean spouse;
+
+    /**
+     * 最終学歴の学校名。
+     */
     private String lastSchool;
+
+    /**
+     * 最終学歴の学校の種類（例: 大学、専門学校など）。
+     */
     private String lastSchoolType;
+
+    /**
+     * 専攻または学科。
+     */
     private String major;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")  // フォーマットを指定
+
+    /**
+     * 卒業日。フォーマットは「yyyy-MM-dd」です。
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate graduationDate;
+
+    /**
+     * 学歴課程またはコース。
+     */
     private String educationCourse;
+
+    /**
+     * 最寄り駅。
+     */
     private String nearestStation;
+
+    /**
+     * 自己PR。
+     */
     private String selfPr;
+
+    /**
+     * ユーザーの削除フラグ。
+     */
     private Boolean deleteFlag;
 
-    // convert entity to dto 
+    /**
+     * UsersエンティティからUserInfoDtoへ変換するメソッド。
+     *
+     * @param user 変換するUsersエンティティ
+     * @return Usersエンティティに対応するUserInfoDto
+     */
     public static UserInfoDto fromEntity(Users user) {
         return UserInfoDto.builder()
                 .userId(user.getUserId())
@@ -62,7 +142,11 @@ public class UserInfoDto {
                 .build();
     }
 
-    // convert dto to entity
+    /**
+     * UserInfoDtoをUsersエンティティに変換するメソッド。
+     *
+     * @return Usersエンティティに変換されたインスタンス
+     */
     public Users toEntity() {
         return Users.builder()
                 .userId(this.userId)
@@ -86,7 +170,11 @@ public class UserInfoDto {
                 .build();
     }
 
-    // update entity with dto
+    /**
+     * UserInfoDtoの内容で指定されたUsersエンティティを更新するメソッド。
+     *
+     * @param user 更新対象のUsersエンティティ
+     */
     public void updateEntity(Users user) {
         user.setUserName(this.userName);
         user.setUserNameRomaji(this.userNameRomaji);
@@ -105,5 +193,4 @@ public class UserInfoDto {
         user.setNearestStation(this.nearestStation);
         user.setSelfPr(this.selfPr);
     }
-    
 }

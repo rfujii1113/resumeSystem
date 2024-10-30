@@ -9,9 +9,22 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * ログイン成功時にユーザーの役割に基づいてリダイレクト先を指定するためのハンドラークラス。
+ * 管理者は管理者用のページへ、それ以外のユーザーは通常のユーザーページにリダイレクトされます。
+ */
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
+    /**
+     * 認証成功時に呼び出され、ユーザーの役割に応じてリダイレクトを行います。
+     *
+     * @param request      HTTPリクエスト
+     * @param response     HTTPレスポンス
+     * @param authentication 認証情報を含むオブジェクト
+     * @throws IOException 入出力例外が発生した場合
+     * @throws ServletException サーブレット例外が発生した場合
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {

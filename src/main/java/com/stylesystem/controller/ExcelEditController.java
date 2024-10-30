@@ -28,7 +28,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequiredArgsConstructor //finalで宣言したもののインスタンス自動生成
+@RequiredArgsConstructor 
 public class ExcelEditController {
 
 	private final UserRepository userRepository;
@@ -39,10 +39,10 @@ public class ExcelEditController {
 
 	@GetMapping("editExcel") //クライアントがlocalhost/loginにアクセスしたときに呼ばれる
 	public String showManageExcelPage() {
-		return "editExcel"; // manageExcel.htmlを返す
+		return "editExcel";
 	}
 
-	@PostMapping("/startManage") //ExcelDLボタンを押したときに呼ばれる
+	@PostMapping("/startManage") 
 	public String excelEdit(@ModelAttribute ResumeEditDto resumeEditDto, HttpServletResponse response)
 			throws IOException {
 		users = userRepository.findByUserId(resumeEditDto.getUserId());

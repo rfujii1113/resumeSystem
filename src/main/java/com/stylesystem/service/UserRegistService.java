@@ -8,6 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 新規ユーザー登録を管理するサービスクラス。
+ * ユーザーの登録と、ユーザーIDでのユーザー検索機能を提供します。
+ */
 @Service
 @RequiredArgsConstructor
 public class UserRegistService {
@@ -15,11 +19,23 @@ public class UserRegistService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * 指定されたユーザーIDでユーザーを検索します。
+     *
+     * @param userId 検索するユーザーのID
+     * @return 一致するユーザーのエンティティ
+     */
     @Transactional(readOnly = true)
     public Users findByUserId(String userId) {
         return userRepository.findByUserId(userId);
     }
 
+    /**
+     * 新規ユーザーを登録します。パスワードの一致確認と重複ユーザーのチェックを行い、登録します。
+     *
+     * @param userAuthDto 登録するユーザーの情報を持つDTO
+     * @throws IllegalArgumentException パスワードが一致しない場合、または既に存在するユーザーの場合にスローされます
+     */
     public void registerNewUser(UserAuthDto userAuthDto) {
         // パスワードが一致しない場合は例外をスロー
         if (!userAuthDto.getPassword().equals(userAuthDto.getConfirmPassword())) {
