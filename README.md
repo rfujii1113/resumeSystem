@@ -15,7 +15,7 @@
    - Springboot framework 3.x
    - Thymeleaf 3.x
 
-### 計画書のスキル追加のため必要なDDLのPath(スキル追加機能未実装)
+### 職務経歴書のスキル入力機能確認向DDLのPath
 resources/data/skillMaster.sql
 
 ### DB,画面設計
