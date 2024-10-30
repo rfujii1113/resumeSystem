@@ -13,17 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.stylesystem.dto.ProjectDto;
 import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
 import com.stylesystem.model.Project;
 import com.stylesystem.repository.SkillMasterRepository;
+import com.stylesystem.repository.UsersRepository;
+import com.stylesystem.repository.ProjectRepository;
 import com.stylesystem.service.ResumeService;
 import com.stylesystem.service.UserDeleteService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 
 @Slf4j
 @Controller
@@ -35,6 +37,8 @@ public class ResumeController {
     private final UserDeleteService userDeleteService;
 
     private final SkillMasterRepository skillMasterRepository;
+    private final ProjectRepository projectRepository;
+    private final UsersRepository usersRepository;
 
     @GetMapping("/list")
     public String resumeList(Model model) {
@@ -94,6 +98,38 @@ public class ResumeController {
         model.addAttribute("resumeDto", resumeDto);
         return "resumeForm";
     }
+    
+    @GetMapping("/addPage")
+    public String getAddPage(@RequestParam("userId") String userId,Model model) {
+        Project project = new Project();
+         UUID uuid = UUID.randomUUID();
+        // UUIDをStringに変換
+        String uuidString = uuid.toString();
+        project.setProjectId(uuidString);
+        project.setUsers(usersRepository.findByUserId(userId));
+
+        
+        ResumeDto resumeDto = resumeService.getResumeByUserId(userId);
+        model.addAttribute("resumeDto", resumeDto);
+        model.addAttribute("modelDB", skillMasterRepository.findByCategory("db"));
+        model.addAttribute("modelOS", skillMasterRepository.findByCategory("os"));
+        model.addAttribute("modelHW", skillMasterRepository.findByCategory("hw"));
+        model.addAttribute("modelTool", skillMasterRepository.findByCategory("tool"));
+        model.addAttribute("modelLanguage", skillMasterRepository.findByCategory("language"));
+        model.addAttribute("project",project);
+        return "newProject";
+    }
+
+    @PostMapping("/add")
+    public String postMethodName(@ModelAttribute ResumeDto resumeDto,Project project) {
+        System.out.print(project+"test debungggggggggg13141");
+        project.setUsers(usersRepository.findByUserId(resumeDto.getUserInfo().getUserId()));
+        projectRepository.save(project);
+        return "redirect:/resume/view?userId=" + resumeDto.getUserInfo().getUserId();
+    }
+    
+    
+
 
     @PostMapping("/save")
     public String saveResume(@ModelAttribute ResumeDto resumeDto) {
@@ -102,29 +138,4 @@ public class ResumeController {
         // log.debug("Resume saved for user: {}", resumeDto.getUserInfo().getUserId());
         return "redirect:/resume/view?userId=" + resumeDto.getUserInfo().getUserId();
     }
-
-    @GetMapping("/add")
-    public String AddProject(@ModelAttribute ResumeDto resumeDto) {
-
-       // 新しいProjectDtoを作成
-    ProjectDto createproject = new ProjectDto(); // 初期化する
-
-    // ユニークなプロジェクトIDを生成
-    UUID uniqueKey = UUID.randomUUID();
-    String createProjectId = uniqueKey.toString();
-
-    // プロジェクトIDを設定
-    createproject.setProjectId(createProjectId);
-
-    // 新しいプロジェクトを履歴のプロジェクトリストに追加
-    List<ProjectDto> projects = resumeDto.getProjects();
-    if (projects == null) {
-        projects = new ArrayList<>(); // nullの場合、リストを初期化
-    }
-    projects.add(createproject); // 新しいプロジェクトを追加
-    resumeDto.setProjects(projects); // resumeDtoを更新
-    
-        return "redirect:/resume/form?userId=" + resumeDto.getUserInfo().getUserId();
-    }
-    
 }

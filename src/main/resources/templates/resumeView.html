@@ -25,6 +25,9 @@
                 <button type="button"
                     th:onclick="|window.location.href='@{/resume/form(userId=${resumeDto.userInfo.userId})}'|"
                     class="edit-button">編集</button>
+                    <button type="button"
+                    th:onclick="|window.location.href='@{/resume/addPage(userId=${resumeDto.userInfo.userId})}'|"
+                    class="edit-button">追加</button>
             </div>
         </div>
 

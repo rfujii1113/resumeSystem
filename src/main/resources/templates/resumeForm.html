@@ -8,6 +8,7 @@
     <script src="/js/resumeForm.js" defer></script>
 </head>
 
+
 <body>
     <div class="container a4-container">
         <div class="header">
@@ -162,13 +163,7 @@
                     <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="G"
                         th:checked="${project.processes.contains('G')}"> G
                 </div>
-                <form id="addform" th:action="@{/resume/add}" method="get">
-                    <input type="hidden" th:field="*{userInfo.userId}" />
-                    <input type="hidden"  ${resumeDto.projects}>
-                <button type="submit" id="add-project-btn">経歴を追加</button>
-                </form>
             </section>
-
             <!-- Summary Section -->
             <section class="summary">
                 <h2>自己PR</h2>
