@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Resume Form</title>
+    <link rel="stylesheet" th:href="@{/css/resumeForm.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container a4-container">
+        <div class="header">
+            <!-- キャンセルボタンを左側に追加 -->
+            <a th:href="@{/resume/view(userId=${resumeDto.userInfo.userId})}" class="cancel-button"
+                onclick="return confirm('変更を保存せずに戻りますか？');">戻る</a>
+            <!-- 保存ボタン -->
+            <button type="submit" form="add-form" class="save-button">保存</button>
+        </div>
+
+        <form id="add-form" th:action="@{/resume/add}" th:object="${project}" method="post">
+            <input type="hidden" th:field="${resumeDto.userInfo.userId}" />
+            <!-- 経歴セクション -->
+            <section class="experience">
+                <h2>経歴</h2>
+                <input type="hidden" th:field="*{projectId}" th:value="${projectId}" />
+                <p>プロジェクト名 </p>
+                <input type="text" th:field="*{projectName}" />
+                <p>作業場所 </p>
+                <input type="text" th:field="*{location}" />
+                <p>開始日 </p>
+                <input type="date" th:field="*{startDate}" />
+                <p>終了日 </p>
+                <input type="date" th:field="*{endDate}" />
+
+                <p>使用したDB</p>
+                <div th:each="modelDB : ${modelDB}">
+                    <input type="checkbox" th:field="*{db}" th:value="${modelDB.name}">
+                    <span th:text="${modelDB.name}">スキル名</span>
+                </div>
+
+                <p>使用したHW</p>
+                <div th:each="modelHW : ${modelHW}">
+                    <input type="checkbox" th:field="*{hw}" th:value="${modelHW.name}">
+                    <span th:text="${modelHW.name}">スキル名</span>
+                </div>
+
+                <p>使用したOS</p>
+                <div th:each="modelOS : ${modelOS}">
+                    <input type="checkbox" th:field="*{os}" th:value="${modelOS.name}">
+                    <span th:text="${modelOS.name}">スキル名</span>
+                </div>
+
+                <p>使用した言語</p>
+                <div th:each="modelLanguage : ${modelLanguage}">
+                    <input type="checkbox" th:field="*{language}" th:value="${modelLanguage.name}">
+                    <span th:text="${modelLanguage.name}">スキル名</span>
+                </div>
+
+                <p>使用したTool</p>
+                <div th:each="modelTool : ${modelTool}">
+                    <input type="checkbox" th:field="*{tool}" th:value="${modelTool.name}">
+                    <span th:text="${modelTool.name}">スキル名</span>
+                </div>
+
+                <!-- チェックボックスのセクション -->
+                <label>使用したプロセス</label><br>
+                <input type="checkbox" th:field="*{processes}" value="A"> A
+                <input type="checkbox" th:field="*{processes}" value="B"> B
+                <input type="checkbox" th:field="*{processes}" value="C"> C
+                <input type="checkbox" th:field="*{processes}" value="D"> D
+                <input type="checkbox" th:field="*{processes}" value="E"> E
+                <input type="checkbox" th:field="*{processes}" value="F"> F
+                <input type="checkbox" th:field="*{processes}" value="G"> G
+            </section>
+        </form>
+    </div>
+</body>
+</html>
