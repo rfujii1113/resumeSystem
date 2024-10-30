@@ -8,7 +8,7 @@ import com.stylesystem.model.Project;
 import lombok.Data;
 
 @Data
-public class ResumeEditDTO {
+public class ResumeEditDto {
     private String userId;
 	private String userName;
 	private Boolean gender;

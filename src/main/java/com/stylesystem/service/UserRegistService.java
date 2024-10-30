@@ -6,8 +6,7 @@ import com.stylesystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +15,8 @@ public class UserRegistService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Optional<Users> findByUserId(String userId) {
+    @Transactional(readOnly = true)
+    public Users findByUserId(String userId) {
         return userRepository.findByUserId(userId);
     }
 
@@ -27,22 +27,20 @@ public class UserRegistService {
         }
 
         // 既に存在するユーザーの場合は例外をスロー
-        if (findByUserId(userAuthDto.getUserId()).isPresent()) {
+        if (findByUserId(userAuthDto.getUserId()) != null) {
             throw new IllegalArgumentException("既に存在するユーザーです。別の社員番号を使用してください。");
         }
 
         // パスワードをハッシュ化して保存
-
-        
         String encodedPassword = passwordEncoder.encode(userAuthDto.getPassword());
         userAuthDto.setPassword(encodedPassword);
 
         Users users = Users.builder()
-            .userId(userAuthDto.getUserId())
-            .password(userAuthDto.getPassword())
-            .role(userAuthDto.getRole())
-            .deleteFlag(false)
-            .build();
+                .userId(userAuthDto.getUserId())
+                .password(userAuthDto.getPassword())
+                .role(userAuthDto.getRole())
+                .deleteFlag(false)
+                .build();
 
         userRepository.save(users);
     }

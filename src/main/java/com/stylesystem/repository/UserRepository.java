@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<Users, String> {
-    Optional<Users> findByUserId(String userId);
+    Users findByUserId(String userId);
 
+    List<Users> findAllByOrderByDeleteFlag();
+
+    // user delete flag update
     @Query("SELECT u FROM Users u WHERE u.deleteFlag = false")
     List<Users> findAllActiveUsers();
 
