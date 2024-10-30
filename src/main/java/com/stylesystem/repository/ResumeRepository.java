@@ -11,9 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ResumeRepository extends JpaRepository<Users, String> {
 
-    // @Query("SELECT u FROM Users u LEFT JOIN FETCH u.projects WHERE u.userId = :userId")
-    // Optional<Users> findByUserIdWithProjects(@Param("userId") String userId);
-
     @EntityGraph(attributePaths = "projects")
     Optional<Users> findByUserId(String userId);
 }

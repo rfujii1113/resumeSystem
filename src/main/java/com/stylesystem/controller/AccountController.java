@@ -1,6 +1,6 @@
 package com.stylesystem.controller;
 
-import com.stylesystem.repository.UsersRepository;
+import com.stylesystem.repository.UserRepository;
 import com.stylesystem.dto.UserAuthDto;
 import com.stylesystem.service.UserDeleteService;
 import com.stylesystem.service.UserRegistService;
@@ -26,7 +26,7 @@ public class AccountController {
 
     private final UserDeleteService userDeleteService;
     private final UserRegistService userService;
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
 
     //JavaMail 用の拡張 MailSender インターフェース。
     @Autowired
@@ -44,10 +44,6 @@ public class AccountController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserAuthDto userAuthDto, Model model) {
 
-        /*
-          *メールを送るロジック
-          *SimpleMailMessage Springで提供されているメールを送るためのクラス
-        */
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userAuthDto.getEmail()); // 宛先メールアドレスをviewから取得
         message.setSubject("経歴書システムへようこそ"); // メールの件名
@@ -68,7 +64,7 @@ public class AccountController {
     @GetMapping("/management")
     public String accountManagement(Model model) {
         //usersテーブルのデータを全件取得delete_flagの順に並び替えmodelに格納
-        model.addAttribute("users", usersRepository.findAllByOrderByDeleteFlag());
+        model.addAttribute("users", userRepository.findAllByOrderByDeleteFlag());
         return "accountManagement";
     }
 

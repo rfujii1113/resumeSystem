@@ -14,6 +14,7 @@ public class UserDeleteService {
     
     private final UserRepository userRepository;
 
+    @Transactional(readOnly = true)
     public List<Users> getAllActiveUsers() {
         return userRepository.findAllActiveUsers();
     }

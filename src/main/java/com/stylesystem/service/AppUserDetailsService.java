@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 
+// Spring security Login機能に関するクラスで削除しないでください
 @Service
 @RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
@@ -20,9 +21,12 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        Users user = userRepository.findById(userId)
-            .orElseThrow(() -> new UsernameNotFoundException(userId + " not found."));
-
+        Users user = userRepository.findByUserId(userId);
+    
+        if (user == null) {
+            throw new UsernameNotFoundException(userId + " not found.");
+        }
+    
         return new AppUserDetails(user);
     }
 

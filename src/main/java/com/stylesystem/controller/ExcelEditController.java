@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.stylesystem.dto.ResumeEditDTO;
+import com.stylesystem.dto.ResumeEditDto;
 import com.stylesystem.model.Project;
 import com.stylesystem.model.Users;
 import com.stylesystem.repository.ProjectRepository;
-import com.stylesystem.repository.UsersRepository;
+import com.stylesystem.repository.UserRepository;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor //finalで宣言したもののインスタンス自動生成
 public class ExcelEditController {
 
-	private final UsersRepository usersRepository;
+	private final UserRepository userRepository;
 	private final ProjectRepository projectRepository;
 
 	Users users = new Users();
@@ -43,10 +43,10 @@ public class ExcelEditController {
 	}
 
 	@PostMapping("/startManage") //ExcelDLボタンを押したときに呼ばれる
-	public String excelEdit(@ModelAttribute ResumeEditDTO resumeEditDTO, HttpServletResponse response)
+	public String excelEdit(@ModelAttribute ResumeEditDto resumeEditDto, HttpServletResponse response)
 			throws IOException {
-		users = usersRepository.findByUserId(resumeEditDTO.getUserId());
-		projects = projectRepository.findByUsers_UserIdOrderByStartDateAsc(resumeEditDTO.getUserId());
+		users = userRepository.findByUserId(resumeEditDto.getUserId());
+		projects = projectRepository.findByUsers_UserIdOrderByStartDateAsc(resumeEditDto.getUserId());
 
 		// Excelテンプレートファイルのパスを指定
 		ClassPathResource resource = new ClassPathResource("static/excel/skillsheetTemplate.xlsx");
@@ -127,23 +127,23 @@ public class ExcelEditController {
 			//習得したOS
 			row = sheet.getRow(6);
 			cell = row.getCell(3);
-			cell.setCellValue(String.join(",", projectRepository.findDistinctOSByUserId(resumeEditDTO.getUserId())));
+			cell.setCellValue(String.join(",", projectRepository.findDistinctOSByUserId(resumeEditDto.getUserId())));
 
 			//習得したDB
 			row = sheet.getRow(7);
 			cell = row.getCell(3);
-			cell.setCellValue(String.join(",", projectRepository.findDistinctDBByUserId(resumeEditDTO.getUserId())));
+			cell.setCellValue(String.join(",", projectRepository.findDistinctDBByUserId(resumeEditDto.getUserId())));
 
 			//習得した言語
 			row = sheet.getRow(8);
 			cell = row.getCell(3);
 			cell.setCellValue(
-					String.join(",", projectRepository.findDistinctLanguagesByUserId(resumeEditDTO.getUserId())));
+					String.join(",", projectRepository.findDistinctLanguagesByUserId(resumeEditDto.getUserId())));
 
 			//習得したTool
 			row = sheet.getRow(9);
 			cell = row.getCell(3);
-			cell.setCellValue(String.join(",", projectRepository.findDistinctToolByUserId(resumeEditDTO.getUserId())));
+			cell.setCellValue(String.join(",", projectRepository.findDistinctToolByUserId(resumeEditDto.getUserId())));
 
 			//業務経歴入力
 			//シート枚数調整

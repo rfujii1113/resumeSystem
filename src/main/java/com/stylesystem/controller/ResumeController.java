@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +17,7 @@ import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
 import com.stylesystem.model.SkillMaster;
 import com.stylesystem.service.ResumeService;
+import com.stylesystem.service.SkillService;
 import com.stylesystem.service.UserDeleteService;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ResumeController {
 
     private final ResumeService resumeService;
+    private final SkillService skillService;
     private final UserDeleteService userDeleteService;
 
     @GetMapping("/list")
@@ -80,7 +80,7 @@ public class ResumeController {
         }
 
         // add skills by category to the model
-        Map<String, List<SkillMaster>> skillsByCategory = resumeService.getSkillsByCategory();
+        Map<String, List<SkillMaster>> skillsByCategory = skillService.getSkillsByCategory();
         model.addAttribute("skillsByCategory", skillsByCategory);
         model.addAttribute("resumeDto", resumeDto);
         return "resumeForm";

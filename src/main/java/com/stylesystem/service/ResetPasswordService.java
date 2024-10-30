@@ -17,9 +17,12 @@ public class ResetPasswordService {
     }
 
     public void resetPassword(String userId, String newPassword) {
-        // find user by userId
-        Users user = userRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("該当するユーザーが見つかりません。"));
+        Users user = userRepository.findByUserId(userId);
+        
+        // check if user exists
+        if (user == null) {
+            throw new IllegalArgumentException("該当するユーザーが見つかりません。");
+        }
 
         // check if new password is the same as the current password
         if (passwordEncoder.matches(newPassword, user.getPassword())) {
