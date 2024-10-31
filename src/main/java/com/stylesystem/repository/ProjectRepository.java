@@ -47,6 +47,9 @@ public interface ProjectRepository extends JpaRepository<Project, String> {
      * @return プロジェクト開始日の昇順でソートされたプロジェクトのリスト
      */
     List<Project> findByUsers_UserIdOrderByStartDateAsc(String userId);
+
+    List<Project> findByUsers_UserIdOrderByStartDateDesc(String userId);
+    
     
     /**
      * 指定されたユーザーIDに関連するプロジェクトから重複なしのプログラミング言語を取得します。
