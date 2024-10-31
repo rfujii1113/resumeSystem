@@ -65,3 +65,10 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'  // エンコーディングを指定
+    options.charSet = 'UTF-8'  // Javadoc出力ファイルの文字セット
+    options.docEncoding = 'UTF-8'
+    options.addStringOption('Xdoclint:none', '-quiet')  // 警告を抑制
+}
