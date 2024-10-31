@@ -57,7 +57,7 @@ public class ResumeService {
         resumeDto.getUserInfo().updateEntity(users);
         userRepository.save(users);
 
-        // ユーザーに関連するプロジェクトを削除
+        // ユーザーに関連するプロジェクトを削除(初期化)
         projectRepository.deleteByUsers(users);
 
         // ユーザーに関連する新しいプロジェクトを保存

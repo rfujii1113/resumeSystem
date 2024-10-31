@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>履歴書ビュー</title>
     <link rel="stylesheet" th:href="@{/css/resumeView.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
 <body>
     <div class="container a4-container">
         <div class="header">
             <a th:href="@{/login}" class="cancel-button">戻る</a>
             <div class="header-buttons">
-                <!-- print button -->
                 <button type="button" onclick="window.print()" class="print-button">印刷</button>
-
-                <!-- exele export button -->
                 <form action="/startManage" method="post">
                     <input type="hidden" name="userId" th:value="${resumeDto.userInfo.userId}">
                     <button type="submit" class="export-button">EXCEL Export</button>
                 </form>
-
-                <!-- resume edit button -->
                 <button type="button"
                     th:onclick="|window.location.href='@{/resume/form(userId=${resumeDto.userInfo.userId})}'|"
                     class="edit-button">編集</button>
                 <button type="button"
                     th:onclick="|window.location.href='@{/resume/addPage(userId=${resumeDto.userInfo.userId})}'|"
-                    class="edit-button">追加</button>
+                    class="edit-button">経歴追加</button>
             </div>
         </div>
 
@@ -64,51 +57,41 @@
             <!-- Experience Sections -->
             <section class="experience">
                 <h2>経歴</h2>
-                <div th:each="project, iterStat : ${resumeDto.projects}">
-                    <div class="experience-item">
-                        <p>プロジェクト名 <span th:text="${project.projectName}">プロジェクト名</span></p>
-                        <p>作業場所 <span th:text="${project.location}">作業場所</span></p>
-                        <p>開始日 <span th:text="${project.startDate}">開始日</span></p>
-                        <p>終了日 <span th:text="${project.endDate}">終了日</span></p>
-                        <p>担当したプロセス
-                            <span
-                                th:text="${project.processes != null && project.processes.size() > 0 ? #strings.arrayJoin(project.processes, ', ') : ''}">プロセス</span>
-                        </p>
-                        <div>
-                            <div class="skill-display">
-                                <div class="selected-skill-category">
-                                    <h4>OS</h4>
-                                    <div class="selected-skills-list">
-                                        <span th:each="osSkill : ${project.os}" class="skill-chip"
-                                            th:text="${osSkill}">Skill</span>
-                                    </div>
-                                </div>
-                                <div class="selected-skill-category">
-                                    <h4>DB</h4>
-                                    <div class="selected-skills-list">
-                                        <span th:each="dbSkill : ${project.db}" class="skill-chip"
-                                            th:text="${dbSkill}">Skill</span>
-                                    </div>
-                                </div>
-                                <div class="selected-skill-category">
-                                    <h4>Language</h4>
-                                    <div class="selected-skills-list">
-                                        <span th:each="langSkill : ${project.language}" class="skill-chip"
-                                            th:text="${langSkill}">Skill</span>
-                                    </div>
-                                </div>
-                                <div class="selected-skill-category">
-                                    <h4>Tools</h4>
-                                    <div class="selected-skills-list">
-                                        <span th:each="toolSkill : ${project.tool}" class="skill-chip"
-                                            th:text="${toolSkill}">Skill</span>
-                                    </div>
-                                </div>
+                <div th:each="project, iterStat : ${resumeDto.projects}" class="experience-item">
+                    <p>プロジェクト名 <span th:text="${project.projectName}">プロジェクト名</span></p>
+                    <p>作業場所 <span th:text="${project.location}">作業場所</span></p>
+                    <p>開始日 <span th:text="${project.startDate}">開始日</span></p>
+                    <p>終了日 <span th:text="${project.endDate}">終了日</span></p>
+                    <p>担当したプロセス <span th:text="${project.processes != null && project.processes.size() > 0 ? #strings.arrayJoin(project.processes, ', ') : ''}">プロセス</span></p>
+
+                    <div class="skill-display">
+                        <div class="selected-skill-category">
+                            <h4>OS</h4>
+                            <div class="selected-skills-list">
+                                <span th:each="osSkill : ${project.os}" class="skill-chip" th:text="${osSkill}">Skill</span>
                             </div>
                         </div>
-                        <p>担当業務 : </p>
-                        <p th:text="${project.responsibility}">担当業務内容</p>
+                        <div class="selected-skill-category">
+                            <h4>DB</h4>
+                            <div class="selected-skills-list">
+                                <span th:each="dbSkill : ${project.db}" class="skill-chip" th:text="${dbSkill}">Skill</span>
+                            </div>
+                        </div>
+                        <div class="selected-skill-category">
+                            <h4>Language</h4>
+                            <div class="selected-skills-list">
+                                <span th:each="langSkill : ${project.language}" class="skill-chip" th:text="${langSkill}">Skill</span>
+                            </div>
+                        </div>
+                        <div class="selected-skill-category">
+                            <h4>Tools</h4>
+                            <div class="selected-skills-list">
+                                <span th:each="toolSkill : ${project.tool}" class="skill-chip" th:text="${toolSkill}">Skill</span>
+                            </div>
+                        </div>
                     </div>
+                    <p>担当業務</p>
+                    <p th:text="${project.responsibility}">担当業務内容</p>
                 </div>
             </section>
 
@@ -125,5 +108,4 @@
         </div>
     </div>
 </body>
-
 </html>

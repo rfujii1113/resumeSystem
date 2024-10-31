@@ -1,3 +1,8 @@
+/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
@@ -26,18 +31,19 @@ body {
     padding: 10px 0;
 }
 
+.cancel-button, .save-button, .export-button, .skill-add-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: small;
+    transition: background-color 0.3s;
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .cancel-button {
     background: #ff0000;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    padding: 6px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-size: small;
-    text-decoration: none; 
 }
 
 .cancel-button:hover {
@@ -46,19 +52,21 @@ body {
 
 .save-button,
 .export-button,
-.skill-add-button{
+.skill-add-button {
     background-color: #4A90E2;
-    color: #ffffff;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .save-button:hover,
-.export-button:hover{
+.export-button:hover,
+.skill-add-button:hover {
     background-color: #357ABD;
+}
+
+/* 섹션 스타일 */
+
+label {
+    font-weight: bold;
+    color: #666;
 }
 
 h2 {
@@ -70,17 +78,22 @@ h2 {
 
 .input-group {
     display: flex;
-    flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 20px;
-    align-items: flex-start;  /* スキル追加 button position */
+    align-items: flex-start;
 }
 
-.input-group label {
-    display: flex;
-    flex: 1 1 calc(10% - 15px);
-    flex-direction: column;
-    color: #bbb;
+.input-field label {
+    font-weight: bold;
+    color: #666;
+}
+
+.half-width {
+    flex: 1 1 calc(50% - 15px); 
+}
+
+.third-width {
+    flex: 1 1 calc(33.33% - 15px); 
 }
 
 input[type="text"],
@@ -89,19 +102,16 @@ input[type="date"],
 input[type="month"],
 select,
 textarea {
+    width: 100%;
     padding: 8px;
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 6px;
     transition: border-color 0.3s, box-shadow 0.3s;
-    width: 100%;
     box-sizing: border-box;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
+input:focus,
 select:focus,
 textarea:focus {
     border-color: #4A90E2;
@@ -115,82 +125,26 @@ textarea {
     overflow: hidden;
 }
 
-.history-add-button {
-    background-color: #28a745;
-    color: #ffffff;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-    align-self: flex-start;
+/* 체크박스 및 스킬 태그 스타일 */
+.checkbox-group {
+    margin-bottom: 20px;
 }
 
-.add-button:hover {
-    background-color: #218838;
-}
-
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-    }
-
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .input-group {
-        flex-direction: column;
-    }
-    
-    .skill-display {
-        gap: 10px;
-    }
-
-    .selected-skills-list {
-        flex-direction: column; 
-    }
-}
-
-
-/* modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 800px;
-    max-height: 500px;  
-    overflow-y: auto;   /* スクロールバー */
-    border-radius: 8px;
-}
-
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+.section-label {
     font-weight: bold;
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 16px;
 }
 
-.close-button:hover,
-.close-button:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
 }
 
 .skill-chip, .process-chip {
@@ -215,25 +169,51 @@ textarea {
 
 .skill-chips {
     display: inline-flex;
-    flex-wrap: wrap; 
-    gap: 10px;       
-    justify-content: flex-start; 
-    max-width: 100%;       
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    max-width: 100%;
 }
 
-.skill-chip {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    cursor: default; 
-    transition: background-color 0.3s, color 0.3s;
-    background-color: #ffffff;
-    color: #333;
-    white-space: nowrap; /* 긴 텍스트는 줄바꿈 없이 한 줄로 유지 */
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    max-height: 500px;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 버튼 스타일 */
 .apply-button {
     background-color: #4A90E2;
     color: #ffffff;
@@ -249,16 +229,17 @@ textarea {
     background-color: #357ABD;
 }
 
+/* 스킬 디스플레이 */
 .skill-display {
     display: flex;
-    flex-direction: column; 
-    gap: 15px; 
+    flex-direction: column;
+    gap: 15px;
     margin-top: 10px;
 }
 
 .selected-skill-category {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     gap: 5px;
 }
 
@@ -268,8 +249,32 @@ textarea {
 }
 
 .selected-skills-list {
-    color: #333;
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+    color: #333;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .skill-display {
+        gap: 10px;
+    }
+
+    .selected-skills-list {
+        flex-direction: column;
+    }
 }

@@ -30,13 +30,13 @@ body {
 }
 
 .cancel-button {
-    background: #ff0000;
+    background: #ff4d4d;
     color: #ffffff;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 6px 10px;
+    padding: 8px 12px;
     border-radius: 5px;
     transition: background-color 0.3s;
     font-size: small;
@@ -51,7 +51,7 @@ body {
     background-color: #4A90E2;
     color: #ffffff;
     border: none;
-    padding: 6px 10px;
+    padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -85,13 +85,15 @@ h2 {
     flex: 1 1 calc(50% - 15px);
     display: flex;
     flex-direction: column;
-    color: #bbb;
+    color: #666;
     font-size: 1em;
+    font-weight: bold;
     margin-bottom: 5px;
 }
 
 .info-group p span {
     color: #333;
+    font-weight: normal;
 }
 
 .experience-item {
@@ -112,11 +114,13 @@ h2 {
     flex-direction: column;
     margin: 5px 0 10px 0;
     font-size: 1em;
-    color: #bbb;
+    font-weight: bold;
+    color: #666;
 }
 
 .experience-item span {
     color: #333;
+    font-weight: normal;
 }
 
 .summary {

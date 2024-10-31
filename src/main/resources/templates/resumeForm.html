@@ -59,11 +59,11 @@
                     </label>
                 </div>
                 <div class="input-group">
-                    <label>
+                    <label class="half-width">
                         現住所
                         <input type="text" th:field="*{userInfo.currentAddress}" placeholder="">
                     </label>
-                    <label>
+                    <label class="half-width">
                         最寄り駅
                         <input type="text" th:field="*{userInfo.nearestStation}" placeholder="">
                     </label>
@@ -102,79 +102,112 @@
                 <div id="projects-container" th:each="project, iterStat : ${resumeDto.projects}">
                     <input type="hidden" th:field="*{projects[__${iterStat.index}__].projectId}"
                         th:value="${project.projectId}" />
-                    <p>プロジェクト名 </p>
-                    <input type="text" th:field="*{projects[__${iterStat.index}__].projectName}"
-                        th:value="${project.projectName}" />
-                    <p>作業場所 </p>
-                    <input type="text" th:field="*{projects[__${iterStat.index}__].location}"
-                        th:value="${project.location}" />
-                    <p>開始日 </p>
-                    <input type="date" th:field="*{projects[__${iterStat.index}__].startDate}"
-                        th:value="${project.startDate}" />
-                    <p>終了日 </p>
-                    <input type="date" th:field="*{projects[__${iterStat.index}__].endDate}"
-                        th:value="${project.endDate}" />
 
-                    <p>使用したDB</p>
-                    <div th:each="modelDB : ${modelDB}">
-                        <input type="checkbox" th:field="*{projects[__${iterStat.index}__].db}"
-                            th:value="${modelDB.name}" th:checked="${project.db.contains(modelDB.name)}">
-                        <span th:text="${modelDB.name}">スキル名</span>
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label class="half-width">プロジェクト名</label>
+                            <input type="text" th:field="*{projects[__${iterStat.index}__].projectName}"
+                                th:value="${project.projectName}" class="input-text" />
+                        </div>
+                        <div class="input-field">
+                            <label class="half-width">作業場所</label>
+                            <input type="text" th:field="*{projects[__${iterStat.index}__].location}"
+                                th:value="${project.location}" class="input-text" />
+                        </div>
                     </div>
-                    <p>使用したHW</p>
-                    <div th:each="modelHW : ${modelHW}">
-                        <input type="checkbox" th:field="*{projects[__${iterStat.index}__].hw}"
-                            th:value="${modelHW.name}" th:checked="${project.hw.contains(modelHW.name)}">
-                        <span th:text="${modelHW.name}">スキル名</span>
+
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label class="half-width">開始日</label>
+                            <input type="date" th:field="*{projects[__${iterStat.index}__].startDate}"
+                                th:value="${project.startDate}" class="input-date" />
+                        </div>
+                        <div class="input-field">
+                            <label class="half-width">終了日</label>
+                            <input type="date" th:field="*{projects[__${iterStat.index}__].endDate}"
+                                th:value="${project.endDate}" class="input-date" />
+                        </div>
                     </div>
-                    <p>使用したOS</p>
-                    <div th:each="modelOS : ${modelOS}">
-                        <input type="checkbox" th:field="*{projects[__${iterStat.index}__].os}"
-                            th:value="${modelOS.name}" th:checked="${project.os.contains(modelOS.name)}">
-                        <span th:text="${modelOS.name}">スキル名</span>
+
+                    <div class="checkbox-group">
+                        <p class="section-label">使用したDB</p>
+                        <div class="checkbox-container">
+                            <div th:each="modelDB : ${modelDB}">
+                                <input type="checkbox" th:field="*{projects[__${iterStat.index}__].db}"
+                                    th:value="${modelDB.name}" th:checked="${project.db.contains(modelDB.name)}">
+                                <span th:text="${modelDB.name}">スキル名</span>
+                            </div>
+                        </div>
                     </div>
-                    <p>使用した言語</p>
-                    <div th:each="modelLanguage : ${modelLanguage}">
-                        <input type="checkbox" th:field="*{projects[__${iterStat.index}__].language}"
-                            th:value="${modelLanguage.name}"
-                            th:checked="${project.language.contains(modelLanguage.name)}">
-                        <span th:text="${modelLanguage.name}">スキル名</span>
+
+                    <div class="checkbox-group">
+                        <p class="section-label">使用したHW</p>
+                        <div class="checkbox-container">
+                            <div th:each="modelHW : ${modelHW}">
+                                <input type="checkbox" th:field="*{projects[__${iterStat.index}__].hw}"
+                                    th:value="${modelHW.name}" th:checked="${project.hw.contains(modelHW.name)}">
+                                <span th:text="${modelHW.name}">スキル名</span>
+                            </div>
+                        </div>
                     </div>
-                    <p>使用したTool</p>
-                    <div th:each="modelTool : ${modelTool}">
-                        <input type="checkbox" th:field="*{projects[__${iterStat.index}__].tool}"
-                            th:value="${modelTool.name}" th:checked="${project.tool.contains(modelTool.name)}">
-                        <span th:text="${modelTool.name}">スキル名</span>
+
+                    <div class="checkbox-group">
+                        <p class="section-label">使用したOS</p>
+                        <div class="checkbox-container">
+                            <div th:each="modelOS : ${modelOS}">
+                                <input type="checkbox" th:field="*{projects[__${iterStat.index}__].os}"
+                                    th:value="${modelOS.name}" th:checked="${project.os.contains(modelOS.name)}">
+                                <span th:text="${modelOS.name}">スキル名</span>
+                            </div>
+                        </div>
                     </div>
-                    <!-- チェックボックスのセクション -->
-                    <label>使用したプロセス</label><br>
-                    <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="A"
-                        th:checked="${project.processes.contains('A')}"> A
-                    <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="B"
-                        th:checked="${project.processes.contains('B')}"> B
-                    <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="C"
-                        th:checked="${project.processes.contains('C')}"> C
-                    <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="D"
-                        th:checked="${project.processes.contains('D')}"> D
-                    <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="E"
-                        th:checked="${project.processes.contains('E')}"> E
-                    <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="F"
-                        th:checked="${project.processes.contains('F')}"> F
-                    <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="G"
-                        th:checked="${project.processes.contains('G')}"> G
+
+                    <div class="checkbox-group">
+                        <p class="section-label">使用した言語</p>
+                        <div class="checkbox-container">
+                            <div th:each="modelLanguage : ${modelLanguage}">
+                                <input type="checkbox" th:field="*{projects[__${iterStat.index}__].language}"
+                                    th:value="${modelLanguage.name}"
+                                    th:checked="${project.language.contains(modelLanguage.name)}">
+                                <span th:text="${modelLanguage.name}">スキル名</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <p class="section-label">使用したTool</p>
+                        <div class="checkbox-container">
+                            <div th:each="modelTool : ${modelTool}">
+                                <input type="checkbox" th:field="*{projects[__${iterStat.index}__].tool}"
+                                    th:value="${modelTool.name}" th:checked="${project.tool.contains(modelTool.name)}">
+                                <span th:text="${modelTool.name}">スキル名</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="section-label">使用したプロセス</label>
+                        <p>A:調査分析   B:基本設計  C:詳細設計  D:製造団体  E:結合試験  F:結合テスト  G:保存運用</p>
+                        <div class="checkbox-container">
+                            <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="A"
+                                th:checked="${project.processes.contains('A')}"> A
+                            <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="B"
+                                th:checked="${project.processes.contains('B')}"> B
+                            <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="C"
+                                th:checked="${project.processes.contains('C')}"> C
+                            <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="D"
+                                th:checked="${project.processes.contains('D')}"> D
+                            <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="E"
+                                th:checked="${project.processes.contains('E')}"> E
+                            <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="F"
+                                th:checked="${project.processes.contains('F')}"> F
+                            <input type="checkbox" th:field="*{projects[__${iterStat.index}__].processes}" value="G"
+                                th:checked="${project.processes.contains('G')}"> G
+                        </div>
+                    </div>
                 </div>
             </section>
-            <!-- Summary Section -->
-            <section class="summary">
-                <h2>自己PR</h2>
-                <div class="input-group">
-                    <label>
-                        自己PR
-                        <textarea th:field="*{userInfo.selfPr}" placeholder="簡単に自己PRしてください。"
-                            style="overflow: hidden; resize: none;"></textarea>
-                    </label>
-                </div>
-            </section>
+
         </form>
     </div>
 </body>
