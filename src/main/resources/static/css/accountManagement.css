@@ -65,3 +65,22 @@ button[type="submit"].activate {
 button[type="submit"].activate:hover {
     background-color: #3a78c0;
 }
+
+.cancel-button {
+    background: #ff4d4d;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: small;
+    text-decoration: none; 
+    width: 2rem;
+}
+
+.cancel-button:hover {
+    background: #cc0000;
+}

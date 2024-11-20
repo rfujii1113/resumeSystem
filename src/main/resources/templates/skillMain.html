@@ -11,6 +11,9 @@
 </head>
 <body>
     <div class="skills-management-container">
+        <div class="header">
+            <a th:href="@{/login}" class="cancel-button">戻る</a>
+        </div>
         <h2>スキル管理</h2>
         <form th:action="@{/skill/add}" th:object="${skillDto}" method="post" class="add-skill-form">
             <div class="input-group">
