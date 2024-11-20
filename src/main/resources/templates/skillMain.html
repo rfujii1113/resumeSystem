@@ -10,6 +10,7 @@
     </script>
 </head>
 <body>
+    <div th:insert="~{sidebar :: sidebar}"></div>
     <div class="skills-management-container">
         <h2>スキル管理</h2>
         <form th:action="@{/skill/add}" th:object="${skillDto}" method="post" class="add-skill-form">
