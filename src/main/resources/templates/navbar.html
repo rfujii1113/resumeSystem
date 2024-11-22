@@ -1,20 +1,35 @@
-
-    <div th:fragment="navbar">
-        <head>
-            <link rel="stylesheet" th:href="@{/css/navbar.css}">
-            <script>
-                function toggleMenu() {
-                    const sidebar = document.querySelector(".sidebar");
-                    if (sidebar) {
-                        sidebar.classList.toggle("active");
-                    } else {
-                        console.error("Sidebar element not found");
-                    }
+<div th:fragment="navbar">
+    <head>
+        <link rel="stylesheet" th:href="@{/css/navbar.css}">
+        <script>
+            function toggleMenu() {
+                const sidebar = document.querySelector(".sidebar");
+                if (sidebar) {
+                    sidebar.classList.toggle("active");
+                } else {
+                    console.error("Sidebar element not found");
                 }
-            </script>
-        </head>
-        <nav class="navbar">
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-            <h1></h1>
-        </nav>
-    </div>
+            }
+
+            function updateDateTime() {
+                const dateTimeElement = document.querySelector(".datetime");
+                const now = new Date();
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                const formattedDateTime = now.toLocaleString('ja-JP', options);
+                if (dateTimeElement) {
+                    dateTimeElement.textContent = formattedDateTime;
+                }
+            }
+
+            window.addEventListener("load", () => {
+                updateDateTime();
+                setInterval(updateDateTime, 1000);
+            });
+        </script>
+    </head>
+    <nav class="navbar">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <span class="navmei">管理者</span>
+        <span class="datetime"></span>
+    </nav>
+</div>

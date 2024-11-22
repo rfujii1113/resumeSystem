@@ -5,6 +5,8 @@
     <link rel="stylesheet" th:href="@{/css/register.css}">
 </head>
 <body>
+    <div th:insert="~{navbar :: navbar}"></div>
+    <div th:insert="~{sidebar :: sidebar}"></div>
     <div class="register-container">
         <h1>社員登録</h1>
         <form th:action="@{/account/register}" th:object="${userAuthDto}" method="post">

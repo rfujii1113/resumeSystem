@@ -3,14 +3,11 @@
         <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     </head>
     <div class="sidebar">
-        <form th:action="@{/resume/list}" method="get">
-            <button type="submit">職務経歴書照会</button>
-        </form>
-        <form th:action="@{/account/register}" method="get">
+        <form th:action="@{/account/register}" method="get" class="sideForm">
             <button type="submit">アカウント新規作成</button>
         </form>
         <form th:action="@{/account/management}" method="get">
-            <button type="submit">アカウント管理</button>
+            <button type="submit">アカウント一覧</button>
         </form>
         <form th:action="@{/password/reset}" method="get">
             <button type="submit">パスワード変更</button>

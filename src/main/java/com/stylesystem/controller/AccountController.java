@@ -1,11 +1,5 @@
 package com.stylesystem.controller;
 
-import com.stylesystem.repository.UserRepository;
-import com.stylesystem.dto.UserAuthDto;
-import com.stylesystem.service.UserDeleteService;
-import com.stylesystem.service.UserRegistService;
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -13,10 +7,17 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.stylesystem.dto.UserAuthDto;
+import com.stylesystem.repository.UserRepository;
+import com.stylesystem.service.UserDeleteService;
+import com.stylesystem.service.UserRegistService;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * ユーザーアカウントの登録、管理、メール送信機能を提供するコントローラークラス。

@@ -7,6 +7,7 @@
     background-color: #4a4a4a;
     display: flex;
     align-items: center;
+    justify-content: space-between; 
     padding: 0 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -19,4 +20,17 @@
     color: #ffffff;
     font-size: 24px;
     cursor: pointer;
+}
+
+.navmei {
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.datetime {
+    margin-left: auto; 
+    font-size: 16px;
+    color: #dcdcdc; 
+    font-weight: 400;
+    letter-spacing: 0.5px;
 }

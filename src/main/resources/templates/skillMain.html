@@ -7,9 +7,11 @@
         function confirmAction(action) {
             return confirm(action + "しますか?");
         }
+
     </script>
 </head>
 <body>
+    <div th:insert="~{navbar :: navbar}"></div>
     <div th:insert="~{sidebar :: sidebar}"></div>
     <div class="skills-management-container">
         <h2>スキル管理</h2>
