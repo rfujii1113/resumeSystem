@@ -3,11 +3,6 @@
 <head>
     <title>Account Management</title>
     <link rel="stylesheet" th:href="@{/css/accountManagement.css}">
-    <script>
-        function confirmAction(action) {
-            return confirm(action + "しますか?");
-        }
-    </script>
 </head>
 <body>
     <div th:insert="~{navbar :: navbar}"></div>
@@ -17,28 +12,31 @@
         <table>
             <thead>
                 <tr>
-                    <th>名前</th>
-                    <th>名前(英語)</th>
-                    <th>社員番号</th>
-                    <th></th>
+                    <th>
+                        名前
+                        <a th:href="@{/accounts?sort=name&direction=asc}" class="sort-arrow">▲</a>
+                        <a th:href="@{/accounts?sort=name&direction=desc}" class="sort-arrow">▼</a>
+                    </th>
+                    <th>
+                        名前(英語)
+                        <a th:href="@{/accounts?sort=romajiName&direction=asc}" class="sort-arrow">▲</a>
+                        <a th:href="@{/accounts?sort=romajiName&direction=desc}" class="sort-arrow">▼</a>
+                    </th>
+                    <th>
+                        社員番号
+                        <a th:href="@{/accounts?sort=userId&direction=asc}" class="sort-arrow">▲</a>
+                        <a th:href="@{/accounts?sort=userId&direction=desc}" class="sort-arrow">▼</a>
+                    </th>
+                    <th>削除</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="user : ${users}">
-                    <td th:text="${user.userName}"/>
-                    <td th:text="${user.userNameRomaji}"/>
-                    <td th:text="${user.userId}"/>
+                    <td th:text="${user.userName}"></td>
+                    <td th:text="${user.userNameRomaji}"></td>
+                    <td th:text="${user.userId}"></td>
                     <td>
-                        <form th:action="@{/account/deactivate}" method="post" th:if="${user.deleteFlag != null and user.deleteFlag == false}"
-                              onsubmit="return confirmAction('削除')">
-                            <input type="hidden" name="userId" th:value="${user.userId}">
-                            <button type="submit">削除</button>
-                        </form>
-                        <form th:action="@{/account/activate}" method="post" th:if="${user.deleteFlag != null and user.deleteFlag == true}"
-                              onsubmit="return confirmAction('復活')">
-                            <input type="hidden" name="userId" th:value="${user.userId}">
-                            <button type="submit">復活</button>
-                        </form>
+                        <input type="checkbox" name="userIds" th:value="${user.userId}">
                     </td>
                 </tr>
             </tbody>

@@ -1,8 +1,8 @@
 package com.stylesystem.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
 import com.stylesystem.model.SkillMaster;
+import com.stylesystem.model.Users;
 import com.stylesystem.service.ResumeService;
 import com.stylesystem.service.SkillService;
 import com.stylesystem.service.UserDeleteService;
@@ -34,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ResumeController {
 
+   
     private final ResumeService resumeService;
     private final SkillService skillService;
     private final UserDeleteService userDeleteService;
@@ -126,4 +128,17 @@ public class ResumeController {
         resumeService.saveResume(resumeDto);
         return "redirect:/resume/view?userId=" + resumeDto.getUserInfo().getUserId();
     }
+
+
+    @GetMapping("/accounts")
+public String getAccounts(
+    @RequestParam(value = "sort", defaultValue = "name") String sort,
+    @RequestParam(value = "direction", defaultValue = "asc") String direction,
+    Model model
+) {
+    List<Users> users = resumeService.getSortedUsers(sort, direction);
+    model.addAttribute("users", users);
+    return "accountManagement";
+}
+
 }

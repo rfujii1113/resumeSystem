@@ -12,6 +12,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>削除</th>
                     <th>名前</th>
                     <th>名前(英語)</th>
                     <th>社員番号</th>
@@ -20,6 +21,9 @@
             </thead>
             <tbody>
                 <tr th:each="user : ${users}">
+                    <td>
+                        <input type="checkbox" name="userIds" th:value="${user.userId}">
+                    </td>
                     <td th:text="${user.userName}"/>
                     <td th:text="${user.userNameRomaji}"/>
                     <td th:text="${user.userId}"/>

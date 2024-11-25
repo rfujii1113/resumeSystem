@@ -66,3 +66,29 @@ button[type="submit"].activate {
 button[type="submit"].activate:hover {
     background-color: #3a78c0;
 }
+
+.sort-arrow {
+    display: inline-block;
+    text-decoration: none;
+    color: #333; 
+    font-size: 14px; 
+    padding: 2px 4px; 
+    margin-left: 5px; 
+    border: 1px solid transparent; 
+    border-radius: 4px; 
+    background-color: #f8f8f8; 
+    cursor: pointer; 
+    transition: all 0.2s ease; 
+}
+
+.sort-arrow:hover {
+    color: #fff; 
+    background-color: #007bff; 
+    border-color: #007bff; 
+}
+
+.sort-arrow.active {
+    color: #fff;
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

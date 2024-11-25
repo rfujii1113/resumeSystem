@@ -1,5 +1,13 @@
 package com.stylesystem.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.stylesystem.dto.ProjectDto;
 import com.stylesystem.dto.ResumeDto;
 import com.stylesystem.dto.UserInfoDto;
@@ -8,15 +16,9 @@ import com.stylesystem.model.Users;
 import com.stylesystem.repository.ProjectRepository;
 import com.stylesystem.repository.ResumeRepository;
 import com.stylesystem.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * ユーザーの経歴書（履歴書）を管理するサービスクラス。
@@ -100,4 +102,11 @@ public class ResumeService {
 
         return resumeDto;
     }
+
+    //ソート機能
+    public List<Users> getSortedUsers(String sort, String direction) {
+        Sort sortOrder = Sort.by(Sort.Direction.fromString(direction), sort);
+        return userRepository.findAll(sortOrder);
+    }
+    
 }
