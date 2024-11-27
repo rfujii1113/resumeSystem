@@ -9,7 +9,6 @@ body {
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    display: flex;
 }
 
 .sidebar {
@@ -25,11 +24,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: left 0.3s ease;
 }
 
 .sidebar.active {
-    left: 0; /* 활성화 상태: 화면에 표시 */
+    left: 0; 
 }
+
 .sidebar button {
     background-color: transparent;
     border: none;
@@ -46,16 +47,22 @@ body {
     color: #e0e0e0;
 }
 
-.sideForm{
-margin-top: 70px;
-
-
+.sideForm {
+    margin-top: 70px; 
 }
 
-
 @media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        left: -100%; 
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
     .skills-management-container {
-        margin-left: 20px; 
+        margin-left: 20px;
         margin-right: 20px;
     }
 }

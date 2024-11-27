@@ -3,20 +3,31 @@
         <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     </head>
     <div class="sidebar">
-        <form th:action="@{/account/management}" method="get" class="sideForm">
-            <button type="submit">アカウント一覧</button>
-        </form>
-        <form th:action="@{/account/register}" method="get">
-            <button type="submit">アカウント新規作成</button>
-        </form>
-        <form th:action="@{/password/reset}" method="get">
-            <button type="submit">パスワード変更</button>
-        </form>
-        <form th:action="@{/skill/main}" method="get">
-            <button type="submit">スキル管理</button>
-        </form>
+        <div th:if="${userRole == 'ROLE_ADMIN'}">
+            <form th:action="@{/account/management}" method="get" class="sideForm">
+                <button type="submit">アカウント一覧</button>
+            </form>
+            <form th:action="@{/account/register}" method="get">
+                <button type="submit">アカウント新規作成</button>
+            </form>
+            <form th:action="@{/skill/main}" method="get">
+                <button type="submit">スキル管理</button>
+            </form>
+        </div>
+
+        <div th:if="${userRole == 'ROLE_USER'}">
+            <form th:action="@{/resume/view}" method="get" class="sideForm">
+                <input type="hidden" name="userId" th:value="${userId}">
+                <button type="submit">職務経歴書照会</button>
+            </form>
+            <form th:action="@{/password/reset}" method="get">
+                <button type="submit">パスワード変更</button>
+            </form>
+        </div>
+
         <form th:action="@{/logout}" method="post">
             <button type="submit">ログアウト</button>
         </form>
     </div>
+    <p th:text="${userRole}"></p>
 </div>

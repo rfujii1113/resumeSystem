@@ -9,32 +9,41 @@
     <div th:insert="~{sidebar :: sidebar}"></div>
     <div class="account-management-container">
         <h2>アカウント管理</h2>
-        <table>
+        <table id="accountTable">
             <thead>
                 <tr>
                     <th>
                         名前
-                        <a th:href="@{/accounts?sort=name&direction=asc}" class="sort-arrow">▲</a>
-                        <a th:href="@{/accounts?sort=name&direction=desc}" class="sort-arrow">▼</a>
+                        <button class="sort-arrow" data-sort="name" data-order="asc">▲</button>
+                        <button class="sort-arrow" data-sort="name" data-order="desc">▼</button>
                     </th>
                     <th>
                         名前(英語)
-                        <a th:href="@{/accounts?sort=romajiName&direction=asc}" class="sort-arrow">▲</a>
-                        <a th:href="@{/accounts?sort=romajiName&direction=desc}" class="sort-arrow">▼</a>
+                        <button class="sort-arrow" data-sort="romajiName" data-order="asc">▲</button>
+                        <button class="sort-arrow" data-sort="romajiName" data-order="desc">▼</button>
                     </th>
                     <th>
                         社員番号
-                        <a th:href="@{/accounts?sort=userId&direction=asc}" class="sort-arrow">▲</a>
-                        <a th:href="@{/accounts?sort=userId&direction=desc}" class="sort-arrow">▼</a>
+                        <button class="sort-arrow" data-sort="userId" data-order="asc">▲</button>
+                        <button class="sort-arrow" data-sort="userId" data-order="desc">▼</button>
                     </th>
-                    <th>削除</th>
+                    <th>照会</th>
+                    <th>
+                        <button id="deleteSelected">削除</button>
+                    </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="accountTableBody">
                 <tr th:each="user : ${users}">
-                    <td th:text="${user.userName}"></td>
-                    <td th:text="${user.userNameRomaji}"></td>
-                    <td th:text="${user.userId}"></td>
+                    <td th:text="${user.userName}" data-name="${user.userName}"></td>
+                    <td th:text="${user.userNameRomaji}" data-romajiName="${user.userNameRomaji}"></td>
+                    <td th:text="${user.userId}" data-userId="${user.userId}"></td>
+                    <td>
+                        <form th:action="@{/resume/view}" method="get">
+                            <input type="hidden" name="userId" th:value="${user.userId}">
+                            <button type="submit">照会</button>
+                        </form>
+                    </td>
                     <td>
                         <input type="checkbox" name="userIds" th:value="${user.userId}">
                     </td>
@@ -42,5 +51,7 @@
             </tbody>
         </table>
     </div>
+
+    <script src="/js/accountManagement.js"></script>
 </body>
 </html>
