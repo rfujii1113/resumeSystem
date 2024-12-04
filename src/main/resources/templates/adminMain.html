@@ -5,6 +5,8 @@
     <link rel="stylesheet" th:href="@{/css/adminMain.css}">
 </head>
 <body>
+    <div th:insert="~{navbar :: navbar}"></div>
+    <div th:insert="~{sidebar :: sidebar}"></div>
     <div class="admin-container">
         <form th:action="@{/account/management}" method="get">
             <button type="submit">アカウント管理</button>

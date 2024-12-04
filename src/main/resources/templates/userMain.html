@@ -5,6 +5,8 @@
     <link rel="stylesheet" th:href="@{/css/userMain.css}">
 </head>
 <body>
+    <div th:insert="~{navbar :: navbar}"></div>
+    <div th:insert="~{sidebar :: sidebar}"></div>
     <div class="user-container">
         <form th:action="@{/resume/view}" method="get">
             <input type="hidden" name="userId" th:value="${userId}">

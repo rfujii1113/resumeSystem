@@ -35,6 +35,7 @@
             </thead>
             <tbody id="accountTableBody">
                 <tr th:each="user : ${users}">
+                    
                     <td th:text="${user.userName}" data-name="${user.userName}"></td>
                     <td th:text="${user.userNameRomaji}" data-romajiName="${user.userNameRomaji}"></td>
                     <td th:text="${user.userId}" data-userId="${user.userId}"></td>
